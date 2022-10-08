@@ -16,3 +16,29 @@ class LoginSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'password']
+
+class ManteinanceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = mantenimiento
+        fields = ['id', 'car', 'taller', 'encargado', 'repuesto', 'factura']
+
+class CarroSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Carro
+        fields = ['id', 'marca', 'modelo', 'placa', 'propietario']
+
+class PropietarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Propietario
+        fields = ['id', 'nombre', 'apellido', 'telefono']
+
+class tallerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = taller
+        fields = ['id', 'nombre', 'direccion', 'telefono']
+
+class encargadoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = encargado
+        fields = ['id', 'nombre', 'apellido', 'telefono']
+        
