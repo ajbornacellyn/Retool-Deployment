@@ -10,7 +10,7 @@ class ReactSerializer(serializers.ModelSerializer):
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['first_name', 'email', 'password']
+        fields = ['username', 'email', 'password']
 
 class LoginSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,25 +20,30 @@ class LoginSerializer(serializers.ModelSerializer):
 class ManteinanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = mantenimiento
-        fields = ['id', 'car', 'taller', 'encargado', 'repuesto', 'factura']
+        fields = ['placa','encargado','descripcion', 'kilometraje','estado', 'servicio', 'nota']
 
-class CarroSerializer(serializers.ModelSerializer):
+class ManteinanceDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = mantenimiento
+        fields = ['man_id','fecha','costo', 'descripcion']
+
+class CarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Carro
-        fields = ['id', 'marca', 'modelo', 'placa', 'propietario']
+        fields = ['placa', 'propietarioId', 'marca', 'modelo', 'color', 'año', 'combustible', 'kilometraje', 'descripcion', 'transmision', 'carroceria', 'motor', 'cilindraje']
 
-class PropietarioSerializer(serializers.ModelSerializer):
+class OwnSerializer(serializers.ModelSerializer):
     class Meta:
         model = Propietario
-        fields = ['id', 'nombre', 'apellido', 'telefono']
+        fields = ['Id', 'nombre', 'apellido', 'telefono', 'direccion', 'edad', 'correo']
 
-class tallerSerializer(serializers.ModelSerializer):
+class TallerSerializer(serializers.ModelSerializer):
     class Meta:
         model = taller
         fields = ['id', 'nombre', 'direccion', 'telefono']
+
 
 class encargadoSerializer(serializers.ModelSerializer):
     class Meta:
         model = encargado
         fields = ['id', 'nombre', 'apellido', 'telefono']
-        

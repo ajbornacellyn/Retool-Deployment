@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
 from rest_framework.views import APIView
 from . models import *
@@ -37,7 +39,6 @@ class RegisterView(APIView):
         print(serializer)
         if serializer.is_valid(raise_exception=True):
             user = User.objects.create_user(request.data['username'], request.data['email'], password=request.data['password'])
-            user.first_name = request.data['first_name']
             user.save()
             #serializer.save()
             return  Response(serializer.data)
@@ -58,17 +59,92 @@ class LoginView(APIView):
             return  Response("Invalid credentials")
 
 
-class CreteManteinanceView(APIView):
-    
-    serializer_class = ManteinanceSerializer
-  
-    def post(self, request):
-        
-        print(request.data)
+class ManteinanceView(APIView):
+    def post(self, request):            
         serializer = ManteinanceSerializer(data=request.data)
-        print(serializer)
+        if serializer.is_valid(raise_exception=True):
+            auto = Carro.objects.get(placa=request.data['placa'])
+            mant = mantenimiento.objects.create( placa= auto, descripcion=request.data['descripcion'], kilometraje=request.data['kilometraje'], estado=request.data['estado'], servicio=request.data['servicio'], nota=request.data['nota'])
+            mant.save()
+            return  Response(serializer.data)
+        else:
+            return  Response("Invalid Mantence")
+
+    def get(self, request):
+        manteinences = mantenimiento.objects.all()
+        if len(manteinences) > 0:
+            detail = [ {"id": detail.id,"descripcion": detail.descripcion,"kilometraje": detail.kilometraje, "estado": detail.estado,"servicio": detail.servicio, "nota": detail.nota, "car": detail.car, "taller": detail.taller, "encargado": detail.encargado, "repuesto": detail.repuesto, "factura": detail.factura} 
+            for detail in manteinences]
+            return Response(detail)
+
+        else:
+            return Response("No manteinences")
+class CarView(APIView):
+    def post(self, request):
+        serializer = CarSerializer(data=request.data)
+
+        if serializer.is_valid(raise_exception=True):
+            prop = Propietario.objects.get(Id=request.data['propietarioId'])
+            carro = Carro.objects.create(placa= request.data['placa'], propietarioId = prop, marca = request.data['marca'], modelo = request.data['modelo'], color = request.data['color'], año = request.data['año'], combustible = request.data['combustible'], kilometraje = request.data['kilometraje'], descripcion = request.data['descripcion'], transmision = request.data['transmision'],carroceria = request.data['carroceria'], motor = request.data['motor'], cilindraje = request.data['cilindraje'])
+            carro.save()
+            return  Response(serializer.data)
+        else:
+            return  Response("Invalid Car")
+
+    def get(self, request, id):
+        cars = Carro.objects.filter(propietarioId=id)
+        if len(cars) > 0:
+            detail = [ {"placa": detail.placa, "marca":detail.marca, "modelo": detail.modelo, "color:": detail.color} 
+            for detail in cars]
+            return Response(detail)
+
+        else:
+            return Response("No cars")
+
+
+class OwnerView(APIView):
+
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        serializer = OwnSerializer(data=request.data)
+
+        if serializer.is_valid(raise_exception=True):
+            Prop = Propietario.objects.create(Id = request.data['Id'], nombre = request.data['nombre'], apellido = request.data['apellido'], telefono = request.data['telefono'],edad = request.data['edad'], correo = request.data['correo'])
+            Prop.save()
+            return  Response(serializer.data)
+        else:
+            return  Response("Invalid Owner")
+
+    def get(self, request):
+        owns = Propietario.objects.all()
+        if len(owns) > 0:
+            detail = [ {"Id": detail.Id,"nombre": detail.nombre,"apellido": detail.apellido, "telefono": detail.telefono, "edad": detail.edad, "correo": detail.correo}
+            for detail in owns]
+            return Response(detail)
+
+        else:
+            return Response("No owns")
+
+class TallerView(APIView):
+    def post(self, request):
+        serializer = TallerSerializer(data=request.data)
+
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return  Response(serializer.data)
-        
+        else:
+            return  Response("Invalid Taller")
+
+    def get(self, request):
+        tallers = taller.objects.all()
+        if len(tallers) > 0:
+            detail = [ {"id": detail.id,"nombre": detail.nombre,"direccion": detail.direccion, "telefono": detail.telefono} 
+            for detail in tallers]
+            return Response(detail)
+
+        else:
+            return Response("No tallers")
+
 
