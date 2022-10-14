@@ -8,7 +8,6 @@ import { SettingsPassword } from "../components/settings/settings-password";
 
 import React, { useState } from "react";
 
-import Userfront from "@userfront/core";
 
 const resetPassword = () => {
   const [isSignup, setIsSignup] = useState(false);
