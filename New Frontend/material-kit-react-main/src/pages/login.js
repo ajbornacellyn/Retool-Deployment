@@ -35,7 +35,7 @@ const Login = () => {
   return (
     <>
       <Head>
-        <title>Login | Material Kit</title>
+        <title>Login</title>
       </Head>
       
       <Box
@@ -182,6 +182,24 @@ const Login = () => {
                   }}
                 >
                   Registrate aqui
+                </Link>
+              </NextLink>
+            </Typography>
+            <Typography
+              color="textSecondary"
+              variant="body2"
+            >
+              Olvido su contraseña?
+              {' '}
+              <NextLink
+                href="/resetPassword"
+                passHref
+              >
+                <Link
+                  variant="subtitle2"
+                  underline="hover"
+                >
+                  Presione aqui
                 </Link>
               </NextLink>
             </Typography>

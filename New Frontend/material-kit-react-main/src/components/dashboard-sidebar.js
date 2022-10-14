@@ -62,7 +62,7 @@ const items = [
 {
   href: '/carInformation',
   icon: (<DirectionsCarIcon fontSize="small" />),
-  title: 'Mi auto'
+  title: 'Mis autos'
 },  
 {
   href: '/addMaintenance',

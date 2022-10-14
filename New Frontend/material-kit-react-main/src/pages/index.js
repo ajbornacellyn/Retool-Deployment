@@ -14,7 +14,7 @@ const Page = () => (
   <>
     <Head>
       <title>
-        Dashboard | Material Kit
+        Menu principal
       </title>
     </Head>
     <Box

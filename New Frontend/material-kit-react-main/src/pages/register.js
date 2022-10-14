@@ -22,7 +22,6 @@ const Register = () => {
       firstName: '',
       lastName: '',
       password: '',
-      policy: false
     },
     validationSchema: Yup.object({
       email: Yup
@@ -43,12 +42,13 @@ const Register = () => {
         .string()
         .max(255)
         .required('Password is required'),
-      policy: Yup
+      
+      /*  policy: Yup
         .boolean()
         .oneOf(
           [true],
           'This field must be checked'
-        )
+        )*/
     }),
     onSubmit: () => {
       Router
@@ -61,7 +61,7 @@ const Register = () => {
     <>
       <Head>
         <title>
-          Register | Material Kit
+          Crear cuenta
         </title>
       </Head>
       <Box
@@ -215,6 +215,8 @@ const Register = () => {
                 </Link>
               </NextLink>
             </Typography>
+            
+            
           </form>
         </Container>
       </Box>

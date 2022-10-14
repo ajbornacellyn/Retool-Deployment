@@ -7,7 +7,7 @@ const Page = () => (
   <>
     <Head>
       <title>
-        404 | Material Kit
+        error 404
       </title>
     </Head>
     <Box
