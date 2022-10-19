@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import axios from "axios";
 import {
   Box,
   Button,
@@ -94,12 +95,12 @@ const combustibles = [
 
 export const VehicleCreate = (props) => {
   const [values, setValues] = useState({
-    firstName: 'Katarina',
-    lastName: 'Smith',
-    email: 'demo@devias.io',
-    phone: '',
-    state: 'Alabama',
-    country: 'USA'
+    placa:"",
+    marca:"",
+    linea:"",
+    modelo:"",
+    combustible:"",
+    kilometraje:"",
   });
 
   const handleChange = (event) => {
@@ -109,8 +110,34 @@ export const VehicleCreate = (props) => {
     });
   };
 
+
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    console.log("SU");
+    axios
+        .post("http://localhost:8000/create_car/", {
+            placa: values.placa,
+            marca: values.marca,
+            modelo: values.linea,
+            año: values.modelo,
+            combustible: values.combustible,
+            kilometraje: values.kilometraje,
+        })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data){
+            window.location.reload();
+          }else{
+            console.log(res);
+          };
+        })
+        .catch((err) => {});
+
+  };
+
   return (
-    <form
+    <form 
+      onSubmit={handleSubmit}
       autoComplete="off"
       noValidate
       {...props}
@@ -135,6 +162,7 @@ export const VehicleCreate = (props) => {
                 fullWidth
                 label="Placa"
                 name="placa"
+                value={values.placa}
                 onChange={handleChange}
                 required
                 variant="outlined"
@@ -149,6 +177,7 @@ export const VehicleCreate = (props) => {
                 fullWidth
                 label="Marca"
                 name="marca"
+                value={values.marca}
                 onChange={handleChange}
                 required
                 select
@@ -174,6 +203,7 @@ export const VehicleCreate = (props) => {
                 fullWidth
                 label="Línea"
                 name="linea"
+                value={values.linea}
                 onChange={handleChange}
                 required
                 variant="outlined"
@@ -188,6 +218,7 @@ export const VehicleCreate = (props) => {
                 fullWidth
                 label="Modelo"
                 name="modelo"
+                value={values.modelo}
                 onChange={handleChange}
                 type="number"
                 required
@@ -203,6 +234,7 @@ export const VehicleCreate = (props) => {
                 fullWidth
                 label="Combustible"
                 name="combustible"
+                value={values.combustible}
                 onChange={handleChange}
                 required
                 select
@@ -228,6 +260,7 @@ export const VehicleCreate = (props) => {
                 fullWidth
                 label="Kilometraje"
                 name="kilometraje"
+                value={values.kilometraje}
                 onChange={handleChange}
                 type="number"
                 required
@@ -246,6 +279,7 @@ export const VehicleCreate = (props) => {
           }}
         >
           <Button
+            type="submit"
             color="primary"
             variant="contained"
           >
