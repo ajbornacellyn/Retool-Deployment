@@ -13,13 +13,30 @@ import {
   TableHead,
   TablePagination,
   TableRow,
-  Typography
+  Typography,
+  Modal
 } from '@mui/material';
 import { getInitials } from '../../utils/get-initials';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import { VehicleEdit } from '../vehicle/vehicle-edit';
+import * as React from 'react';
 
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 700,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 export const VehicleListResults = ({ vehicles, ...rest }) => {
-  const [selectedVehicleIds, setSelectedVehicleIds] = useState([]);
+  const [selectedVehicle, setSelectedVehicle] = useState();
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
@@ -31,6 +48,21 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
     setPage(newPage);
   };
 
+  const deleteVehicle = (vehicle) =>{
+    alert(vehicle.placa);
+
+  };
+
+  const editVehicle = (vehicle) =>{
+    setSelectedVehicle(vehicle);
+    handleOpen();
+
+  };
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => { setOpen(true);};
+  const handleClose = () => setOpen(false);
+
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -38,6 +70,9 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
           <Table>
             <TableHead>
               <TableRow>
+                <TableCell>
+                  
+                </TableCell>
                 <TableCell>
                   Placa
                 </TableCell>
@@ -51,7 +86,7 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
                   Kilometraje
                 </TableCell>
                 <TableCell>
-                  Registration date
+                  
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -61,7 +96,6 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
                 <TableRow
                   hover
                   key={vehicle.placa}
-                  selected={selectedVehicleIds.indexOf(vehicle.id) !== -1}
                 >
                   <TableCell>
                     <Box
@@ -76,13 +110,15 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
                       >
                         {getInitials(vehicle.name)}
                       </Avatar>
+                    </Box>
+                  </TableCell>
+                  <TableCell>
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
                         {vehicle.placa}
                       </Typography>
-                    </Box>
                   </TableCell>
                   <TableCell>
                     {vehicle.marca}
@@ -94,12 +130,28 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
                     {vehicle.kilometraje}
                   </TableCell>
                   <TableCell>
-                    {vehicle.createdAt}
+                    <IconButton aria-label="delete" onClick={() => {deleteVehicle(vehicle);}}>
+                      <DeleteIcon />
+                    </IconButton>
+                    <IconButton aria-label="edit" onClick={() => {editVehicle(vehicle);}}>
+                      <EditIcon />
+                    </IconButton>
+                    
                   </TableCell>
                 </TableRow>
               ))}
             </TableBody>
           </Table>
+          <Modal
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+          >
+            <Box sx={style}>
+              <VehicleEdit vehicle={selectedVehicle} />
+            </Box>
+          </Modal>
         </Box>
       </PerfectScrollbar>
       <TablePagination
