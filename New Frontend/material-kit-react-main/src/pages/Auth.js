@@ -34,19 +34,19 @@ const Auth = () => {
                 password: inputs.password,
             })
             .then((res) => {
-              console.log(res.data);
-              if (res.data){
-                ReactSession.set("user", res.data);
+              console.log(res.data.token);
+              if (res.data.token){
+                ReactSession.set("token", res.data.token);
                 window.location.reload();
               }else{
-                ReactSession.set("user", "");
+                ReactSession.remove("token");
               };
             })
             .catch((err) => {});
     }else{
       axios
             .post("http://localhost:8000/register/", {
-                first_name: inputs.name,
+                username: inputs.email,
                 email: inputs.email,
                 password: inputs.password,
             })
@@ -63,6 +63,9 @@ const Auth = () => {
     password:""})
   };
 
+ if (ReactSession.get("token")){
+   window.location.replace("/vehicles");
+ } else {
 
   return (
     <>
@@ -130,10 +133,7 @@ const Auth = () => {
             />
             <Box>
 
-            <NextLink
-            href="/"
-            passHref
-          > 
+            
             <Button
             type="submit"
             sx={{ marginTop: 3, borderRadius: 3 }}
@@ -142,8 +142,7 @@ const Auth = () => {
           >
             {isSignup ? "Crear cuenta" : "Iniciar sesion"}
 
-          </Button>
-          </NextLink> 
+          </Button> 
           </Box>
           <Box>
           <Typography
@@ -183,6 +182,7 @@ const Auth = () => {
       </Box>
     </>
   );
+  };
 };
 
 export default Auth;
