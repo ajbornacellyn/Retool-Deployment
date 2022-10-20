@@ -115,7 +115,7 @@ export const VehicleCreate = (props) => {
     e.preventDefault();
     console.log("SU");
     axios
-        .post("http://localhost:8000/create_car/", {
+        .post("http://127.0.0.1:8000/car/?tocken=", {
             placa: values.placa,
             marca: values.marca,
             modelo: values.linea,
@@ -136,7 +136,7 @@ export const VehicleCreate = (props) => {
   };
 
   return (
-    <form 
+    <form
       onSubmit={handleSubmit}
       autoComplete="off"
       noValidate
@@ -266,7 +266,7 @@ export const VehicleCreate = (props) => {
                 required
                 variant="outlined"
               />
-                
+
             </Grid>
           </Grid>
         </CardContent>

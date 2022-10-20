@@ -83,14 +83,14 @@ const Auth = () => {
         <Container maxWidth="sm">
           <form onSubmit={handleSubmit}>
             <Box sx={{ my: 3 }}>
-              <Typography 
-                color="textPrimary" 
+              <Typography
+                color="textPrimary"
                 variant="h4"
                 >
                   {isSignup ? "Cree una cuenta" : "Inicie sesion"}
               </Typography>
             </Box>
-                
+
             {isSignup ? "Introduzca su nombre" : ""}
             {isSignup && (
             <TextField
@@ -133,7 +133,7 @@ const Auth = () => {
             <NextLink
             href="/"
             passHref
-          > 
+          >
             <Button
             type="submit"
             sx={{ marginTop: 3, borderRadius: 3 }}
@@ -143,7 +143,7 @@ const Auth = () => {
             {isSignup ? "Crear cuenta" : "Iniciar sesion"}
 
           </Button>
-          </NextLink> 
+          </NextLink>
           </Box>
           <Box>
           <Typography

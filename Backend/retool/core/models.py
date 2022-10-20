@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 
@@ -24,8 +24,7 @@ class Propietario(models.Model):
 
 class Carro(models.Model):
     placa = models.CharField(max_length=30, primary_key=True)
-    propietarioId = models.ForeignKey(Propietario, on_delete=models.CASCADE)
-    models.ManyToOneRel
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     marca = models.CharField(max_length=30)
     modelo = models.CharField(max_length=30)
     color = models.CharField(max_length=30)
@@ -39,7 +38,7 @@ class Carro(models.Model):
     cilindraje = models.IntegerField()
 
 class taller(models.Model):
-    codigo = models.IntegerField(primary_key=True)
+    id = models.IntegerField(primary_key=True)
     carro = models.ManyToManyField(Carro, null=True, blank=True)
     nombre = models.CharField(max_length=30)
     direccion = models.CharField(max_length=30)
