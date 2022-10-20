@@ -120,7 +120,7 @@ const newPassword = () => {
 
           <Box sx={{ py: 2 }}>
           <NextLink
-            href="/login"
+            href="/Auth"
             passHref
           >
             <Button

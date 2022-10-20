@@ -60,7 +60,7 @@ const items = [
 
 */
 {
-  href: '/carInformation',
+  href: '/vehicles',
   icon: (<DirectionsCarIcon fontSize="small" />),
   title: 'Mis autos'
 },  

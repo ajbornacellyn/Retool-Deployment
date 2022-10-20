@@ -49,19 +49,23 @@ const Login = () => {
       >
         
         <Container maxWidth="sm">
-          {/* eliminar boton para volver a dashboard
+
+
+
+      {//parte de pruebas
+}
           <NextLink
-            href="/"
+            href="/Auth"
             passHref
           >
             <Button
               component="a"
               startIcon={<ArrowBackIcon fontSize="small" />}
             >
-              Dashboard
+              Otro login
             </Button>
           </NextLink>
-      */}
+      
           <form onSubmit={formik.handleSubmit}>
             <Box sx={{ my: 3 }}>
               <Typography
