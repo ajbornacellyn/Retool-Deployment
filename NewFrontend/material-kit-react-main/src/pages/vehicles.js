@@ -9,7 +9,7 @@ import { ReactSession } from 'react-client-session';
 ReactSession.setStoreType("localStorage");
 import { useEffect } from "react";
 
-var vehicles = [];
+var vehicles = {};
 
 if (typeof window !== 'undefined') {
     const token = ReactSession.get("token");
@@ -27,14 +27,13 @@ if (typeof window !== 'undefined') {
     // 👉️ can use localStorage here
 } else {
     console.log('You are on the server')
+    vehicles = {};
     // 👉️ can't use localStorage
-
 }
 const Page = () => {
   if (!ReactSession.get("token")){
     window.location.replace("/Auth");
   } else {
-
     return(
     <>
       <Head>
