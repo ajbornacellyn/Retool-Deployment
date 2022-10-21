@@ -30,7 +30,7 @@ class ManteinanceDetailSerializer(serializers.ModelSerializer):
 class CarSerializer(serializers.ModelSerializer):
     class Meta:
         model = Carro
-        fields = ['placa', 'marca', 'modelo', 'color', 'año', 'combustible', 'kilometraje', 'descripcion', 'transmision', 'carroceria', 'motor', 'cilindraje']
+        fields = ['placa', 'marca', 'modelo', 'combustible', 'kilometraje']
 
 class OwnSerializer(serializers.ModelSerializer):
     class Meta:

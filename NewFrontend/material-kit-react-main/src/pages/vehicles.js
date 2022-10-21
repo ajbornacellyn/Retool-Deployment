@@ -7,19 +7,30 @@ import { customers } from '../__mocks__/customers';
 import axios from "axios";
 import { ReactSession } from 'react-client-session';
 ReactSession.setStoreType("localStorage");
+import { useEffect } from "react";
 
 var vehicles = [];
-axios
-.get("http://localhost:8000/car/", {
-})
-.then((res) => {
-  console.log(res);
-  vehicles = res.data;
-})
-.catch((err) => {});
 
+if (typeof window !== 'undefined') {
+    const token = ReactSession.get("token");
+    axios
+    .get("http://localhost:8000/car/", {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    })
+    .then((res) => {
+      vehicles = res.data;
+    })
+    .catch((err) => {});
+
+    // 👉️ can use localStorage here
+} else {
+    console.log('You are on the server')
+    // 👉️ can't use localStorage
+
+}
 const Page = () => {
-  
   if (!ReactSession.get("token")){
     window.location.replace("/Auth");
   } else {

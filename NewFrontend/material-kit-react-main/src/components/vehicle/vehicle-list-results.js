@@ -71,7 +71,7 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
             <TableHead>
               <TableRow>
                 <TableCell>
-                  
+
                 </TableCell>
                 <TableCell>
                   Placa
@@ -86,11 +86,12 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
                   Kilometraje
                 </TableCell>
                 <TableCell>
-                  
+
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
+              {console.log("vehiclessss")}
               {console.log(vehicles)}
               {vehicles.slice(0, limit).map((vehicle) => (
                 <TableRow
@@ -124,7 +125,7 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
                     {vehicle.marca}
                   </TableCell>
                   <TableCell>
-                    {vehicle.año}
+                    {vehicle.modelo}
                   </TableCell>
                   <TableCell>
                     {vehicle.kilometraje}
@@ -136,7 +137,7 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
                     <IconButton aria-label="edit" onClick={() => {editVehicle(vehicle);}}>
                       <EditIcon />
                     </IconButton>
-                    
+
                   </TableCell>
                 </TableRow>
               ))}

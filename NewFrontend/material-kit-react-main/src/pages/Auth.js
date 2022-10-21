@@ -9,12 +9,14 @@ ReactSession.setStoreType("localStorage");
  */
 
 const Auth = () => {
+  console.log("asdasdasdas");
   const [isSignup, setIsSignup] = useState(false);
   const [isLogged, setIsLogged] = useState(true);
   const [inputs, setInputs] = useState({
     name:"",
     email:"",
     password:"",
+
   });
   const handleChange = (e) => {
     setInputs((prevState)=> ({
@@ -34,9 +36,11 @@ const Auth = () => {
                 password: inputs.password,
             })
             .then((res) => {
-              console.log(res.data.token);
+              console.log(res);
               if (res.data.token){
                 ReactSession.set("token", res.data.token);
+                ReactSession.set("username", inputs.email);
+                ReactSession.set("password", inputs.password);
                 window.location.reload();
               }else{
                 ReactSession.remove("token");
@@ -137,7 +141,7 @@ const Auth = () => {
             href="/"
             passHref
           >
-            <Button
+            <Button onClick={handleSubmit}
             type="submit"
             sx={{ marginTop: 3, borderRadius: 3 }}
             variant="contained"

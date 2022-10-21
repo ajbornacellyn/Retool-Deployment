@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework.authtoken.models import Token
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
@@ -79,25 +79,22 @@ class ManteinanceView(APIView):
         else:
             return Response("No manteinences")
 class CarView(APIView):
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated]
     def post(self, request):
         current_user = request.user
         serializer = CarSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            carro = Carro.objects.create(placa= request.data['placa'], user = current_user, marca = request.data['marca'], modelo = request.data['modelo'], color = request.data['color'], año = request.data['año'], combustible = request.data['combustible'], kilometraje = request.data['kilometraje'], descripcion = request.data['descripcion'], transmision = request.data['transmision'],carroceria = request.data['carroceria'], motor = request.data['motor'], cilindraje = request.data['cilindraje'])
+            carro = Carro.objects.create(placa= request.data['placa'], user = current_user, marca = request.data['marca'], modelo = request.data['modelo'], combustible = request.data['combustible'], kilometraje = request.data['kilometraje'])
             carro.save()
             return  Response(serializer.data)
         else:
             return  Response("Invalid Car")
 
     def get(self, request):
-        #user = SessionAuthentication().authenticate(request)[0]
-        #usuario= User.objects.get(username=user)
         current_user = request.user
         cars = Carro.objects.filter(user=current_user.id)
         if len(cars) > 0:
-            detail = [ {"placa": detail.placa, "marca":detail.marca, "modelo": detail.modelo, "color:": detail.color} 
+            detail = [ {"placa": detail.placa, "marca":detail.marca, "modelo": detail.modelo, "color:": detail.color , "año": detail.año, "combustible": detail.combustible, "kilometraje": detail.kilometraje, "descripcion": detail.descripcion, "transmision": detail.transmision, "carroceria": detail.carroceria, "motor": detail.motor, "cilindraje": detail.cilindraje} 
             for detail in cars]
             return Response(detail)
 
