@@ -20,6 +20,7 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HistoryIcon from '@mui/icons-material/History';
 
 const items = [
+  /*
   {
     href: '/',
     icon: (<ChartBarIcon fontSize="small" />),
@@ -39,12 +40,8 @@ const items = [
     href: '/account',
     icon: (<UserIcon fontSize="small" />),
     title: 'Account'
-  },
-  {
-    href: '/settings',
-    icon: (<CogIcon fontSize="small" />),
-    title: 'Settings'
-  },
+  },*/
+  
   /*Eliminar funcion de login y registro del menu del lado izquierdo
 
   {
@@ -74,11 +71,17 @@ const items = [
   icon: (<HistoryIcon fontSize="small" />),
   title: 'Historial de mantenimientos'
 }, 
+{
+  href: '/settings',
+  icon: (<CogIcon fontSize="small" />),
+  title: 'Settings'
+},
+/*
   {
     href: '/404',
     icon: (<XCircleIcon fontSize="small" />),
     title: 'Error'
-  }
+  }*/
 ];
 
 export const DashboardSidebar = (props) => {

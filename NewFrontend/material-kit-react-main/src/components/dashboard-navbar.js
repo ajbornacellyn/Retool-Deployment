@@ -8,6 +8,8 @@ import { Bell as BellIcon } from '../icons/bell';
 import { UserCircle as UserCircleIcon } from '../icons/user-circle';
 import { Users as UsersIcon } from '../icons/users';
 import { AccountPopover } from './account-popover';
+import { Facebook as FacebookIcon } from '../icons/facebook';
+
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -57,6 +59,13 @@ export const DashboardNavbar = (props) => {
               <UsersIcon fontSize="small" />
             </IconButton>
           </Tooltip>
+
+          <Tooltip title="Redes sociales">
+            <IconButton sx={{ ml: 1 }}target="_blank" href="http://www.facebook.com/">
+                <FacebookIcon fontSize="small"/>
+            </IconButton>
+          </Tooltip>
+
           <Tooltip title="Notificaciones">
             <IconButton sx={{ ml: 1 }}>
               <Badge
