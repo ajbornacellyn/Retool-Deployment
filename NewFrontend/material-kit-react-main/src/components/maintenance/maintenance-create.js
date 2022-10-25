@@ -96,7 +96,7 @@ const combustibles = [
   }
 ];
 
-export const VehicleCreate = (props) => {
+export const MaintenanceCreate = (props) => {
   const [values, setValues] = useState({
     placa:"",
     marca:"",
@@ -121,7 +121,7 @@ export const VehicleCreate = (props) => {
     if (typeof window !== 'undefined') {
       const token = ReactSession.get("token");
       axios
-      .post("http://localhost:8000/car/", {
+      .post("http://localhost:8000/maintenance/", {
           placa: values.placa,
           marca: values.marca,
           modelo: values.modelo,
@@ -134,12 +134,10 @@ export const VehicleCreate = (props) => {
         },
       })
       .then((res) => {
-        vehicles = res.data;
-        console.log('Ok')
-        
+        maintenances = res.data;
       })
       .catch((err) => {});
-      window.location.reload();
+
       // 👉️ can use localStorage here
   } else {
       console.log('You are on the server')
@@ -158,7 +156,7 @@ export const VehicleCreate = (props) => {
       <Card>
         <CardHeader
           subheader=""
-          title="Crear Vehículo"
+          title="Crear Mantenimiento"
         />
         <Divider />
         <CardContent>

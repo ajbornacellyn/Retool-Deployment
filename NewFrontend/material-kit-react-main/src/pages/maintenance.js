@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { Box, Container } from '@mui/material';
-import { VehicleListResults } from '../components/vehicle/vehicle-list-results';
-import { VehicleListToolbar } from '../components/vehicle/vehicle-list-toolbar';
+import { MaintenanceListResults } from '../components/maintenance/maintenance-list-results';
+import { MaintenanceListToolbar } from '../components/maintenance/maintenance-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
 import { customers } from '../__mocks__/customers';
 import axios from "axios";
@@ -9,26 +9,26 @@ import { ReactSession } from 'react-client-session';
 ReactSession.setStoreType("localStorage");
 import { useEffect } from "react";
 
-var vehicles = {};
+var maintenances = {};
 
 if (typeof window !== 'undefined') {
     const token = ReactSession.get("token");
     axios
-    .get("http://localhost:8000/car/", {
+    .get("http://localhost:8000/maintenance/", {
       headers: {
         Authorization: `Token ${token}`,
       },
     })
     .then((res) => {
       if (res.data !== "No cars"){
-      vehicles = res.data;};
+      maintenances = res.data;};
     })
     .catch((err) => {});
 
     // 👉️ can use localStorage here
 } else {
     console.log('You are on the server')
-    vehicles = {};
+    maintenances = {};
     // 👉️ can't use localStorage
 }
 const Page = () => {
@@ -39,7 +39,7 @@ const Page = () => {
     <>
       <Head>
         <title>
-          Vehículos
+          Mantenimientos
         </title>
       </Head>
       <Box
@@ -50,9 +50,9 @@ const Page = () => {
         }}
       >
         <Container maxWidth={false}>
-          <VehicleListToolbar />
+          <MaintenanceListToolbar />
           <Box sx={{ mt: 3 }}>
-            <VehicleListResults vehicles={vehicles} />
+            <MaintenanceListResults maintenances={maintenances} />
           </Box>
         </Container>
       </Box>

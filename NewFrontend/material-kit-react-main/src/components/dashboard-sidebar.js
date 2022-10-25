@@ -62,15 +62,15 @@ const items = [
   title: 'Mis autos'
 },  
 {
-  href: '/addMaintenance',
+  href: '/maintenance',
   icon: (<AddCircleIcon fontSize="small" />),
-  title: 'Añadir mantenimiento'
+  title: 'Mantenimientos'
 }, 
-{
+/*{
   href: '/maintenanceHistory',
   icon: (<HistoryIcon fontSize="small" />),
   title: 'Historial de mantenimientos'
-}, 
+}, */
 {
   href: '/settings',
   icon: (<CogIcon fontSize="small" />),

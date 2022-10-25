@@ -1,8 +1,5 @@
 import { useState } from 'react';
-import { ReactSession } from 'react-client-session';
 import axios from "axios";
-ReactSession.setStoreType("localStorage");
-
 import {
   Box,
   Button,
@@ -96,14 +93,15 @@ const combustibles = [
   }
 ];
 
-export const VehicleCreate = (props) => {
+export const MaintenanceEdit = ({maintenance, props}) => {
+  console.log(maintenance);
   const [values, setValues] = useState({
-    placa:"",
-    marca:"",
-    linea:"",
-    modelo:"",
-    combustible:"",
-    kilometraje:"",
+    placa: maintenance.placa,
+    marca: maintenance.marca,
+    linea: maintenance.marca,
+    modelo: maintenance.año,
+    combustible: maintenance.combustible,
+    kilometraje: maintenance.kilometraje,
   });
 
   const handleChange = (event) => {
@@ -117,39 +115,29 @@ export const VehicleCreate = (props) => {
   const handleSubmit = (e) =>{
     e.preventDefault();
     console.log("SU");
+    axios
+        .post("http://localhost:8000/edit_car/", {
+            placa: values.placa,
+            marca: values.marca,
+            modelo: values.linea,
+            año: values.modelo,
+            combustible: values.combustible,
+            kilometraje: values.kilometraje,
+        })
+        .then((res) => {
+          console.log(res.data);
+          if (res.data){
+            window.location.reload();
+          }else{
+            console.log(res);
+          };
+        })
+        .catch((err) => {});
 
-    if (typeof window !== 'undefined') {
-      const token = ReactSession.get("token");
-      axios
-      .post("http://localhost:8000/car/", {
-          placa: values.placa,
-          marca: values.marca,
-          modelo: values.modelo,
-          motor: values.motor,
-          combustible: values.combustible,
-          kilometraje: values.kilometraje,
-      },{
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-      .then((res) => {
-        vehicles = res.data;
-        console.log('Ok')
-        
-      })
-      .catch((err) => {});
-      window.location.reload();
-      // 👉️ can use localStorage here
-  } else {
-      console.log('You are on the server')
-      // 👉️ can't use localStorage
-
-  }
-};
+  };
 
   return (
-    <form
+    <form 
       onSubmit={handleSubmit}
       autoComplete="off"
       noValidate
@@ -158,7 +146,7 @@ export const VehicleCreate = (props) => {
       <Card>
         <CardHeader
           subheader=""
-          title="Crear Vehículo"
+          title="Editar Vehículo"
         />
         <Divider />
         <CardContent>
@@ -279,7 +267,7 @@ export const VehicleCreate = (props) => {
                 required
                 variant="outlined"
               />
-
+                
             </Grid>
           </Grid>
         </CardContent>
@@ -296,7 +284,7 @@ export const VehicleCreate = (props) => {
             color="primary"
             variant="contained"
           >
-            Crear
+            Guardar
           </Button>
         </Box>
       </Card>
