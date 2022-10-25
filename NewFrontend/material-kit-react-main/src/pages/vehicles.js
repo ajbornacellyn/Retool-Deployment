@@ -20,10 +20,17 @@ if (typeof window !== 'undefined') {
       },
     })
     .then((res) => {
+      console.log(res);
       if (res.data !== "No cars"){
       vehicles = res.data;};
     })
-    .catch((err) => {});
+    .catch((err) => {
+      console.log(err.response.data.detail);
+      if(err.response.data.detail == "Invalid token."){
+        ReactSession.remove("token");
+        window.location.replace("/Auth");
+      };
+    });
 
     // 👉️ can use localStorage here
 } else {
@@ -32,9 +39,7 @@ if (typeof window !== 'undefined') {
     // 👉️ can't use localStorage
 }
 const Page = () => {
-  if (!ReactSession.get("token")){
-    window.location.replace("/Auth");
-  } else {
+
     return(
     <>
       <Head>
@@ -58,7 +63,6 @@ const Page = () => {
       </Box>
     </>
     );
-  };
 };
 Page.getLayout = (page) => (
   <DashboardLayout>

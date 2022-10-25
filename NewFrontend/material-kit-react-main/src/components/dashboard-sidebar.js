@@ -18,6 +18,7 @@ import { NavItem } from './nav-item';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HistoryIcon from '@mui/icons-material/History';
+import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 
 const items = [
   /*
@@ -63,7 +64,7 @@ const items = [
 },  
 {
   href: '/maintenance',
-  icon: (<AddCircleIcon fontSize="small" />),
+  icon: (<BuildCircleIcon fontSize="small" />),
   title: 'Mantenimientos'
 }, 
 /*{
