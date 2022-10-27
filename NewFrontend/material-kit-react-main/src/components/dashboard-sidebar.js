@@ -18,7 +18,9 @@ import { NavItem } from './nav-item';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HistoryIcon from '@mui/icons-material/History';
-import BuildCircleIcon from '@mui/icons-material/BuildCircle';
+import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import ForumIcon from '@mui/icons-material/Forum';
+import HelpIcon from '@mui/icons-material/Help';
 
 const items = [
   /*
@@ -64,18 +66,33 @@ const items = [
 },  
 {
   href: '/maintenance',
-  icon: (<BuildCircleIcon fontSize="small" />),
-  title: 'Mantenimientos'
+  icon: (<AddCircleIcon fontSize="small" />),
+  title: 'Añadir mantenimiento'
 }, 
-/*{
+{
   href: '/maintenanceHistory',
   icon: (<HistoryIcon fontSize="small" />),
   title: 'Historial de mantenimientos'
-}, */
+}, 
+{
+  href: '/blog',
+  icon: (<ForumIcon fontSize="small" />),
+  title: 'Blog'
+},
+{
+  href: '/commonQuestions',
+  icon: (<HelpIcon fontSize="small" />),
+  title: 'Preguntas frecuentes'
+},
+{
+  href: '/contactInformation',
+  icon: (<ContactSupportIcon fontSize="small" />),
+  title: 'Informacion de contacto'
+},
 {
   href: '/settings',
   icon: (<CogIcon fontSize="small" />),
-  title: 'Settings'
+  title: 'Ajustes'
 },
 /*
   {

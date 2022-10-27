@@ -8,7 +8,7 @@ const Page = () => (
   <>
     <Head>
       <title>
-        Ajustes
+        Blog
       </title>
     </Head>
     <Box
@@ -23,7 +23,7 @@ const Page = () => (
           sx={{ mb: 3 }}
           variant="h4"
         >
-          Settings
+          Blog
         </Typography>
         <SettingsNotifications />
         <Box sx={{ pt: 3 }}>
