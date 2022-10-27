@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from "axios";
+import { ReactSession } from 'react-client-session';
 import {
   Box,
   Button,
@@ -10,6 +11,8 @@ import {
   Grid,
   TextField
 } from '@mui/material';
+ReactSession.setStoreType("localStorage");
+
 
 const marcas = [
   {
@@ -116,28 +119,38 @@ export const VehicleEdit = ({vehicle, props}) => {
     e.preventDefault();
     console.log("SU");
     axios
-        .post("http://localhost:8000/edit_car/", {
-            placa: values.placa,
-            marca: values.marca,
-            modelo: values.linea,
-            año: values.modelo,
-            combustible: values.combustible,
-            kilometraje: values.kilometraje,
-        })
-        .then((res) => {
-          console.log(res.data);
-          if (res.data){
-            window.location.reload();
-          }else{
-            console.log(res);
-          };
-        })
-        .catch((err) => {});
+    if (typeof window !== 'undefined') {
+      const token = ReactSession.get("token");
+      axios
+      .put("http://127.0.0.1:8000/car/"+vehicle.placa, {
+          placa: values.placa,
+          marca: values.marca,
+          modelo: values.modelo,
+          motor: values.motor,
+          combustible: values.combustible,
+          kilometraje: values.kilometraje,
+      },{
+        headers: {
+          "Content-type": "application/json",
+          "Authorization": `Token ${token}`
+        }
 
+      })
+      .then((res) => {
+        vehicles = res.data;
+      })
+      .catch((err) => {});
+
+      // 👉️ can use localStorage here
+  } else {
+      console.log('You are on the server')
+      // 👉️ can't use localStorage
+
+  }
   };
 
   return (
-    <form 
+    <form
       onSubmit={handleSubmit}
       autoComplete="off"
       noValidate
@@ -267,7 +280,7 @@ export const VehicleEdit = ({vehicle, props}) => {
                 required
                 variant="outlined"
               />
-                
+
             </Grid>
           </Grid>
         </CardContent>

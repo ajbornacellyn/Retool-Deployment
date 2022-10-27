@@ -100,7 +100,28 @@ class CarView(APIView):
 
         else:
             return Response("No cars")
-        
+
+    def put(self, request, placa):
+        cars = Carro.objects.filter(placa = placa)
+        if len(cars) > 0:
+            carro = Carro.objects.get(placa = placa)
+            carro.marca = request.data['marca']
+            carro.modelo = request.data['modelo']
+            carro.motor = request.data['motor']
+            carro.kilometraje = request.data['kilometraje']
+            carro.combustible = request.data['combustible']
+            return Response({ "response": "Carro actualizado" })
+        else:
+            return Response("Carro no encontrado")
+
+    def delete(self, request, placa):
+        cars = Carro.objects.filter(placa = placa)
+        if len(cars) > 0:
+            carro = Carro.objects.get(placa = placa)
+            carro.delete()
+            return Response({ "response": "Carro eliminado" })
+        else:
+            return Response("Carro no encontrado")
 
 
 class OwnerView(APIView):
@@ -146,5 +167,4 @@ class TallerView(APIView):
 
         else:
             return Response("No tallers")
-
 

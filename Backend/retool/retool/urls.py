@@ -24,6 +24,7 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name="register"),
     path('login/', LoginView.as_view(), name="login"),
     path('car/', CarView.as_view(), name="car"),
+    path("car/<str:placa>/", CarView.as_view(), name="car"),
     path('owner/', OwnerView.as_view(), name="owner"),
     path('taller/', TallerView.as_view(), name="taller"),
     path('mantenimiento/', ManteinanceView.as_view(), name="mantenimiento"),
