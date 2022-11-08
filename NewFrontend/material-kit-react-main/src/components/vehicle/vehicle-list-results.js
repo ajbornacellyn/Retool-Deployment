@@ -71,7 +71,6 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
       .then((res) => {
         console.log(res);
         // refresh table
-        this.setState({});
       })
       // 👉️ can use localStorage here
   } else {

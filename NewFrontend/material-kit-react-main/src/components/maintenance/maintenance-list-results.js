@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import { ReactSession } from 'react-client-session';
+import axios from "axios";
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import {
@@ -22,6 +24,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { MaintenanceEdit } from '../maintenance/maintenance-edit';
 import * as React from 'react';
+ReactSession.setStoreType("localStorage");
 
 const style = {
   position: 'absolute',
@@ -49,8 +52,23 @@ export const MaintenanceListResults = ({ maintenances, ...rest }) => {
   };
 
   const deleteMaintenance = (maintenance) =>{
-    alert(maintenance.placa);
+    if (typeof window !== 'undefined') {
+      const token = ReactSession.get("token");
+      axios
+      .delete("http://127.0.0.1:8000/maintenance/", {
+        headers: { Authorization: `Token ${token}` },
+        data: {"id": maintenance.id}
+    })
+      .then((res) => {
+        console.log(res);
+        // refresh table
+      })
+      // 👉️ can use localStorage here
+  } else {
+      console.log('You are on the server')
+      // 👉️ can't use localStorage
 
+  }
   };
 
   const editMaintenance = (maintenance) =>{

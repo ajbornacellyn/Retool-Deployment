@@ -83,11 +83,23 @@ class ManteinanceView(APIView):
                 mant = mantenimiento.objects.filter(placa=car)
                 if len(mant) > 0:
                     for m in mant:
-                        serializer = ManteinanceSerializer(m)
+                        serializer = ManteinanceSerializer2(m)
                         maintenances.append(serializer.data)
             return Response(maintenances)
         else:
             return Response("No cars")
+
+    def delete(self, request):
+        idMant = request.data['id']
+        mant = mantenimiento.objects.filter(id = idMant)
+        if len(mant) > 0:
+            mant = mantenimiento.objects.get(id = idMant)
+            mant.delete()
+            return Response({ "response": "mantenimiento eliminado" })
+        else:
+            return Response("mantenimiento no encontrado")
+
+        
 
 class CarView(APIView):
     permission_classes = [IsAuthenticated]

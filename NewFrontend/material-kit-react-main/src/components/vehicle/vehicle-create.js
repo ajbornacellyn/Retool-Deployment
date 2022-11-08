@@ -139,7 +139,6 @@ export const VehicleCreate = (props) => {
         
       })
       .catch((err) => {});
-      window.location.reload();
       // 👉️ can use localStorage here
   } else {
       console.log('You are on the server')
