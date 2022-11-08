@@ -59,25 +59,36 @@ class LoginView(APIView):
 
 
 class ManteinanceView(APIView):
+    permission_classes = [IsAuthenticated]
     def post(self, request):            
         serializer = ManteinanceSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            auto = Carro.objects.get(placa=request.data['placa'])
-            mant = mantenimiento.objects.create( placa= auto, descripcion=request.data['descripcion'], kilometraje=request.data['kilometraje'], estado=request.data['estado'], servicio=request.data['servicio'], nota=request.data['nota'])
-            mant.save()
-            return  Response(serializer.data)
+            cars = Carro.objects.filter(placa=request.data['placa'])
+            if len(cars) > 0:
+                auto = Carro.objects.get(placa=request.data['placa'])
+                mant = mantenimiento.objects.create( placa= auto, descripcion=request.data['descripcion'], kilometraje=request.data['kilometraje'], estado=request.data['estado'], servicio=request.data['servicio'], fecha = request.data['fecha'], costo = request.data['costo'])
+                mant.save()
+                return  Response(serializer.data)
+            else:
+                return Response("Car not found")
         else:
             return  Response("Invalid Mantence")
 
     def get(self, request):
-        manteinences = mantenimiento.objects.all()
-        if len(manteinences) > 0:
-            detail = [ {"id": detail.id,"descripcion": detail.descripcion,"kilometraje": detail.kilometraje, "estado": detail.estado,"servicio": detail.servicio, "nota": detail.nota, "car": detail.car, "taller": detail.taller, "encargado": detail.encargado, "repuesto": detail.repuesto, "factura": detail.factura} 
-            for detail in manteinences]
-            return Response(detail)
-
+        current_user = request.user
+        cars = Carro.objects.filter(user=current_user.id)
+        maintenances = []
+        if len(cars) > 0:
+            for car in cars:
+                mant = mantenimiento.objects.filter(placa=car)
+                if len(mant) > 0:
+                    for m in mant:
+                        serializer = ManteinanceSerializer(m)
+                        maintenances.append(serializer.data)
+            return Response(maintenances)
         else:
-            return Response("No manteinences")
+            return Response("No cars")
+
 class CarView(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request):
@@ -107,15 +118,17 @@ class CarView(APIView):
             carro = Carro.objects.get(placa = placa)
             carro.marca = request.data['marca']
             carro.modelo = request.data['modelo']
-            carro.motor = request.data['motor']
             carro.kilometraje = request.data['kilometraje']
             carro.combustible = request.data['combustible']
-            return Response({ "response": "Carro actualizado" })
+            carro.save()
+            return Response({"response": "Carro actualizado",
+            "placa":carro.placa, "marca": carro.marca, "modelo": carro.modelo, "kilometraje": carro.kilometraje, "combustible": carro.combustible})
         else:
             return Response("Carro no encontrado")
 
-    def delete(self, request, placa):
-        cars = Carro.objects.filter(placa = placa)
+    def delete(self, request):
+        placa = request.data['placa']
+        cars = Carro.objects.filter(placa = request.data['placa'])
         if len(cars) > 0:
             carro = Carro.objects.get(placa = placa)
             carro.delete()

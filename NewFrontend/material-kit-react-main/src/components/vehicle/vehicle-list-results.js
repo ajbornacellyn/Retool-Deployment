@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
+import { ReactSession } from 'react-client-session';
+import axios from "axios";
 import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import {
@@ -22,6 +24,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { VehicleEdit } from '../vehicle/vehicle-edit';
 import * as React from 'react';
+ReactSession.setStoreType("localStorage");
 
 const style = {
   position: 'absolute',
@@ -34,6 +37,15 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
+axios.interceptors.request.use(function (config) {
+  // Do something before request is sent
+  const token = ReactSession.get("token");
+  return config;
+}, function (error) {
+  // Do something with request error
+  return Promise.reject(error);
+});
 
 export const VehicleListResults = ({ vehicles, ...rest }) => {
   const [selectedVehicle, setSelectedVehicle] = useState();
@@ -49,6 +61,24 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
   };
 
   const deleteVehicle = (vehicle) =>{
+    if (typeof window !== 'undefined') {
+      const token = ReactSession.get("token");
+      axios
+      .delete("http://127.0.0.1:8000/car/", {
+        headers: { Authorization: `Token ${token}` },
+        data: {"placa": vehicle.placa}
+    })
+      .then((res) => {
+        console.log(res);
+        // refresh table
+        this.setState({});
+      })
+      // 👉️ can use localStorage here
+  } else {
+      console.log('You are on the server')
+      // 👉️ can't use localStorage
+
+  }
     alert(vehicle.placa);
 
   };

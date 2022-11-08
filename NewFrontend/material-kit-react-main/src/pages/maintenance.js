@@ -20,7 +20,7 @@ if (typeof window !== 'undefined') {
       },
     })
     .then((res) => {
-      if (res.data !== "No cars"){
+      if (res.data !== "No maintenances"){
       maintenances = res.data;};
     })
     .catch((err) => {});

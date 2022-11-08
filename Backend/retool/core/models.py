@@ -59,11 +59,13 @@ class mantenimiento(models.Model):
     id = models.IntegerField(primary_key=True)
     placa = models.ForeignKey(Carro, on_delete=models.CASCADE)
     encargado = models.ForeignKey(encargado, on_delete = models.CASCADE, null=True, blank=True)
-    descripcion = models.CharField(max_length=500)
-    kilometraje = models.IntegerField()
-    estado = models.CharField(max_length=30)
-    servicio = models.CharField(max_length=30)
-    nota = models.CharField(max_length=500)
+    descripcion = models.CharField(max_length=500, null= True, blank= True)
+    kilometraje = models.IntegerField(null= True, blank= True)
+    estado = models.CharField(max_length=30, null= True, blank= True)
+    servicio = models.CharField(max_length=30, null= True, blank= True)
+    nota = models.CharField(max_length=500, null= True, blank= True)
+    fecha = models.DateField(null= True, blank= True)
+    costo = models.IntegerField(null= True, blank= True)
 
 
 class repuesto(models.Model):
@@ -77,12 +79,7 @@ class repuesto(models.Model):
     precio = models.IntegerField()
     cantidad = models.IntegerField()
 
-class Mantenimiento_Detalle(models.Model):
-    id = models.IntegerField(primary_key=True)
-    mantenimientoId = models.OneToOneField(mantenimiento, on_delete=models.CASCADE)
-    fecha = models.DateField()
-    costo = models.IntegerField()
-    descripcion = models.CharField(max_length=500)
+
 
 
 

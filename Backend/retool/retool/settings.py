@@ -46,13 +46,16 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    
 ]
+CORS_ORIGIN_ALLOW_ALL = True
+
 
 ROOT_URLCONF = 'retool.urls'
 
@@ -144,3 +147,4 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'reetoolauthentication@gmail.com'
 EMAIL_HOST_PASSWORD = 'ozgbqhydnwwogppo' #contrasena de aplicacion
+

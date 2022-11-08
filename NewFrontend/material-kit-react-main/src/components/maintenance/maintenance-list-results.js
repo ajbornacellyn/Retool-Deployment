@@ -76,10 +76,10 @@ export const MaintenanceListResults = ({ maintenances, ...rest }) => {
                   Placa
                 </TableCell>
                 <TableCell>
-                  Marca
+                  Fecha
                 </TableCell>
                 <TableCell>
-                  Modelo
+                  Descripción
                 </TableCell>
                 <TableCell>
                   Kilometraje
@@ -106,10 +106,10 @@ export const MaintenanceListResults = ({ maintenances, ...rest }) => {
                       </Typography>
                   </TableCell>
                   <TableCell>
-                    {maintenance.marca}
+                    {maintenance.fecha}
                   </TableCell>
                   <TableCell>
-                    {maintenance.modelo}
+                    {maintenance.descripcion}
                   </TableCell>
                   <TableCell>
                     {maintenance.kilometraje}

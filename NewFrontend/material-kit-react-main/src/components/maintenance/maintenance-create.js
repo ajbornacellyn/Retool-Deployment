@@ -14,74 +14,22 @@ import {
   TextField
 } from '@mui/material';
 
-const marcas = [
+const estados = [
   {
-    value: 'audi',
-    label: 'Audi'
+    value: 'En proceso',
+    label: 'En proceso'
   },
   {
-    value: 'bmw',
-    label: 'BMW'
+    value: 'Finalizado',
+    label: 'Finalizado'
   },
   {
-    value: 'chevrolet',
-    label: 'Chevrolet'
-  },
-  {
-    value: 'dodge',
-    label: 'Dodge'
-  },
-  {
-    value: 'fiat',
-    label: 'Fiat'
-  },
-  {
-    value: 'ford',
-    label: 'Ford'
-  },
-  {
-    value: 'honda',
-    label: 'Honda'
-  },
-  {
-    value: 'jeep',
-    label: 'Jeep'
-  },
-  {
-    value: 'mazda',
-    label: 'Mazda'
-  },
-  {
-    value: 'nissan',
-    label: 'Nissan'
-  },
-  {
-    value: 'peugeot',
-    label: 'Peugeot'
-  },
-  {
-    value: 'seat',
-    label: 'SEAT'
-  },
-  {
-    value: 'suzuki',
-    label: 'Suzuki'
-  },
-  {
-    value: 'toyota',
-    label: 'Toyota'
-  },
-  {
-    value: 'volkswagen',
-    label: 'Volkswagen'
-  },
-  {
-    value: 'volvo',
-    label: 'Volvo'
+    value: 'Aplazado',
+    label: 'Aplazado'
   }
 ];
 
-const combustibles = [
+const servicios = [
   {
     value: 'gasolina',
     label: 'Gasolina'
@@ -99,10 +47,10 @@ const combustibles = [
 export const MaintenanceCreate = (props) => {
   const [values, setValues] = useState({
     placa:"",
-    marca:"",
-    linea:"",
-    modelo:"",
-    combustible:"",
+    fecha:"",
+    servicio:"",
+    descripcion:"",
+    estado:"",
     kilometraje:"",
   });
 
@@ -123,11 +71,12 @@ export const MaintenanceCreate = (props) => {
       axios
       .post("http://localhost:8000/maintenance/", {
           placa: values.placa,
-          marca: values.marca,
-          modelo: values.modelo,
-          motor: values.motor,
-          combustible: values.combustible,
+          descripcion: values.descripcion,
+          estado: values.estado,
+          servicio: values.servicio,
+          fecha: values.fecha,
           kilometraje: values.kilometraje,
+          costo: 0,
       },{
         headers: {
           Authorization: `Token ${token}`,
@@ -186,16 +135,16 @@ export const MaintenanceCreate = (props) => {
             >
               <TextField
                 fullWidth
-                label="Marca"
-                name="marca"
-                value={values.marca}
+                label="Estado"
+                name="estado"
+                value={values.descripcion}
                 onChange={handleChange}
                 required
                 select
                 SelectProps={{ native: true }}
                 variant="outlined"
               >
-                {marcas.map((option) => (
+                {estados.map((option) => (
                   <option
                     key={option.value}
                     value={option.value}
@@ -212,9 +161,9 @@ export const MaintenanceCreate = (props) => {
             >
               <TextField
                 fullWidth
-                label="Línea"
-                name="linea"
-                value={values.linea}
+                label="Descripcion"
+                name="descripcion"
+                value={values.descripcion}
                 onChange={handleChange}
                 required
                 variant="outlined"
@@ -227,11 +176,11 @@ export const MaintenanceCreate = (props) => {
             >
               <TextField
                 fullWidth
-                label="Modelo"
-                name="modelo"
-                value={values.modelo}
+                label="Fecha"
+                name="fecha"
+                value={values.fecha}
                 onChange={handleChange}
-                type="number"
+                type="date"
                 required
                 variant="outlined"
               />
@@ -243,16 +192,16 @@ export const MaintenanceCreate = (props) => {
             >
               <TextField
                 fullWidth
-                label="Combustible"
-                name="combustible"
-                value={values.combustible}
+                label="Servicio"
+                name="servicio"
+                value={values.servicio}
                 onChange={handleChange}
                 required
                 select
                 SelectProps={{ native: true }}
                 variant="outlined"
               >
-                {combustibles.map((option) => (
+                {servicios.map((option) => (
                   <option
                     key={option.value}
                     value={option.value}

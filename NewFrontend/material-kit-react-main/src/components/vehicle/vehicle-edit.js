@@ -122,22 +122,20 @@ export const VehicleEdit = ({vehicle, props}) => {
     if (typeof window !== 'undefined') {
       const token = ReactSession.get("token");
       axios
-      .put("http://127.0.0.1:8000/car/"+vehicle.placa, {
+      .put("http://127.0.0.1:8000/car/"+vehicle.placa+"/", {
           placa: values.placa,
           marca: values.marca,
           modelo: values.modelo,
-          motor: values.motor,
           combustible: values.combustible,
           kilometraje: values.kilometraje,
       },{
         headers: {
-          "Content-type": "application/json",
           "Authorization": `Token ${token}`
         }
 
       })
       .then((res) => {
-        vehicles = res.data;
+        console.log(values);
       })
       .catch((err) => {});
 
