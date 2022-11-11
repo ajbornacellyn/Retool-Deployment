@@ -85,7 +85,10 @@ class ManteinanceView(APIView):
                     for m in mant:
                         serializer = ManteinanceSerializer2(m)
                         maintenances.append(serializer.data)
-            return Response(maintenances)
+            if len (maintenances) > 0:
+                return Response(maintenances)
+            else:
+                return Response("Not maintenances")
         else:
             return Response("No cars")
 

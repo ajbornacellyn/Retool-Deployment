@@ -43,6 +43,7 @@ export const MaintenanceListResults = ({ maintenances, ...rest }) => {
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
 
+  
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
   };
@@ -52,8 +53,10 @@ export const MaintenanceListResults = ({ maintenances, ...rest }) => {
   };
 
   const deleteMaintenance = (maintenance) =>{
+
+    
     if (typeof window !== 'undefined') {
-      const token = ReactSession.get("token");
+      const token = localStorage.getItem('Token');
       axios
       .delete("http://127.0.0.1:8000/maintenance/", {
         headers: { Authorization: `Token ${token}` },
@@ -81,93 +84,120 @@ export const MaintenanceListResults = ({ maintenances, ...rest }) => {
   const handleOpen = () => { setOpen(true);};
   const handleClose = () => setOpen(false);
 
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('Token');
+      axios
+      .get("http://localhost:8000/maintenance/", {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => {
+        if (res.data !== "Not maintenances"){
+          maintenances = res.data;
+        }else{
+          maintenances = {};
+        }
+      })
+      .catch((err) => {});
 
-  if(maintenances.length === undefined) return <div>No hay mantenimientos registrados.</div>;
-  return (
-    <Card {...rest}>
-      <PerfectScrollbar>
-        <Box sx={{ minWidth: 1050 }}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>
-                  Placa
-                </TableCell>
-                <TableCell>
-                  Fecha
-                </TableCell>
-                <TableCell>
-                  Descripción
-                </TableCell>
-                <TableCell>
-                  Kilometraje
-                </TableCell>
-                <TableCell>
+      // 👉️ can use localStorage here
+  } else {
+      console.log('You are on the server')
+      maintenances = {};
+      // 👉️ can't use localStorage
+  }
 
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {console.log("maintenancessss")}
-              {console.log(maintenances)}
-              {maintenances.slice(0, limit).map((maintenance) => (
-                <TableRow
-                  hover
-                  key={maintenance.placa}
-                >
+  console.log("maaaaaaaaintenances");
+  console.log(maintenances);
+  if(maintenances !== "Not maintenances" && maintenances !== "No cars" && maintenances.length>0){
+    return (
+      <Card {...rest}>
+        <PerfectScrollbar>
+          <Box sx={{ minWidth: 1050 }}>
+            <Table>
+              <TableHead>
+                <TableRow>
                   <TableCell>
-                      <Typography
-                        color="textPrimary"
-                        variant="body1"
-                      >
-                        {maintenance.placa}
-                      </Typography>
+                    Placa
                   </TableCell>
                   <TableCell>
-                    {maintenance.fecha}
+                    Fecha
                   </TableCell>
                   <TableCell>
-                    {maintenance.descripcion}
+                    Descripción
                   </TableCell>
                   <TableCell>
-                    {maintenance.kilometraje}
+                    Kilometraje
                   </TableCell>
                   <TableCell>
-                    <IconButton aria-label="delete" onClick={() => {deleteMaintenance(maintenance);}}>
-                      <DeleteIcon />
-                    </IconButton>
-                    <IconButton aria-label="edit" onClick={() => {editMaintenance(maintenance);}}>
-                      <EditIcon />
-                    </IconButton>
-
+  
                   </TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-            <Box sx={style}>
-              <MaintenanceEdit maintenance={selectedMaintenance} />
-            </Box>
-          </Modal>
-        </Box>
-      </PerfectScrollbar>
-      <TablePagination
-        component="div"
-        count={maintenances.length}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleLimitChange}
-        page={page}
-        rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
-      />
-    </Card>
-  );
+              </TableHead>
+              <TableBody>
+                {maintenances.slice(0, limit).map((maintenance) => (
+                  <TableRow
+                    hover
+                    key={maintenance.placa}
+                  >
+                    <TableCell>
+                        <Typography
+                          color="textPrimary"
+                          variant="body1"
+                        >
+                          {maintenance.placa}
+                        </Typography>
+                    </TableCell>
+                    <TableCell>
+                      {maintenance.fecha}
+                    </TableCell>
+                    <TableCell>
+                      {maintenance.descripcion}
+                    </TableCell>
+                    <TableCell>
+                      {maintenance.kilometraje}
+                    </TableCell>
+                    <TableCell>
+                      <IconButton aria-label="delete" onClick={() => {deleteMaintenance(maintenance);}}>
+                        <DeleteIcon />
+                      </IconButton>
+                      <IconButton aria-label="edit" onClick={() => {editMaintenance(maintenance);}}>
+                        <EditIcon />
+                      </IconButton>
+  
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+            <Modal
+              open={open}
+              onClose={handleClose}
+              aria-labelledby="modal-modal-title"
+              aria-describedby="modal-modal-description"
+            >
+              <Box sx={style}>
+                <MaintenanceEdit maintenance={selectedMaintenance} />
+              </Box>
+            </Modal>
+          </Box>
+        </PerfectScrollbar>
+        <TablePagination
+          component="div"
+          count={maintenances.length}
+          onPageChange={handlePageChange}
+          onRowsPerPageChange={handleLimitChange}
+          page={page}
+          rowsPerPage={limit}
+          rowsPerPageOptions={[5, 10, 25]}
+        />
+      </Card>
+    );
+  }else{
+    return <div>No hay mantenimientos registrados.</div>;
+    
+  }
 };
 
 MaintenanceListResults.propTypes = {

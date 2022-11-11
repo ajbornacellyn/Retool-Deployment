@@ -3,6 +3,7 @@ import NextLink from 'next/link';
 import Router from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import axios from 'axios';
 import {
   Box,
   Button,
@@ -51,9 +52,34 @@ const Register = () => {
         )*/
     }),
     onSubmit: () => {
-      Router
-        .push('/')
-        .catch(console.error);
+      axios.post('http://localhost:8000/register/', {
+        username: formik.values.firstName,
+        email: formik.values.email,
+        password: formik.values.password,
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data== "User already exists"){
+          alert("User already exists");
+        }else{
+          axios.post('http://localhost:8000/login/', {
+            username: formik.values.firstName,
+            password: formik.values.password,
+          })
+          .then((res) => {
+            console.log(res.data);
+            if (res.data == "Invalid credentials"){
+              alert("Invalid credentials");
+            }else{
+              localStorage.clear();
+              console.log(localStorage.getItem("token"));
+              localStorage.setItem('Token', res.data.token);
+              Router.push('/');
+            };
+          }
+        )
+        }
+      })
     }
   });
 

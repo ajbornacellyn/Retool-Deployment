@@ -5,14 +5,12 @@ import { MaintenanceListToolbar } from '../components/maintenance/maintenance-li
 import { DashboardLayout } from '../components/dashboard-layout';
 import { customers } from '../__mocks__/customers';
 import axios from "axios";
-import { ReactSession } from 'react-client-session';
-ReactSession.setStoreType("localStorage");
 import { useEffect } from "react";
 
 var maintenances = {};
 
 if (typeof window !== 'undefined') {
-    const token = ReactSession.get("token");
+    const token = localStorage.getItem('Token');
     axios
     .get("http://localhost:8000/maintenance/", {
       headers: {
@@ -32,9 +30,6 @@ if (typeof window !== 'undefined') {
     // 👉️ can't use localStorage
 }
 const Page = () => {
-  if (!ReactSession.get("token")){
-    window.location.replace("/Auth");
-  } else {
     return(
     <>
       <Head>
@@ -59,7 +54,7 @@ const Page = () => {
     </>
     );
   };
-};
+
 Page.getLayout = (page) => (
   <DashboardLayout>
     {page}

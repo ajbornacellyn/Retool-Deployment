@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import NextLink from 'next/link';
+import axios from 'axios';
 import Router from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -11,24 +12,39 @@ import { Google as GoogleIcon } from '../icons/google';
 const Login = () => {
   const formik = useFormik({
     initialValues: {
-      email: '',
+      username: '',
       password: ''
     },
     validationSchema: Yup.object({
-      email: Yup
+      username: Yup
         .string()
-        .email('Must be a valid email')
         .max(255)
-        .required('Email is required'),
+        .required('username is required'),
       password: Yup
         .string()
         .max(255)
         .required('Password is required')
     }),
     onSubmit: () => {
-      Router
-        .push('/')
-        .catch(console.error);
+      console.log('submit');
+      axios.post('http://localhost:8000/login/', {
+        username: formik.values.username,
+        password: formik.values.password,
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (res.data== "Invalid credentials"){
+          alert("Invalid credentials");
+        }else{
+
+
+          console.log("TOKEN ANTES"+localStorage.getItem("Token "));
+          console.log(res.data.token);
+          localStorage.clear();
+          localStorage.setItem('Token', res.data.token);
+          Router.push('/');
+        };
+    })
     }
   });
 
@@ -126,21 +142,21 @@ const Login = () => {
                 color="textSecondary"
                 variant="body1"
               >
-                or login with email address
+                or login with username address
               </Typography>
             </Box>
             */}
             <TextField
-              error={Boolean(formik.touched.email && formik.errors.email)}
+              error={Boolean(formik.touched.username && formik.errors.username)}
               fullWidth
-              helperText={formik.touched.email && formik.errors.email}
+              helperText={formik.touched.username && formik.errors.username}
               label="Correo electronico"
               margin="normal"
-              name="email"
+              name="username"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              type="email"
-              value={formik.values.email}
+              type="text"
+              value={formik.values.username}
               variant="outlined"
             />
             <TextField

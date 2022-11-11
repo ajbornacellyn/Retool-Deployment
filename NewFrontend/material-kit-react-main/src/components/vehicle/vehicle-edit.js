@@ -120,7 +120,7 @@ export const VehicleEdit = ({vehicle, props}) => {
     console.log("SU");
     axios
     if (typeof window !== 'undefined') {
-      const token = ReactSession.get("token");
+      const token = localStorage.getItem('Token');
       axios
       .put("http://127.0.0.1:8000/car/"+vehicle.placa+"/", {
           placa: values.placa,

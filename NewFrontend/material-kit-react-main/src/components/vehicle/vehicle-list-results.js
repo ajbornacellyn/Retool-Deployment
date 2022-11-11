@@ -62,7 +62,7 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
 
   const deleteVehicle = (vehicle) =>{
     if (typeof window !== 'undefined') {
-      const token = ReactSession.get("token");
+      const token = localStorage.getItem('Token');
       axios
       .delete("http://127.0.0.1:8000/car/", {
         headers: { Authorization: `Token ${token}` },

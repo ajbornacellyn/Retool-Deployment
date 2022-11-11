@@ -119,7 +119,7 @@ export const VehicleCreate = (props) => {
     console.log("SU");
 
     if (typeof window !== 'undefined') {
-      const token = ReactSession.get("token");
+      const token = localStorage.getItem('Token');
       axios
       .post("http://localhost:8000/car/", {
           placa: values.placa,

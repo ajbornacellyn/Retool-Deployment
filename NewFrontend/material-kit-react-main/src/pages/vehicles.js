@@ -5,15 +5,12 @@ import { VehicleListToolbar } from '../components/vehicle/vehicle-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
 import { customers } from '../__mocks__/customers';
 import axios from "axios";
-import { ReactSession } from 'react-client-session';
-ReactSession.setStoreType("localStorage");
-import { useEffect } from "react";
 
 var vehicles = {};
 
 
 const getVehicles = async () => {
-  const token = ReactSession.get("token");
+  const token = localStorage.getItem('Token');
   const res = await axios
   .get("http://localhost:8000/car/", {
     headers: {
