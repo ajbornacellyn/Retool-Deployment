@@ -3,8 +3,28 @@ import { Box, Card, CardContent, CardHeader, Divider, Typography, useTheme } fro
 import LaptopMacIcon from '@mui/icons-material/LaptopMac';
 import PhoneIcon from '@mui/icons-material/Phone';
 import TabletIcon from '@mui/icons-material/Tablet';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-export const TrafficByDevice = (props) => {
+
+export const TrafficByDevice = ({props}) => {
+
+  const token = localStorage.getItem('Token');
+  const [mantenimientos, setMaintenances] = useState([]);
+  useEffect(() => {
+      axios
+    .get("http://localhost:8000/maintenance/", {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    })
+    .then((res) => {
+    if (res.data !== "No maintenances"){
+      setMaintenances(res.data);};
+  })
+
+  }, []);
+
   const theme = useTheme();
 
   const data = {

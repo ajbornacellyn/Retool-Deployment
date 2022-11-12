@@ -53,8 +53,6 @@ export const MaintenanceListResults = ({ maintenances, ...rest }) => {
   };
 
   const deleteMaintenance = (maintenance) =>{
-
-    
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('Token');
       axios
@@ -84,7 +82,7 @@ export const MaintenanceListResults = ({ maintenances, ...rest }) => {
   const handleOpen = () => { setOpen(true);};
   const handleClose = () => setOpen(false);
 
-    if (typeof window !== 'undefined') {
+  if (typeof window !== 'undefined') {
       const token = localStorage.getItem('Token');
       axios
       .get("http://localhost:8000/maintenance/", {
@@ -93,18 +91,13 @@ export const MaintenanceListResults = ({ maintenances, ...rest }) => {
         },
       })
       .then((res) => {
-        if (res.data !== "Not maintenances"){
-          maintenances = res.data;
-        }else{
-          maintenances = {};
-        }
+        maintenances = res.data;
       })
       .catch((err) => {});
 
       // 👉️ can use localStorage here
   } else {
       console.log('You are on the server')
-      maintenances = {};
       // 👉️ can't use localStorage
   }
 

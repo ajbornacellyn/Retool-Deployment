@@ -5,26 +5,25 @@ import { VehicleListToolbar } from '../components/vehicle/vehicle-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
 import { customers } from '../__mocks__/customers';
 import axios from "axios";
+import { useEffect, useState } from 'react';
 
-var vehicles = {};
 
-
-const getVehicles = async () => {
-  const token = localStorage.getItem('Token');
-  const res = await axios
-  .get("http://localhost:8000/car/", {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
-  })
-  .then((res) => {
-    if (res.data !== "No cars"){
-    vehicles = res.data;};
-  })
-}
 
 const Page = () => {
-  getVehicles();
+  const token = localStorage.getItem('Token');
+  const [vehicles, setVehicles] = useState([]);
+  useEffect(() => {
+      axios
+    .get("http://localhost:8000/car/", {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    })
+    .then((res) => { 
+    if (res.data !== "No cars"){
+      setVehicles(res.data);}; 
+  })}, []);
+    
     return(
     <>
       <Head>

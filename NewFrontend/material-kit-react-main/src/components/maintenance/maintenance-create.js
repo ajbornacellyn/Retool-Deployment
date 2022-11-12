@@ -67,9 +67,8 @@ export const MaintenanceCreate = (props) => {
     console.log("SU");
 
     if (typeof window !== 'undefined') {
-      const token = ReactSession.get("token");
-      axios
-      .post("http://localhost:8000/maintenance/", {
+      const token = localStorage.getItem('Token');      
+      axios.post("http://localhost:8000/maintenance/", {
           placa: values.placa,
           descripcion: values.descripcion,
           estado: values.estado,

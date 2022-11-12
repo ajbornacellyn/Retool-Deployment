@@ -1,11 +1,38 @@
-import { Bar } from 'react-chartjs-2';
+import { Bar, Line } from 'react-chartjs-2';
 import { Box, Button, Card, CardContent, CardHeader, Divider, useTheme } from '@mui/material';
 import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import axios from 'axios';
+import React from 'react';
+import { useState, useEffect } from 'react';
 
-export const Sales = (props) => {
+export const Sales = ({props, ...React }) => {
+  
   const theme = useTheme();
+  var mantLabels = [];
+  var datos = [];
 
+  const token = localStorage.getItem('Token');
+const [Mantenimientos, setMaintenances] = useState([]);
+useEffect(() => {
+    axios
+  .get("http://localhost:8000/maintenance/", {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  })
+  .then((res) => {
+  if (res.data !== "No maintenances"){
+    setMaintenances(res.data);};
+})
+
+}, []);
+
+  if(Mantenimientos !== "Not maintenances" && Mantenimientos !== "No cars" && Mantenimientos.length>0){
+    mantLabels = Mantenimientos.map((item) => item.fecha)
+    datos = Mantenimientos.map((item) => item.kilometraje)
+  }
+  
   const data = {
     datasets: [
       {
@@ -14,7 +41,7 @@ export const Sales = (props) => {
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: [18, 5, 19, 27, 29, 19, 20],
+        data: datos,
         label: 'This year',
         maxBarThickness: 10
       },
@@ -29,7 +56,7 @@ export const Sales = (props) => {
         maxBarThickness: 10
       }
     ],
-    labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug', '7 aug']
+    labels: mantLabels
   };
 
   const options = {
@@ -39,6 +66,20 @@ export const Sales = (props) => {
     legend: { display: false },
     maintainAspectRatio: false,
     responsive: true,
+    scales: {
+      y: {
+        title: {
+          display: true,
+          text: 'Kilometraje'
+        }
+      },
+      x: {
+        title: {
+          display: true,
+          text: 'Fecha'
+        },
+      },
+    },
     xAxes: [
       {
         ticks: {
@@ -51,6 +92,8 @@ export const Sales = (props) => {
       }
     ],
     yAxes: [
+
+
       {
         ticks: {
           fontColor: theme.palette.text.secondary,
@@ -92,7 +135,7 @@ export const Sales = (props) => {
             Last 7 days
           </Button>
         )}
-        title="Latest Sales"
+        title="Mantenimientos realizados"
       />
       <Divider />
       <CardContent>
@@ -102,7 +145,7 @@ export const Sales = (props) => {
             position: 'relative'
           }}
         >
-          <Bar
+          <Line
             data={data}
             options={options}
           />

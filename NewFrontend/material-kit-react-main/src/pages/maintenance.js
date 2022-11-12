@@ -6,30 +6,25 @@ import { DashboardLayout } from '../components/dashboard-layout';
 import { customers } from '../__mocks__/customers';
 import axios from "axios";
 import { useEffect } from "react";
+import { useState } from "react";
 
-var maintenances = {};
 
-if (typeof window !== 'undefined') {
-    const token = localStorage.getItem('Token');
-    axios
+const Page = () => {
+  const token = localStorage.getItem('Token');
+  const [maintenances, setMaintenances] = useState([]);
+  useEffect(() => {
+      axios
     .get("http://localhost:8000/maintenance/", {
       headers: {
         Authorization: `Token ${token}`,
       },
     })
     .then((res) => {
-      if (res.data !== "No maintenances"){
-      maintenances = res.data;};
-    })
-    .catch((err) => {});
+    if (res.data !== "No maintenances"){
+      setMaintenances(res.data);};
+  })
 
-    // 👉️ can use localStorage here
-} else {
-    console.log('You are on the server')
-    maintenances = {};
-    // 👉️ can't use localStorage
-}
-const Page = () => {
+}, []);
     return(
     <>
       <Head>
