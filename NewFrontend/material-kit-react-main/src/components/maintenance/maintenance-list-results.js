@@ -81,6 +81,31 @@ export const MaintenanceListResults = ({ maintenances, ...rest }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => { setOpen(true);};
   const handleClose = () => setOpen(false);
+<<<<<<< Updated upstream
+=======
+
+  if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('Token');
+      axios
+      .get("http://localhost:8000/maintenance/", {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => {
+        maintenances = res.data;
+      })
+      .catch((err) => {});
+
+      // 👉️ can use localStorage here
+  } else {
+      console.log('You are on the server')
+      // 👉️ can't use localStorage
+  }
+
+  console.log("maaaaaaaaintenances");
+  console.log(maintenances);
+>>>>>>> Stashed changes
   if(maintenances !== "Not maintenances" && maintenances !== "No cars" && maintenances.length>0){
     return (
       <Card {...rest}>

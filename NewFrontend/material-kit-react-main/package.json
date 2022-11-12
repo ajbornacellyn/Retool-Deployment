@@ -11,6 +11,7 @@
     "export": "next export",
     "lint": "next lint",
     "lint-fix": "next lint --fix"
+    
   },
   "dependencies": {
     "@emotion/cache": "11.10.3",

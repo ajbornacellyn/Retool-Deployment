@@ -13,6 +13,7 @@ export const Sales = ({props, ...React }) => {
   var datos = [];
 
   const token = localStorage.getItem('Token');
+<<<<<<< Updated upstream
   const [Mantenimientos, setMaintenances] = useState([]);
   useEffect(() => {
       axios
@@ -27,6 +28,22 @@ export const Sales = ({props, ...React }) => {
   })
 
   }, []);
+=======
+const [Mantenimientos, setMaintenances] = useState([]);
+useEffect(() => {
+    axios
+  .get("http://localhost:8000/maintenance/", {
+    headers: {
+      Authorization: `Token ${token}`,
+    },
+  })
+  .then((res) => {
+  if (res.data !== "No maintenances"){
+    setMaintenances(res.data);};
+})
+
+}, []);
+>>>>>>> Stashed changes
 
   if(Mantenimientos !== "Not maintenances" && Mantenimientos !== "No cars" && Mantenimientos.length>0){
     mantLabels = Mantenimientos.map((item) => item.fecha)
