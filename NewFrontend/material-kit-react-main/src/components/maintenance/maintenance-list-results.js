@@ -81,28 +81,6 @@ export const MaintenanceListResults = ({ maintenances, ...rest }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => { setOpen(true);};
   const handleClose = () => setOpen(false);
-
-  if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('Token');
-      axios
-      .get("http://localhost:8000/maintenance/", {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-      .then((res) => {
-        maintenances = res.data;
-      })
-      .catch((err) => {});
-
-      // 👉️ can use localStorage here
-  } else {
-      console.log('You are on the server')
-      // 👉️ can't use localStorage
-  }
-
-  console.log("maaaaaaaaintenances");
-  console.log(maintenances);
   if(maintenances !== "Not maintenances" && maintenances !== "No cars" && maintenances.length>0){
     return (
       <Card {...rest}>
@@ -124,7 +102,12 @@ export const MaintenanceListResults = ({ maintenances, ...rest }) => {
                     Kilometraje
                   </TableCell>
                   <TableCell>
-  
+                    Servicio
+                  </TableCell>
+                  <TableCell>
+                    Estado
+                  </TableCell>
+                  <TableCell>  
                   </TableCell>
                 </TableRow>
               </TableHead>
@@ -150,6 +133,12 @@ export const MaintenanceListResults = ({ maintenances, ...rest }) => {
                     </TableCell>
                     <TableCell>
                       {maintenance.kilometraje}
+                    </TableCell>
+                    <TableCell>
+                      {maintenance.servicio}
+                    </TableCell>
+                    <TableCell>
+                      {maintenance.estado}
                     </TableCell>
                     <TableCell>
                       <IconButton aria-label="delete" onClick={() => {deleteMaintenance(maintenance);}}>

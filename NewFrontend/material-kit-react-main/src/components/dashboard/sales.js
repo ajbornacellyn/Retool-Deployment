@@ -13,20 +13,20 @@ export const Sales = ({props, ...React }) => {
   var datos = [];
 
   const token = localStorage.getItem('Token');
-const [Mantenimientos, setMaintenances] = useState([]);
-useEffect(() => {
-    axios
-  .get("http://localhost:8000/maintenance/", {
-    headers: {
-      Authorization: `Token ${token}`,
-    },
+  const [Mantenimientos, setMaintenances] = useState([]);
+  useEffect(() => {
+      axios
+    .get("http://localhost:8000/maintenance/", {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    })
+    .then((res) => {
+    if (res.data !== "No maintenances"){
+      setMaintenances(res.data);};
   })
-  .then((res) => {
-  if (res.data !== "No maintenances"){
-    setMaintenances(res.data);};
-})
 
-}, []);
+  }, []);
 
   if(Mantenimientos !== "Not maintenances" && Mantenimientos !== "No cars" && Mantenimientos.length>0){
     mantLabels = Mantenimientos.map((item) => item.fecha)

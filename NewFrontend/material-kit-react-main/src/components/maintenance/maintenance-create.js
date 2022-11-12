@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { ReactSession } from 'react-client-session';
 import axios from "axios";
 ReactSession.setStoreType("localStorage");
+import { useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {fa0 } from '@fortawesome/free-solid-svg-icons';
 
 import {
   Box,
@@ -28,23 +31,72 @@ const estados = [
     label: 'Aplazado'
   }
 ];
-
 const servicios = [
   {
-    value: 'gasolina',
-    label: 'Gasolina'
+    value: 'Mantenimiento periódico',
+    label: 'Mantenimiento periódico',
+    icon: <FontAwesomeIcon icon={fa0}/>
   },
   {
-    value: 'acpm',
-    label: 'ACPM'
+    value: 'Cambio de aceite',
+    label: 'Cambio de aceite'
   },
   {
-    value: 'gasolina-extra',
-    label: 'Gasolina Extra'
-  }
+    value: 'Cambio de neumáticos',
+    label: 'Cambio de neumáticos'
+  },
+  {
+    value: 'Cambio de batería',
+    label: 'Cambio de batería'
+  },
+  {
+    value: 'Cambio de frenos',
+    label: 'Cambio de frenos'
+  },
+  {
+    value: 'Cambio de amortiguadores',
+    label: 'Cambio de amortiguadores'
+  },
+  {
+    value: 'Cambio de embrague',
+    label: 'Cambio de embrague'
+  },
+  {
+    value: 'Cambio de correa de Bujias',
+    label: 'Cambio de correa de Bujias'
+  },
+  {
+    value: 'Motor',
+    label: 'Motor'
+  },
+  {
+    value: 'Liquido de frenos',
+    label: 'Liquido de frenos'
+  },
+  {
+    value: 'Actualización de kilometraje',
+    label: 'Actualización de kilometraje'
+  },
 ];
 
+
+
 export const MaintenanceCreate = (props) => {
+
+  const token = localStorage.getItem('Token');
+  const [vehicles, setVehicles] = useState([]);
+  useEffect(() => {
+      axios
+    .get("http://localhost:8000/car/", {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    })
+    .then((res) => { 
+    if (res.data !== "No cars"){
+      setVehicles(res.data);}; 
+  })}, []);
+
   const [values, setValues] = useState({
     placa:"",
     fecha:"",
@@ -65,7 +117,6 @@ export const MaintenanceCreate = (props) => {
   const handleSubmit = (e) =>{
     e.preventDefault();
     console.log("SU");
-
     if (typeof window !== 'undefined') {
       const token = localStorage.getItem('Token');      
       axios.post("http://localhost:8000/maintenance/", {
@@ -124,8 +175,19 @@ export const MaintenanceCreate = (props) => {
                 value={values.placa}
                 onChange={handleChange}
                 required
+                select
+                SelectProps={{ native: true }}
                 variant="outlined"
-              />
+              >
+                {vehicles.map((option) => (
+                  <option
+                    key={option.placa}
+                    value={option.placa}
+                  >
+                    {option.placa}
+                  </option>
+                ))}
+              </TextField>
             </Grid>
             <Grid
               item
@@ -204,8 +266,10 @@ export const MaintenanceCreate = (props) => {
                   <option
                     key={option.value}
                     value={option.value}
+                    icon={option.icon}
                   >
                     {option.label}
+              
                   </option>
                 ))}
               </TextField>

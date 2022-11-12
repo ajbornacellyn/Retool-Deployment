@@ -1,7 +1,30 @@
 import { Avatar, Box, Card, CardContent, Grid, LinearProgress, Typography } from '@mui/material';
 import InsertChartIcon from '@mui/icons-material/InsertChartOutlined';
+import { useState } from 'react';
+import axios from 'axios';
+import { useEffect } from 'react';
 
-export const TasksProgress = (props) => (
+export const TasksProgress = (props) => {
+  const token = localStorage.getItem('Token');
+  const [Mantenimientos, setMaintenances] = useState([]);
+  useEffect(() => {
+      axios
+    .get("http://localhost:8000/maintenance/", {
+      headers: {
+        Authorization: `Token ${token}`,
+      },
+    })
+    .then((res) => {
+    if (res.data !== "No maintenances"){
+      setMaintenances(res.data);};
+  })
+
+  }, []);
+
+  if(Mantenimientos !== "Not maintenances" && Mantenimientos !== "No cars" && Mantenimientos.length>0){
+    var kilCurrent = Mantenimientos[Mantenimientos.length-1].kilometraje;
+  }
+  return (
   <Card
     sx={{ height: '100%' }}
     {...props}
@@ -18,13 +41,13 @@ export const TasksProgress = (props) => (
             gutterBottom
             variant="overline"
           >
-            TASKS PROGRESS
+            Kilometraje actual
           </Typography>
           <Typography
             color="textPrimary"
             variant="h4"
           >
-            75.5%
+            {kilCurrent}
           </Typography>
         </Grid>
         <Grid item>
@@ -47,4 +70,5 @@ export const TasksProgress = (props) => (
       </Box>
     </CardContent>
   </Card>
-);
+  );
+};

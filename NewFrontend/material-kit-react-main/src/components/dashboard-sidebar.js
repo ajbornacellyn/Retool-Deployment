@@ -22,13 +22,10 @@ import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import ForumIcon from '@mui/icons-material/Forum';
 import HelpIcon from '@mui/icons-material/Help';
 
+
 const items = [
   /*
-  {
-    href: '/',
-    icon: (<ChartBarIcon fontSize="small" />),
-    title: 'Dashboard'
-  },
+
   {
     href: '/customers',
     icon: (<UsersIcon fontSize="small" />),
@@ -59,6 +56,12 @@ const items = [
   },
 
 */
+{
+  href: '/',
+  icon: (<ChartBarIcon fontSize="small" />),
+  title: 'Dashboard'
+},
+
 {
   href: '/vehicles',
   icon: (<DirectionsCarIcon fontSize="small" />),

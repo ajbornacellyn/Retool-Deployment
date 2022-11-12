@@ -1,8 +1,36 @@
 import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 import PeopleIcon from '@mui/icons-material/PeopleOutlined';
+import { useEffect } from 'react';
+import { useState } from 'react';
+import axios from 'axios';
 
-export const TotalCustomers = (props) => (
+export const TotalCustomers = (props) => {
+
+  const token = localStorage.getItem('Token');
+    const [Mantenimientos, setMaintenances] = useState([]);
+    useEffect(() => {
+        axios
+      .get("http://localhost:8000/maintenance/", {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => {
+      if (res.data !== "No maintenances"){
+        setMaintenances(res.data);};
+    })
+
+    }, []);
+    if(Mantenimientos !== "Not maintenances" && Mantenimientos !== "No cars" && Mantenimientos.length>0){
+        var total = Mantenimientos.length;
+        var LastMant = Mantenimientos[Mantenimientos.length-1].fecha;
+        Mantenimientos.forEach((item) => {
+            total += item.costo
+        })
+    }
+
+  return (
   <Card {...props}>
     <CardContent>
       <Grid
@@ -16,13 +44,14 @@ export const TotalCustomers = (props) => (
             gutterBottom
             variant="overline"
           >
-            TOTAL CUSTOMERS
+            TOTAL de Mantenimientos
           </Typography>
           <Typography
             color="textPrimary"
             variant="h4"
           >
-            1,6k
+            {total}
+            
           </Typography>
         </Grid>
         <Grid item>
@@ -51,15 +80,15 @@ export const TotalCustomers = (props) => (
             mr: 1
           }}
         >
-          16%
         </Typography>
         <Typography
           color="textSecondary"
           variant="caption"
         >
-          Since last month
+          último mantenimiento: {LastMant}
         </Typography>
       </Box>
     </CardContent>
   </Card>
 );
+};

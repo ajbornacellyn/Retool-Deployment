@@ -1,8 +1,37 @@
 import { Avatar, Box, Card, CardContent, Grid, Typography } from '@mui/material';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 import MoneyIcon from '@mui/icons-material/Money';
+import { useState } from 'react';
+import axios from 'axios';
+import { useEffect } from 'react';
 
-export const Budget = (props) => (
+
+export const Budget = ({props, ...React }) => {
+
+    const token = localStorage.getItem('Token');
+    const [Mantenimientos, setMaintenances] = useState([]);
+    useEffect(() => {
+        axios
+      .get("http://localhost:8000/maintenance/", {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((res) => {
+      if (res.data !== "No maintenances"){
+        setMaintenances(res.data);};
+    })
+
+    }, []);
+    if(Mantenimientos !== "Not maintenances" && Mantenimientos !== "No cars" && Mantenimientos.length>0){
+        var total = 0;
+        var LastCost = Mantenimientos[Mantenimientos.length-1].costo; 
+        Mantenimientos.forEach((item) => {
+            total += item.costo
+        })
+    }
+
+  return (
   <Card
     sx={{ height: '100%' }}
     {...props}
@@ -19,13 +48,13 @@ export const Budget = (props) => (
             gutterBottom
             variant="overline"
           >
-            BUDGET
+            Costo total 
           </Typography>
           <Typography
             color="textPrimary"
             variant="h4"
           >
-            $24k
+            ${total}
           </Typography>
         </Grid>
         <Grid item>
@@ -55,15 +84,16 @@ export const Budget = (props) => (
           }}
           variant="body2"
         >
-          12%
+          ${LastCost}
         </Typography>
         <Typography
           color="textSecondary"
           variant="caption"
         >
-          Since last month
+          Costo último mant...
         </Typography>
       </Box>
     </CardContent>
   </Card>
-);
+  );
+};
