@@ -7,24 +7,16 @@ import { customers } from '../__mocks__/customers';
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
+import {getMaintenance}  from '../API/maintenancePetitions';
 
 
 const Page = () => {
-  const token = localStorage.getItem('Token');
+  
   const [maintenances, setMaintenances] = useState([]);
   useEffect(() => {
-      axios
-    .get("http://localhost:8000/maintenance/", {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    })
-    .then((res) => {
-    if (res.data !== "No maintenances"){
-      setMaintenances(res.data);};
-  })
+    getMaintenance(setMaintenances);  
 
-}, []);
+  }, []);
     return(
     <>
       <Head>

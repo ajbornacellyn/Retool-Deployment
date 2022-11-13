@@ -5,6 +5,10 @@ ReactSession.setStoreType("localStorage");
 import { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {fa0 } from '@fortawesome/free-solid-svg-icons';
+import {createMaintenance} from '../../API/maintenancePetitions';
+import {deleteMaintenance} from '../../API/maintenancePetitions';
+import {getVehicles} from '../../API/carPetitions';
+import Router from 'next/router';
 
 import {
   Box,
@@ -86,16 +90,8 @@ export const MaintenanceCreate = (props) => {
   const token = localStorage.getItem('Token');
   const [vehicles, setVehicles] = useState([]);
   useEffect(() => {
-      axios
-    .get("http://localhost:8000/car/", {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    })
-    .then((res) => { 
-    if (res.data !== "No cars"){
-      setVehicles(res.data);}; 
-  })}, []);
+      getVehicles(setVehicles)
+  }, []);
 
   const [values, setValues] = useState({
     placa:"",
@@ -104,6 +100,7 @@ export const MaintenanceCreate = (props) => {
     descripcion:"",
     estado:"",
     kilometraje:"",
+    costo:"",
   });
 
   const handleChange = (event) => {
@@ -116,33 +113,8 @@ export const MaintenanceCreate = (props) => {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    console.log("SU");
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('Token');      
-      axios.post("http://localhost:8000/maintenance/", {
-          placa: values.placa,
-          descripcion: values.descripcion,
-          estado: values.estado,
-          servicio: values.servicio,
-          fecha: values.fecha,
-          kilometraje: values.kilometraje,
-          costo: 0,
-      },{
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-      .then((res) => {
-        maintenances = res.data;
-      })
-      .catch((err) => {});
-
-      // 👉️ can use localStorage here
-  } else {
-      console.log('You are on the server')
-      // 👉️ can't use localStorage
-
-  }
+    createMaintenance(values, token);
+    Router.reload();
 };
 
   return (
@@ -284,6 +256,23 @@ export const MaintenanceCreate = (props) => {
                 label="Kilometraje"
                 name="kilometraje"
                 value={values.kilometraje}
+                onChange={handleChange}
+                type="number"
+                required
+                variant="outlined"
+              />
+
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Costo"
+                name="costo"
+                value={values.costo}
                 onChange={handleChange}
                 type="number"
                 required

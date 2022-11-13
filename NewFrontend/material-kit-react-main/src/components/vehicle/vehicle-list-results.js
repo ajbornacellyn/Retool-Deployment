@@ -24,6 +24,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { VehicleEdit } from '../vehicle/vehicle-edit';
 import * as React from 'react';
+import {deleteVehicle} from '../../API/carPetitions';
+
+
 ReactSession.setStoreType("localStorage");
 
 const style = {
@@ -60,28 +63,6 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
     setPage(newPage);
   };
 
-  const deleteVehicle = (vehicle) =>{
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('Token');
-      axios
-      .delete("http://127.0.0.1:8000/car/", {
-        headers: { Authorization: `Token ${token}` },
-        data: {"placa": vehicle.placa}
-    })
-      .then((res) => {
-        console.log(res);
-        // refresh table
-      })
-      // 👉️ can use localStorage here
-  } else {
-      console.log('You are on the server')
-      // 👉️ can't use localStorage
-
-  }
-    alert(vehicle.placa);
-
-  };
-
   const editVehicle = (vehicle) =>{
     setSelectedVehicle(vehicle);
     handleOpen();
@@ -92,8 +73,7 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
   const handleOpen = () => { setOpen(true);};
   const handleClose = () => setOpen(false);
 
-
-  if(vehicles.length === undefined) return <div>No hay vehiculos</div>;
+  if(vehicles == "No cars") return <div>No hay vehiculos</div>;
   return (
     <Card {...rest}>
       <PerfectScrollbar>

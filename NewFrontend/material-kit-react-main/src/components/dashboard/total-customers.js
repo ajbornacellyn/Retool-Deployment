@@ -24,10 +24,11 @@ export const TotalCustomers = (props) => {
     }, []);
     if(Mantenimientos !== "Not maintenances" && Mantenimientos !== "No cars" && Mantenimientos.length>0){
         var total = Mantenimientos.length;
-        var LastMant = Mantenimientos[Mantenimientos.length-1].fecha;
-        Mantenimientos.forEach((item) => {
-            total += item.costo
-        })
+        var LastMantDate = Mantenimientos.map((item) => item.id)
+        var LastMantDate = LastMantDate[LastMantDate.length-1]
+
+        var service = Mantenimientos.map((item) => item.servicio)
+        var service = service[service.length-1]
     }
 
   return (
@@ -85,7 +86,8 @@ export const TotalCustomers = (props) => {
           color="textSecondary"
           variant="caption"
         >
-          último mantenimiento: {LastMant}
+          último mantenimiento: {LastMantDate} Servicio: {service}
+
         </Typography>
       </Box>
     </CardContent>

@@ -6,24 +6,18 @@ import { DashboardLayout } from '../components/dashboard-layout';
 import { customers } from '../__mocks__/customers';
 import axios from "axios";
 import { useEffect, useState } from 'react';
+import {getVehicles} from '../API/carPetitions';
 
 
 
 const Page = () => {
-  const token = localStorage.getItem('Token');
   const [vehicles, setVehicles] = useState([]);
+  const actualiceVehicles= (e) => {
+    getVehicles(setVehicles);
+  }
   useEffect(() => {
-      axios
-    .get("http://localhost:8000/car/", {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    })
-    .then((res) => { 
-    if (res.data !== "No cars"){
-      setVehicles(res.data);}; 
-  })}, []);
-    
+    getVehicles(setVehicles);
+    }, []);
     return(
     <>
       <Head>

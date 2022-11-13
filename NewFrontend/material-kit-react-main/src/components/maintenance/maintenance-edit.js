@@ -10,6 +10,8 @@ import {
   Grid,
   TextField
 } from '@mui/material';
+import { editMaintenance } from '../../API/maintenancePetitions';
+import Router from 'next/router';
 
 const marcas = [
   {
@@ -115,25 +117,8 @@ export const MaintenanceEdit = ({maintenance, props}) => {
   const handleSubmit = (e) =>{
     e.preventDefault();
     console.log("SU");
-    axios
-        .post("http://localhost:8000/edit_car/", {
-            placa: values.placa,
-            marca: values.marca,
-            modelo: values.linea,
-            año: values.modelo,
-            combustible: values.combustible,
-            kilometraje: values.kilometraje,
-        })
-        .then((res) => {
-          console.log(res.data);
-          if (res.data){
-            window.location.reload();
-          }else{
-            console.log(res);
-          };
-        })
-        .catch((err) => {});
-
+    editMaintenance(values)
+    Router.reload();
   };
 
   return (

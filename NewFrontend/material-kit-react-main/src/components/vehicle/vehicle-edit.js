@@ -11,6 +11,8 @@ import {
   Grid,
   TextField
 } from '@mui/material';
+import { editVehicle } from '../../API/carPetitions';
+import Router from 'next/router';
 ReactSession.setStoreType("localStorage");
 
 
@@ -117,34 +119,8 @@ export const VehicleEdit = ({vehicle, props}) => {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    console.log("SU");
-    axios
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('Token');
-      axios
-      .put("http://127.0.0.1:8000/car/"+vehicle.placa+"/", {
-          placa: values.placa,
-          marca: values.marca,
-          modelo: values.modelo,
-          combustible: values.combustible,
-          kilometraje: values.kilometraje,
-      },{
-        headers: {
-          "Authorization": `Token ${token}`
-        }
-
-      })
-      .then((res) => {
-        console.log(values);
-      })
-      .catch((err) => {});
-
-      // 👉️ can use localStorage here
-  } else {
-      console.log('You are on the server')
-      // 👉️ can't use localStorage
-
-  }
+    editVehicle(vehicle.placa,values)
+    Router.reload();
   };
 
   return (

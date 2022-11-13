@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { ReactSession } from 'react-client-session';
 import axios from "axios";
+import {createVehicle} from '../../API/carPetitions';
+import {getVehicles} from '../../API/carPetitions';
+import { useEffect } from 'react';
+import Router from 'next/router';
 ReactSession.setStoreType("localStorage");
 
 import {
@@ -13,6 +17,7 @@ import {
   Grid,
   TextField
 } from '@mui/material';
+import { set } from 'date-fns';
 
 const marcas = [
   {
@@ -116,36 +121,9 @@ export const VehicleCreate = (props) => {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    console.log("SU");
-
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('Token');
-      axios
-      .post("http://localhost:8000/car/", {
-          placa: values.placa,
-          marca: values.marca,
-          modelo: values.modelo,
-          motor: values.motor,
-          combustible: values.combustible,
-          kilometraje: values.kilometraje,
-      },{
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      })
-      .then((res) => {
-        vehicles = res.data;
-        console.log('Ok')
-        
-      })
-      .catch((err) => {});
-      // 👉️ can use localStorage here
-  } else {
-      console.log('You are on the server')
-      // 👉️ can't use localStorage
-
+    createVehicle(values)
+    Router.reload();
   }
-};
 
   return (
     <form

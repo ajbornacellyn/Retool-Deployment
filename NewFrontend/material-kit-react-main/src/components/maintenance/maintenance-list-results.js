@@ -23,7 +23,9 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { MaintenanceEdit } from '../maintenance/maintenance-edit';
+import {deleteMaintenance } from '../../API/maintenancePetitions';
 import * as React from 'react';
+import Router from 'next/router';
 ReactSession.setStoreType("localStorage");
 
 const style = {
@@ -52,24 +54,9 @@ export const MaintenanceListResults = ({ maintenances, ...rest }) => {
     setPage(newPage);
   };
 
-  const deleteMaintenance = (maintenance) =>{
-    if (typeof window !== 'undefined') {
-      const token = localStorage.getItem('Token');
-      axios
-      .delete("http://127.0.0.1:8000/maintenance/", {
-        headers: { Authorization: `Token ${token}` },
-        data: {"id": maintenance.id}
-    })
-      .then((res) => {
-        console.log(res);
-        // refresh table
-      })
-      // 👉️ can use localStorage here
-  } else {
-      console.log('You are on the server')
-      // 👉️ can't use localStorage
-
-  }
+  const deleteMaintenances = (maintenance) =>{
+    deleteMaintenance(maintenance.id)
+    Router.reload()
   };
 
   const editMaintenance = (maintenance) =>{
@@ -141,7 +128,7 @@ export const MaintenanceListResults = ({ maintenances, ...rest }) => {
                       {maintenance.estado}
                     </TableCell>
                     <TableCell>
-                      <IconButton aria-label="delete" onClick={() => {deleteMaintenance(maintenance);}}>
+                      <IconButton aria-label="delete" onClick={() => {deleteMaintenances(maintenance);}}>
                         <DeleteIcon />
                       </IconButton>
                       <IconButton aria-label="edit" onClick={() => {editMaintenance(maintenance);}}>
