@@ -3,8 +3,6 @@ import { ReactSession } from 'react-client-session';
 import axios from "axios";
 ReactSession.setStoreType("localStorage");
 import { useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {fa0 } from '@fortawesome/free-solid-svg-icons';
 import {createMaintenance} from '../../API/maintenancePetitions';
 import {deleteMaintenance} from '../../API/maintenancePetitions';
 import {getVehicles} from '../../API/carPetitions';
