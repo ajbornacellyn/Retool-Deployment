@@ -16,7 +16,9 @@ import {
 } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { SeverityPill } from '../severity-pill';
-
+import { useEffect,useState } from 'react';
+import { getMaintenance } from '../../API/maintenancePetitions';
+import HelpIcon from '@mui/icons-material/Help';
 const orders = [
   {
     id: uuid(),
@@ -80,61 +82,46 @@ const orders = [
   }
 ];
 
-export const LatestOrders = (props) => (
+
+export const LatestOrders = (props) => {
+  const [maintenances, setMaintenances] = useState([]);
+  useEffect(() => {
+    getMaintenance(setMaintenances);  
+
+  }, []);
+
+  return (
   <Card {...props}>
-    <CardHeader title="Latest Orders" />
+    <CardHeader title="Últimos servicios" />
     <PerfectScrollbar>
-      <Box sx={{ minWidth: 800 }}>
+      <Box sx={{ minWidth: 200 }}>
         <Table>
           <TableHead>
             <TableRow>
               <TableCell>
-                Order Ref
+                Fecha
               </TableCell>
               <TableCell>
-                Customer
-              </TableCell>
-              <TableCell sortDirection="desc">
-                <Tooltip
-                  enterDelay={300}
-                  title="Sort"
-                >
-                  <TableSortLabel
-                    active
-                    direction="desc"
-                  >
-                    Date
-                  </TableSortLabel>
-                </Tooltip>
-              </TableCell>
-              <TableCell>
-                Status
+                servicio
+
+
               </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {orders.map((order) => (
+            {maintenances.map((mantenimiento) => (
               <TableRow
                 hover
-                key={order.id}
+                
+                key={mantenimiento.id}
+                
+
               >
-                <TableCell>
-                  {order.ref}
+                 <TableCell>
+                  {mantenimiento.fecha}
                 </TableCell>
                 <TableCell>
-                  {order.customer.name}
-                </TableCell>
-                <TableCell>
-                  {format(order.createdAt, 'dd/MM/yyyy')}
-                </TableCell>
-                <TableCell>
-                  <SeverityPill
-                    color={(order.status === 'delivered' && 'success')
-                    || (order.status === 'refunded' && 'error')
-                    || 'warning'}
-                  >
-                    {order.status}
-                  </SeverityPill>
+                  {mantenimiento.servicio}
                 </TableCell>
               </TableRow>
             ))}
@@ -142,21 +129,6 @@ export const LatestOrders = (props) => (
         </Table>
       </Box>
     </PerfectScrollbar>
-    <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'flex-end',
-        p: 2
-      }}
-    >
-      <Button
-        color="primary"
-        endIcon={<ArrowRightIcon fontSize="small" />}
-        size="small"
-        variant="text"
-      >
-        View all
-      </Button>
-    </Box>
   </Card>
 );
+};
