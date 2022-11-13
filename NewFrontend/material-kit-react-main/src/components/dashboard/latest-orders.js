@@ -89,46 +89,51 @@ export const LatestOrders = (props) => {
     getMaintenance(setMaintenances);  
 
   }, []);
-
-  return (
-  <Card {...props}>
-    <CardHeader title="Últimos servicios" />
-    <PerfectScrollbar>
-      <Box sx={{ minWidth: 200 }}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>
-                Fecha
-              </TableCell>
-              <TableCell>
-                servicio
-
-
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {maintenances.map((mantenimiento) => (
-              <TableRow
-                hover
-                
-                key={mantenimiento.id}
-                
-
-              >
-                 <TableCell>
-                  {mantenimiento.fecha}
+  if(maintenances !== "Not maintenances" && maintenances !== "No cars" && maintenances.length>0){
+    return (
+    <Card {...props}>
+      <CardHeader title="Últimos servicios" />
+      <PerfectScrollbar>
+        <Box sx={{ minWidth: 200 }}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>
+                  Fecha
                 </TableCell>
                 <TableCell>
-                  {mantenimiento.servicio}
+                  servicio
+
+
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Box>
-    </PerfectScrollbar>
-  </Card>
-);
+            </TableHead>
+            <TableBody>
+              {maintenances.map((mantenimiento) => (
+                <TableRow
+                  hover
+                  
+                  key={mantenimiento.id}
+                  
+
+                >
+                  <TableCell>
+                    {mantenimiento.fecha}
+                  </TableCell>
+                  <TableCell>
+                    {mantenimiento.servicio}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Box>
+      </PerfectScrollbar>
+    </Card>
+  );
+  
+  }else{
+    return <div>No hay mantenimientos registrados.</div>;
+    
+  }
 };

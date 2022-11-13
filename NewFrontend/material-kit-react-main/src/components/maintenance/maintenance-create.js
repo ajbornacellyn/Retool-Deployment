@@ -37,7 +37,6 @@ const servicios = [
   {
     value: 'Mantenimiento periódico',
     label: 'Mantenimiento periódico',
-    icon: <FontAwesomeIcon icon={fa0}/>
   },
   {
     value: 'Cambio de aceite',
@@ -146,7 +145,6 @@ export const MaintenanceCreate = (props) => {
                 onChange={handleChange}
                 required
                 select
-                SelectProps={{ native: true }}
                 variant="outlined"
               >
                 {vehicles.map((option) => (
