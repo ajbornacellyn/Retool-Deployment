@@ -38,8 +38,8 @@ class RegisterView(APIView):
             return Response({"message": "Username already exists"})
         else:
             if serializer.is_valid(raise_exception=True):
-                serializer.save()
-                return  Response(serializer.data)
+                User.objects.create_user(username=request.data['username'], password=request.data['password'])
+                return  Response({"message": "User created successfully"})
 
             
         
@@ -67,9 +67,8 @@ class ManteinanceView(APIView):
             cars = Carro.objects.filter(placa=request.data['placa'])
             if len(cars) > 0:
                 auto = Carro.objects.get(placa=request.data['placa'])
-                mant = mantenimiento.objects.create( placa= auto, descripcion=request.data['descripcion'], kilometraje=request.data['kilometraje'], estado=request.data['estado'], servicio=request.data['servicio'], fecha = request.data['fecha'], costo = request.data['costo'])
-                mant.save()
-                return  Response(serializer.data)
+                mantenimiento.objects.create( placa= auto, descripcion=request.data['descripcion'], kilometraje=request.data['kilometraje'], estado=request.data['estado'], servicio=request.data['servicio'], fecha = request.data['fecha'], costo = request.data['costo'])
+                return  Response({"message": "Maintenance created successfully"})
             else:
                 return Response("Car not found")
         else:
@@ -114,9 +113,8 @@ class CarView(APIView):
             return Response({"message": "Car already exists"})
         else: 
             if serializer.is_valid(raise_exception=True):
-                carro = Carro.objects.create(placa= request.data['placa'], user = current_user, marca = request.data['marca'], modelo = request.data['modelo'], combustible = request.data['combustible'], kilometraje = request.data['kilometraje'])
-                carro.save()
-                return  Response(serializer.data)
+                Carro.objects.create(placa= request.data['placa'], user = current_user, marca = request.data['marca'], modelo = request.data['modelo'], combustible = request.data['combustible'], kilometraje = request.data['kilometraje'])
+                return  Response({"message": "Car created successfully"})
             else:
                 return  Response("Invalid Car")
 
