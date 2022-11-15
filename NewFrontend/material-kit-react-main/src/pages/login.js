@@ -36,8 +36,6 @@ const Login = () => {
         if (res.data== "Invalid credentials"){
           alert("Invalid credentials");
         }else{
-
-
           console.log("TOKEN ANTES"+localStorage.getItem("Token "));
           console.log(res.data.token);
           localStorage.clear();

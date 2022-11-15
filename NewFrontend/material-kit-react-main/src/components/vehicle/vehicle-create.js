@@ -122,14 +122,13 @@ export const VehicleCreate = (props) => {
   const handleSubmit = (e) =>{
     e.preventDefault();
     createVehicle(values)
-    Router.reload();
+
   }
 
   return (
     <form
       onSubmit={handleSubmit}
       autoComplete="off"
-      noValidate
       {...props}
     >
       <Card>
@@ -169,10 +168,10 @@ export const VehicleCreate = (props) => {
                 name="marca"
                 value={values.marca}
                 onChange={handleChange}
-                required
                 select
                 SelectProps={{ native: true }}
                 variant="outlined"
+                required
               >
                 {marcas.map((option) => (
                   <option
@@ -195,8 +194,8 @@ export const VehicleCreate = (props) => {
                 name="linea"
                 value={values.linea}
                 onChange={handleChange}
-                required
                 variant="outlined"
+                required
               />
             </Grid>
             <Grid
@@ -204,14 +203,13 @@ export const VehicleCreate = (props) => {
               md={6}
               xs={12}
             >
-              <TextField
+              <TextField required
                 fullWidth
                 label="Modelo"
                 name="modelo"
                 value={values.modelo}
                 onChange={handleChange}
                 type="number"
-                required
                 variant="outlined"
               />
             </Grid>

@@ -33,15 +33,16 @@ class RegisterView(APIView):
     serializer_class = RegisterSerializer
   
     def post(self, request):
-        
-        print(request.data)
         serializer = RegisterSerializer(data=request.data)
-        print(serializer)
-        if serializer.is_valid(raise_exception=True):
-            user = User.objects.create_user(request.data['username'], request.data['email'], password=request.data['password'])
-            user.save()
-            #serializer.save()
-            return  Response(serializer.data)
+        if User.objects.filter(username=request.data['username']).exists():
+            return Response({"message": "Username already exists"})
+        else:
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return  Response(serializer.data)
+
+            
+        
 
 class LoginView(APIView):
     
@@ -98,9 +99,9 @@ class ManteinanceView(APIView):
         if len(mant) > 0:
             mant = mantenimiento.objects.get(id = idMant)
             mant.delete()
-            return Response({ "response": "mantenimiento eliminado" })
+            return Response({ "message": "Maintenance deleted" })
         else:
-            return Response("mantenimiento no encontrado")
+            return Response({ "message": "Maintenance not deleted" })
 
         
 
@@ -109,12 +110,15 @@ class CarView(APIView):
     def post(self, request):
         current_user = request.user
         serializer = CarSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            carro = Carro.objects.create(placa= request.data['placa'], user = current_user, marca = request.data['marca'], modelo = request.data['modelo'], combustible = request.data['combustible'], kilometraje = request.data['kilometraje'])
-            carro.save()
-            return  Response(serializer.data)
-        else:
-            return  Response("Invalid Car")
+        if Carro.objects.filter(placa=request.data['placa']).exists():
+            return Response({"message": "Car already exists"})
+        else: 
+            if serializer.is_valid(raise_exception=True):
+                carro = Carro.objects.create(placa= request.data['placa'], user = current_user, marca = request.data['marca'], modelo = request.data['modelo'], combustible = request.data['combustible'], kilometraje = request.data['kilometraje'])
+                carro.save()
+                return  Response(serializer.data)
+            else:
+                return  Response("Invalid Car")
 
     def get(self, request):
         current_user = request.user
@@ -147,9 +151,9 @@ class CarView(APIView):
         if len(cars) > 0:
             carro = Carro.objects.get(placa = placa)
             carro.delete()
-            return Response({ "response": "Carro eliminado" })
+            return Response({ "message": "Car deleted" })
         else:
-            return Response("Carro no encontrado")
+            return Response({ "message": "Car not found" })
 
 
 class OwnerView(APIView):

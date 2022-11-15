@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import Router from 'next/router';
 
 axios.interceptors.request.use(
     (config) => {
@@ -29,14 +29,30 @@ export const createMaintenance = async (maintenance) => {
           kilometraje: maintenance.kilometraje,
           costo: maintenance.costo,
       }
-    )
+    ).then((res) => {
+        if (res.data.message === "Maintenance already exists"){
+            alert("Maintenance already exists");
+        }else{
+            alert("Maintenance created");
+            Router.reload();
+        }
+    }
+)
 }
 
 export const deleteMaintenance = async (maintenance) => {
     axios
       .delete("http://127.0.0.1:8000/maintenance/", {
-        data: {"id": maintenance.id}
-    })
+        data: {"id": maintenance}
+    }).then((res) => {
+        if (res.data.message === "Maintenance deleted"){
+            alert("Maintenance deleted");
+            Router.reload();
+        }else{
+            alert("Maintenance not deleted");
+        }
+    }
+)
 }
 
 export const editMaintenance = async (maintenance) => {

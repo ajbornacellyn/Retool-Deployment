@@ -56,7 +56,6 @@ export const MaintenanceListResults = ({ maintenances, ...rest }) => {
 
   const deleteMaintenances = (maintenance) =>{
     deleteMaintenance(maintenance.id)
-    Router.reload()
   };
 
   const editMaintenance = (maintenance) =>{

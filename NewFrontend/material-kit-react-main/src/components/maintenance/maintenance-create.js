@@ -89,6 +89,7 @@ export const MaintenanceCreate = (props) => {
   useEffect(() => {
       getVehicles(setVehicles)
   }, []);
+  
 
   const [values, setValues] = useState({
     placa:"",
@@ -110,15 +111,24 @@ export const MaintenanceCreate = (props) => {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    createMaintenance(values, token);
-    Router.reload();
+    createMaintenance(values);
 };
 
+console.log(vehicles);
+if (vehicles === "No cars") {
+    return (
+      <div>
+        <h1>No hay vehiculos registrados, por favor registre su vehiculo</h1>
+      </div>
+    );
+} else {
+  const vehicle ={placa: '', marca: '', modelo: '', anio: '', kilometraje: '', estado: ''};
+  vehicles.push(vehicle);
   return (
     <form
       onSubmit={handleSubmit}
       autoComplete="off"
-      noValidate
+
       {...props}
     >
       <Card>
@@ -142,10 +152,11 @@ export const MaintenanceCreate = (props) => {
                 label="Placa"
                 name="placa"
                 value={values.placa}
-                onChange={handleChange}
                 required
                 select
                 variant="outlined"
+                onChange={handleChange}
+                SelectProps={{ native: true }}
               >
                 {vehicles.map((option) => (
                   <option
@@ -297,4 +308,5 @@ export const MaintenanceCreate = (props) => {
       </Card>
     </form>
   );
+  }
 };

@@ -1,4 +1,6 @@
 import axios from "axios";
+import toastr from "toastr";
+import Router from "next/router";
 
 axios.interceptors.request.use(
     (config) => {
@@ -21,7 +23,15 @@ export const deleteVehicle = async (vehicle) => {
     axios
       .delete("http://127.0.0.1:8000/car/", {
         data: {"placa": vehicle.placa}
-    })
+    }).then((res) => {
+        if (res.data.message === "Car deleted"){
+            alert("Car deleted");
+            Router.reload();
+        }else{
+            toastr.error("Car not deleted");
+        }
+    }
+)
 }
 
 export const createVehicle = async (vehicle) => {
@@ -33,7 +43,15 @@ export const createVehicle = async (vehicle) => {
           motor: vehicle.motor,
           combustible: vehicle.combustible,
           kilometraje: vehicle.kilometraje,}       
-        )
+        ).then((res) => {
+            if (res.data.message === "Car already exists"){
+                alert("Car already exists");
+            }else{
+                alert("Car created");
+                Router.reload();
+            }
+        }
+    )
 }
 
 export const editVehicle = async (placa, vehicle) => {
@@ -45,4 +63,5 @@ export const editVehicle = async (placa, vehicle) => {
         combustible: vehicle.combustible,
         kilometraje: vehicle.kilometraje,
     })
+
 }

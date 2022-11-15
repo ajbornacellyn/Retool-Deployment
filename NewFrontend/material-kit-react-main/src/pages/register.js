@@ -4,6 +4,7 @@ import Router from 'next/router';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+
 import {
   Box,
   Button,
@@ -59,8 +60,8 @@ const Register = () => {
       })
       .then((res) => {
         console.log(res.data);
-        if (res.data== "User already exists"){
-          alert("User already exists");
+        if (res.data.message== "Username already exists"){
+          alert("Username already exists");
         }else{
           axios.post('http://localhost:8000/login/', {
             username: formik.values.firstName,
