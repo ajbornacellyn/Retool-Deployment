@@ -191,7 +191,7 @@ class TallerView(APIView):
     def get(self, request):
         tallers = taller.objects.all()
         if len(tallers) > 0:
-            detail = [ {"id": detail.id,"nombre": detail.nombre,"direccion": detail.direccion, "telefono": detail.telefono} 
+            detail = [ {"id": detail.id,"nombre": detail.nombre,"direccion": detail.direccion, "telefono": detail.telefono,"correo": detail.correo,"ciudad": detail.ciudad} 
             for detail in tallers]
             return Response(detail)
 

@@ -40,7 +40,7 @@ class OwnSerializer(serializers.ModelSerializer):
 class TallerSerializer(serializers.ModelSerializer):
     class Meta:
         model = taller
-        fields = ['id', 'nombre', 'direccion', 'telefono']
+        fields = ['id', 'nombre', 'direccion', 'telefono','correo','ciudad']
 
 
 class encargadoSerializer(serializers.ModelSerializer):

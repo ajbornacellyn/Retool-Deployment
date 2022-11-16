@@ -40,10 +40,11 @@ class Carro(models.Model):
 class taller(models.Model):
     id = models.IntegerField(primary_key=True)
     carro = models.ManyToManyField(Carro, null=True, blank=True)
-    nombre = models.CharField(max_length=30)
-    direccion = models.CharField(max_length=30)
-    telefono = models.CharField(max_length=30)
-    correo = models.CharField(max_length=30)
+    nombre = models.CharField(max_length=30,null=True, blank=True)
+    direccion = models.CharField(max_length=30,null=True, blank=True)
+    telefono = models.CharField(max_length=30,null=True, blank=True)
+    correo = models.CharField(max_length=30,null=True, blank=True)
+    ciudad = models.CharField(max_length=30,null=True, blank=True)
 
 class encargado(models.Model):
     Id = models.IntegerField(primary_key=True)

@@ -21,8 +21,8 @@ const Register = () => {
   const formik = useFormik({
     initialValues: {
       email: '',
-      firstName: '',
-      lastName: '',
+      nombreUsuario: '',
+      nombreCompleto: '',
       password: '',
     },
     validationSchema: Yup.object({
@@ -31,19 +31,19 @@ const Register = () => {
         .email('Must be a valid email')
         .max(255)
         .required(
-          'Email is required'),
-      firstName: Yup
+          'Se necesita un correo electronico'),
+      nombreUsuario: Yup
         .string()
         .max(255)
-        .required('First name is required'),
-      lastName: Yup
+        .required('Se necesita un nombre de usuario'),
+      nombreCompleto: Yup
         .string()
         .max(255)
-        .required('Last name is required'),
+        .required('Se necesita su nombre completo'),
       password: Yup
         .string()
         .max(255)
-        .required('Password is required'),
+        .required('Se necesita una contraseña'),
       
       /*  policy: Yup
         .boolean()
@@ -54,7 +54,7 @@ const Register = () => {
     }),
     onSubmit: () => {
       axios.post('http://localhost:8000/register/', {
-        username: formik.values.firstName,
+        username: formik.values.nombreUsuario,
         email: formik.values.email,
         password: formik.values.password,
       })
@@ -64,7 +64,7 @@ const Register = () => {
           alert("Username already exists");
         }else{
           axios.post('http://localhost:8000/login/', {
-            username: formik.values.firstName,
+            username: formik.values.nombreUsuario,
             password: formik.values.password,
           })
           .then((res) => {
@@ -120,27 +120,27 @@ const Register = () => {
 }
             </Box>
             <TextField
-              error={Boolean(formik.touched.firstName && formik.errors.firstName)}
+              error={Boolean(formik.touched.nombreUsuario && formik.errors.nombreUsuario)}
               fullWidth
-              helperText={formik.touched.firstName && formik.errors.firstName}
-              label="Nombres"
+              helperText={formik.touched.nombreUsuario && formik.errors.nombreUsuario}
+              label="Nombre de usuario"
               margin="normal"
-              name="firstName"
+              name="nombreUsuario"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              value={formik.values.firstName}
+              value={formik.values.nombreUsuario}
               variant="outlined"
             />
             <TextField
-              error={Boolean(formik.touched.lastName && formik.errors.lastName)}
+              error={Boolean(formik.touched.nombreCompleto && formik.errors.nombreCompleto)}
               fullWidth
-              helperText={formik.touched.lastName && formik.errors.lastName}
-              label="Apellidos"
+              helperText={formik.touched.nombreCompleto && formik.errors.nombreCompleto}
+              label="Nombre completo"
               margin="normal"
-              name="lastName"
+              name="nombreCompleto"
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              value={formik.values.lastName}
+              value={formik.values.nombreCompleto}
               variant="outlined"
             />
             <TextField

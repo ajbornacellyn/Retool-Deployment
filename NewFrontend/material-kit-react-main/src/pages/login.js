@@ -68,18 +68,6 @@ const Login = () => {
 
       {//parte de pruebas
 }
-          <NextLink
-            href="/Auth"
-            passHref
-          >
-            <Button
-              component="a"
-              startIcon={<ArrowBackIcon fontSize="small" />}
-            >
-              Otro login
-            </Button>
-          </NextLink>
-      
           <form onSubmit={formik.handleSubmit}>
             <Box sx={{ my: 3 }}>
               <Typography
@@ -148,7 +136,7 @@ const Login = () => {
               error={Boolean(formik.touched.username && formik.errors.username)}
               fullWidth
               helperText={formik.touched.username && formik.errors.username}
-              label="Correo electronico"
+              label="Nombre de usuario"
               margin="normal"
               name="username"
               onBlur={formik.handleBlur}

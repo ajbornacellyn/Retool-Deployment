@@ -1,5 +1,4 @@
 import axios from "axios";
-import toastr from "toastr";
 import Router from "next/router";
 
 axios.interceptors.request.use(
@@ -28,7 +27,7 @@ export const deleteVehicle = async (vehicle) => {
             alert("Car deleted");
             Router.reload();
         }else{
-            toastr.error("Car not deleted");
+            alert("Car not deleted");
         }
     }
 )
