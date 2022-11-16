@@ -39,7 +39,6 @@
     "react-client-session": "^0.0.8",
     "react-dom": "18.2.0",
     "react-perfect-scrollbar": "1.5.8",
-    "toastr": "^2.1.4",
     "uuid": "9.0.0",
     "yup": "0.32.11"
   },
