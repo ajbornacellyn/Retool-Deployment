@@ -123,7 +123,7 @@ const Register = () => {
               error={Boolean(formik.touched.firstName && formik.errors.firstName)}
               fullWidth
               helperText={formik.touched.firstName && formik.errors.firstName}
-              label="Nombres"
+              label="Nombre de usuario"
               margin="normal"
               name="firstName"
               onBlur={formik.handleBlur}
@@ -135,7 +135,7 @@ const Register = () => {
               error={Boolean(formik.touched.lastName && formik.errors.lastName)}
               fullWidth
               helperText={formik.touched.lastName && formik.errors.lastName}
-              label="Apellidos"
+              label="Nombre completo"
               margin="normal"
               name="lastName"
               onBlur={formik.handleBlur}
