@@ -77,11 +77,14 @@ const items = [
   icon: (<HistoryIcon fontSize="small" />),
   title: 'Historial de mantenimientos'
 }, 
+/*
 {
   href: '/blog',
   icon: (<ForumIcon fontSize="small" />),
   title: 'Blog'
 },
+*/
+
 {
   href: '/commonQuestions',
   icon: (<HelpIcon fontSize="small" />),
