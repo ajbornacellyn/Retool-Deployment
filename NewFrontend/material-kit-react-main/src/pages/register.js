@@ -65,7 +65,8 @@ const Register = () => {
         }else{
           axios.post('http://localhost:8000/login/', {
             username: formik.values.firstName,
-            password: formik.values.password,
+            email: formik.values.email,
+            password: formik.values.password,//falta poner email???
           })
           .then((res) => {
             console.log(res.data);

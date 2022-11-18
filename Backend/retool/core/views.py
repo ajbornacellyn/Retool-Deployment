@@ -38,7 +38,7 @@ class RegisterView(APIView):
             return Response({"message": "Username already exists"})
         else:
             if serializer.is_valid(raise_exception=True):
-                User.objects.create_user(username=request.data['username'], password=request.data['password'])
+                User.objects.create_user(username=request.data['username'], email=request.data['email'], password=request.data['password'])
                 return  Response({"message": "User created successfully"})
 
             
@@ -50,7 +50,7 @@ class LoginView(APIView):
     print(BasicAuthentication.authenticate_credentials)
 
     def post(self, request):
-        user = authenticate(username=request.data['username'], password=request.data['password'])
+        user = authenticate(username=request.data['username'], password=request.data['password'], email=request.data['email'])
         if user is not None:
             token = Token.objects.get_or_create(user=user)
             return  Response(  { 'token': token[0].key } )
