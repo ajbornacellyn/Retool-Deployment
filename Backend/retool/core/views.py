@@ -50,7 +50,7 @@ class LoginView(APIView):
     print(BasicAuthentication.authenticate_credentials)
 
     def post(self, request):
-        user = authenticate(username=request.data['username'], password=request.data['password'], email=request.data['email'])
+        user = authenticate(username=request.data['username'], password=request.data['password'] )
         if user is not None:
             token = Token.objects.get_or_create(user=user)
             return  Response(  { 'token': token[0].key } )
