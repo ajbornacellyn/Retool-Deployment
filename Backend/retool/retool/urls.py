@@ -26,6 +26,7 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name="logout"),
     path('car/', CarView.as_view(), name="car"),
     path("car/<str:placa>/", CarView.as_view(), name="car"),
+    path("carUpdateKm/<str:placa>/", CarUpdateKmView.as_view(), name="carUpdateKm"),
     path('owner/', OwnerView.as_view(), name="owner"),
     path('taller/', TallerView.as_view(), name="taller"),
     path('maintenance/', ManteinanceView.as_view(), name="mantenimiento"),

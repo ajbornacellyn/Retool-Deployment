@@ -154,6 +154,21 @@ class CarView(APIView):
             return Response({ "message": "Car not found" })
 
 
+class CarUpdateKmView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request, placa):
+        cars = Carro.objects.filter(placa = placa)
+        if len(cars) > 0:
+            carro = Carro.objects.get(placa = placa)
+            carro.kilometraje = request.data['kilometraje']
+            carro.save()
+            return Response({"response": "Kilometraje actualizado",
+            "placa":carro.placa, "marca": carro.marca, "modelo": carro.modelo, "kilometraje": carro.kilometraje, "combustible": carro.combustible})
+        else:
+            return Response("Vehiculo no encontrado")
+
+
 class OwnerView(APIView):
 
     authentication_classes = [SessionAuthentication, BasicAuthentication]
