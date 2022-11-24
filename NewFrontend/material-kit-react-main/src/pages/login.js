@@ -19,15 +19,15 @@ const Login = () => {
       username: Yup
         .string()
         .max(255)
-        .required('username is required'),
+        .required('Por favor introduzca su nombre de usuario'),
       password: Yup
         .string()
         .max(255)
-        .required('Password is required')
+        .required('Por favor introduzca su contraseña')
     }),
     onSubmit: () => {
       console.log('submit');
-      axios.post('http://localhost:8000/login/', {
+      axios.post('http://127.0.0.1:8000/login/', {
         username: formik.values.username,
         password: formik.values.password,
       })
@@ -51,7 +51,7 @@ const Login = () => {
       <Head>
         <title>Login</title>
       </Head>
-      
+
       <Box
         component="main"
         sx={{
@@ -61,15 +61,15 @@ const Login = () => {
           minHeight: '100%'
         }}
       >
-        
+
         <Container maxWidth="sm">
 
 
 
       {//parte de pruebas
 }
-        
-      
+
+
           <form onSubmit={formik.handleSubmit}>
             <Box sx={{ my: 3 }}>
               <Typography
@@ -118,7 +118,7 @@ const Login = () => {
                 </Button>
               </Grid>
             </Grid>
-    
+
             <Box
               sx={{
                 pb: 1,

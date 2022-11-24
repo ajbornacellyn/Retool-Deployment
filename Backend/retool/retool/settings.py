@@ -1,3 +1,4 @@
+
 """
 Django settings for retool project.
 
@@ -25,8 +26,8 @@ SECRET_KEY = 'django-insecure--z!+dd&2*x__r1ia8e+-kuk&zcqa74$25eo!jbtab+-!t73l(q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['*']
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -54,7 +55,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     
 ]
-CORS_ORIGIN_ALLOW_ALL = True
 
 
 ROOT_URLCONF = 'retool.urls'
@@ -136,10 +136,11 @@ REST_FRAMEWORK = {
     ]
 }
 
-CORS_ORIGIN_ALLOW_ALL = True
 
 
 #SMTP Configuration
+
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'

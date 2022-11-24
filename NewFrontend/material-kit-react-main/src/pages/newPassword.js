@@ -9,8 +9,8 @@ import { SettingsPassword } from '../components/settings/settings-password';
 import React, { useState } from 'react'
 
 
-const newPassword = () => {
-  const [isSignup, setIsSignup] = useState(false);
+const NewPassword = () => {
+  const [isSignup, seIsSignup] = useState(false);
   const [isLogged, setIsLogged] = useState(true);
   const [inputs, setInputs] = useState({
     name:"",
@@ -31,7 +31,7 @@ const newPassword = () => {
     console.log(isLogged);
     if (!isSignup){
       axios
-            .post("http://localhost:8000/login/", {
+            .post("http://127.0.0.1:8000/login/", {
                 username: inputs.email,
                 password: inputs.password,
                 password2: inputs.password2,
@@ -48,7 +48,7 @@ const newPassword = () => {
             .catch((err) => {});
     }else{
       axios
-            .post("http://localhost:8000/register/", {
+            .post("http://127.0.0.1:8000/register/", {
                 first_name: inputs.name,
                 email: inputs.email,
                 password: inputs.password,
@@ -86,8 +86,8 @@ const newPassword = () => {
         <Container maxWidth="sm">
             <form onSubmit={handleSubmit}>
             <Box sx={{ my: 3 }}>
-              <Typography 
-                color="textPrimary" 
+              <Typography
+                color="textPrimary"
                 variant="h4"
                 >
                 Recuperacion de contraseña
@@ -142,4 +142,4 @@ const newPassword = () => {
   );
 };
 
-export default newPassword
+export default NewPassword

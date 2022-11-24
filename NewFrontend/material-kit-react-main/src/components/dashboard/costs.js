@@ -7,7 +7,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 
 export const Costs = ({props, ...React }) => {
-  
+
   const theme = useTheme();
   var mantLabels = [];
   var datos = [];
@@ -16,7 +16,7 @@ export const Costs = ({props, ...React }) => {
   const [Mantenimientos, setMaintenances] = useState([]);
   useEffect(() => {
       axios
-    .get("http://localhost:8000/maintenance/", {
+    .get("http://127.0.0.1:8000/maintenance/", {
       headers: {
         Authorization: `Token ${token}`,
       },
@@ -32,7 +32,7 @@ export const Costs = ({props, ...React }) => {
     mantLabels = Mantenimientos.map((item) => item.fecha)
     datos = Mantenimientos.map((item) => item.costo)
   }
-  
+
   const data = {
     datasets: [
       {
@@ -166,10 +166,6 @@ export const Costs = ({props, ...React }) => {
         >
           Overview
         </Button>
-      </Box>
-      <Divider />
-      <Box>
-        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=138qrKF6sP7174kI5urB-lcEr097fyBk&ehbc=2E312F" width="640" height="480"></iframe>
       </Box>
     </Card>
   );

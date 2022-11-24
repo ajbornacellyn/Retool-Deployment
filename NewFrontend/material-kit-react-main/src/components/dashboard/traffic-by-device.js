@@ -13,7 +13,7 @@ export const TrafficByDevice = ({props}) => {
   const [mantenimientos, setMaintenances] = useState([]);
   useEffect(() => {
       axios
-    .get("http://localhost:8000/maintenance/", {
+    .get("http://127.0.0.1:8000/maintenance/", {
       headers: {
         Authorization: `Token ${token}`,
       },

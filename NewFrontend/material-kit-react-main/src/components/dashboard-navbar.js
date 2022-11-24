@@ -51,7 +51,6 @@ export const DashboardNavbar = (props) => {
           }
         }}
         {...other}>
-          
         <Toolbar
           disableGutters
           sx={{
@@ -60,7 +59,7 @@ export const DashboardNavbar = (props) => {
             px: 2
           }}
         >
-          <Button onClick={handleOpen}
+        <Button onClick={handleOpen}
           color="primary"
           variant="contained"
         >
@@ -96,7 +95,7 @@ export const DashboardNavbar = (props) => {
           </Tooltip>
 
           <Tooltip title="Redes sociales">
-            <IconButton sx={{ ml: 1 }}target="_blank" href="http://www.facebook.com/">
+            <IconButton sx={{ ml: 1 }}target="_blank" href="https://www.facebook.com/people/ReTool-Mantenimientos/100087782960677/">
                 <FacebookIcon fontSize="small"/>
             </IconButton>
           </Tooltip>
