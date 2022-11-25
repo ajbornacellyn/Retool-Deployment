@@ -21,6 +21,7 @@ import HistoryIcon from '@mui/icons-material/History';
 import ContactSupportIcon from '@mui/icons-material/ContactSupport';
 import ForumIcon from '@mui/icons-material/Forum';
 import HelpIcon from '@mui/icons-material/Help';
+import PaidIcon from '@mui/icons-material/Paid';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 
 const items = [
@@ -95,6 +96,11 @@ const items = [
   icon: (<CogIcon fontSize="small" />),
   title: 'Ajustes'
 },
+{
+  href: '/payments',
+  icon: (<PaidIcon fontSize="small" />),
+  title: 'Apoyanos'
+},
 /*
   {
     href: '/404',
@@ -140,8 +146,8 @@ export const DashboardSidebar = (props) => {
               <center><img
               alt="Logo de Retool"
               src="/static/images/logoRetool.png"
-              width="125" 
-              height="125"
+              width="200" 
+              height="200"
             />
             </center>
             <Typography

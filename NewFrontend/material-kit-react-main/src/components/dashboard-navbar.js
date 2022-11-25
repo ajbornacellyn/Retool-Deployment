@@ -12,6 +12,7 @@ import { Facebook as FacebookIcon } from '../icons/facebook';
 import * as React from 'react';
 import {getVehicles} from '../API/carPetitions';
 import { VehicleUpdateKm } from '../components/vehicle/vehicle-update-km';
+import InstagramIcon from '@mui/icons-material/Instagram';
 
 const DashboardNavbarRoot = styled(AppBar)(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
@@ -97,6 +98,11 @@ export const DashboardNavbar = (props) => {
           <Tooltip title="Redes sociales">
             <IconButton sx={{ ml: 1 }}target="_blank" href="https://www.facebook.com/people/ReTool-Mantenimientos/100087782960677/">
                 <FacebookIcon fontSize="small"/>
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Siguenos en Instagram">
+            <IconButton sx={{ ml: 1 }}target="_blank" href="https://www.instagram.com/retool_mantenimientos/">
+                <InstagramIcon fontSize="small"/>
             </IconButton>
           </Tooltip>
 
