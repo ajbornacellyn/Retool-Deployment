@@ -1,19 +1,19 @@
 import axios from "axios";
 import Router from "next/router";
 
-axios.interceptors.request.use(
+/*axios.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('Token');
-        config.headers.Authorization = `Token ${token}`;
+        config.headers.Authorization = (token != null) ? `Token ${token}` : null;
         return config;
     },
     (error) => {
         return Promise.reject(error);
     }
-);
+);*/
 
 export const getVehicles = async (state) => {
-    const res = await axios.get("http://127.0.0.1:8000/car/", {
+    const res = await axios.get("http://localhost:8000/car/", {
     });
     state(res.data);
 }
@@ -35,13 +35,13 @@ export const deleteVehicle = async (vehicle) => {
 
 export const createVehicle = async (vehicle) => {
     axios
-      .post("http://127.0.0.1:8000/car/", {
+      .post("http://localhost:8000/car/", {
           placa: vehicle.placa,
           marca: vehicle.marca,
           modelo: vehicle.modelo,
           motor: vehicle.motor,
           combustible: vehicle.combustible,
-          kilometraje: vehicle.kilometraje,}
+          kilometraje: vehicle.kilometraje,}       
         ).then((res) => {
             if (res.data.message === "Car already exists"){
                 alert("Car already exists");
@@ -80,3 +80,4 @@ export const updateVehicleKm = async (vehicle) => {
     }
     )
 }
+

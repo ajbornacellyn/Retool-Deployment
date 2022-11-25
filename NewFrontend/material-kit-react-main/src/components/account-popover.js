@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import Router from 'next/router';
+import { useRouter } from 'next/router'
 import PropTypes from 'prop-types';
 import { Box, MenuItem, MenuList, Popover, Typography } from '@mui/material';
 import { AuthContext } from '../contexts/auth-context';
@@ -8,13 +9,17 @@ import { auth, ENABLE_AUTH } from '../lib/auth';
 export const AccountPopover = (props) => {
   const { anchorEl, onClose, open, ...other } = props;
   const authContext = useContext(AuthContext);
+  const router = useRouter();
 
   const handleSignOut = async () => {
     onClose?.();
     const authSkipped = globalThis.sessionStorage.getItem('skip-auth') === 'true';
     // Redirect to sign-in page
-    sessionStorage.clear(); 
-    Router.push('/login'); 
+    sessionStorage.clear();
+    localStorage.clear();
+    
+    router.reload();
+    //Router.push('/login'); 
   };
 
   return (
