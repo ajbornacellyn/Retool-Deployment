@@ -13,98 +13,20 @@ import {
 } from '@mui/material';
 import { editVehicle } from '../../API/carPetitions';
 import Router from 'next/router';
+import { getMarcas, getCombustibles } from './data';
 ReactSession.setStoreType("localStorage");
 
+const marcas = getMarcas();
 
-const marcas = [
-  {
-    value: 'audi',
-    label: 'Audi'
-  },
-  {
-    value: 'bmw',
-    label: 'BMW'
-  },
-  {
-    value: 'chevrolet',
-    label: 'Chevrolet'
-  },
-  {
-    value: 'dodge',
-    label: 'Dodge'
-  },
-  {
-    value: 'fiat',
-    label: 'Fiat'
-  },
-  {
-    value: 'ford',
-    label: 'Ford'
-  },
-  {
-    value: 'honda',
-    label: 'Honda'
-  },
-  {
-    value: 'jeep',
-    label: 'Jeep'
-  },
-  {
-    value: 'mazda',
-    label: 'Mazda'
-  },
-  {
-    value: 'nissan',
-    label: 'Nissan'
-  },
-  {
-    value: 'peugeot',
-    label: 'Peugeot'
-  },
-  {
-    value: 'seat',
-    label: 'SEAT'
-  },
-  {
-    value: 'suzuki',
-    label: 'Suzuki'
-  },
-  {
-    value: 'toyota',
-    label: 'Toyota'
-  },
-  {
-    value: 'volkswagen',
-    label: 'Volkswagen'
-  },
-  {
-    value: 'volvo',
-    label: 'Volvo'
-  }
-];
-
-const combustibles = [
-  {
-    value: 'gasolina',
-    label: 'Gasolina'
-  },
-  {
-    value: 'acpm',
-    label: 'ACPM'
-  },
-  {
-    value: 'gasolina-extra',
-    label: 'Gasolina Extra'
-  }
-];
+const combustibles = getCombustibles();
 
 export const VehicleEdit = ({vehicle, props}) => {
   console.log(vehicle);
   const [values, setValues] = useState({
     placa: vehicle.placa,
     marca: vehicle.marca,
-    linea: vehicle.marca,
-    modelo: vehicle.año,
+    año: vehicle.año,
+    modelo: vehicle.modelo,
     combustible: vehicle.combustible,
     kilometraje: vehicle.kilometraje,
   });
@@ -120,7 +42,7 @@ export const VehicleEdit = ({vehicle, props}) => {
   const handleSubmit = (e) =>{
     e.preventDefault();
     editVehicle(vehicle.placa,values)
-    Router.reload();
+    //Router.reload();
   };
 
   return (
@@ -150,6 +72,7 @@ export const VehicleEdit = ({vehicle, props}) => {
                 fullWidth
                 label="Placa"
                 name="placa"
+                disabled
                 value={values.placa}
                 onChange={handleChange}
                 required
@@ -189,9 +112,9 @@ export const VehicleEdit = ({vehicle, props}) => {
             >
               <TextField
                 fullWidth
-                label="Línea"
-                name="linea"
-                value={values.linea}
+                label="Modelo"
+                name="modelo"
+                value={values.modelo}
                 onChange={handleChange}
                 required
                 variant="outlined"
@@ -204,9 +127,9 @@ export const VehicleEdit = ({vehicle, props}) => {
             >
               <TextField
                 fullWidth
-                label="Modelo"
-                name="modelo"
-                value={values.modelo}
+                label="Año"
+                name="año"
+                value={values.año}
                 onChange={handleChange}
                 type="number"
                 required

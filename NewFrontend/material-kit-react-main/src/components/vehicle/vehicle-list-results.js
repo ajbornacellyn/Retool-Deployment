@@ -94,6 +94,9 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
                   Modelo
                 </TableCell>
                 <TableCell>
+                  Año
+                </TableCell>
+                <TableCell>
                   Kilometraje
                 </TableCell>
                 <TableCell>
@@ -137,6 +140,9 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
                   </TableCell>
                   <TableCell>
                     {vehicle.modelo}
+                  </TableCell>
+                  <TableCell>
+                    {vehicle.año}
                   </TableCell>
                   <TableCell>
                     {vehicle.kilometraje}

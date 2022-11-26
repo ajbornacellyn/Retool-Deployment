@@ -113,7 +113,7 @@ class CarView(APIView):
             return Response({"message": "Car already exists"})
         else: 
             if serializer.is_valid(raise_exception=True):
-                Carro.objects.create(placa= request.data['placa'], user = current_user, marca = request.data['marca'], modelo = request.data['modelo'], combustible = request.data['combustible'], kilometraje = request.data['kilometraje'])
+                Carro.objects.create(placa= request.data['placa'], user = current_user, marca = request.data['marca'], año = request.data['año'], modelo = request.data['modelo'], combustible = request.data['combustible'], kilometraje = request.data['kilometraje'])
                 return  Response({"message": "Car created successfully"})
             else:
                 return  Response("Invalid Car")
@@ -122,7 +122,7 @@ class CarView(APIView):
         current_user = request.user
         cars = Carro.objects.filter(user=current_user.id)
         if len(cars) > 0:
-            detail = [ {"placa": detail.placa, "marca":detail.marca, "modelo": detail.modelo, "color:": detail.color , "año": detail.año, "combustible": detail.combustible, "kilometraje": detail.kilometraje, "descripcion": detail.descripcion, "transmision": detail.transmision, "carroceria": detail.carroceria, "motor": detail.motor, "cilindraje": detail.cilindraje} 
+            detail = [ {"placa": detail.placa, "marca":detail.marca, "año": detail.año, "modelo": detail.modelo, "color:": detail.color , "año": detail.año, "combustible": detail.combustible, "kilometraje": detail.kilometraje, "descripcion": detail.descripcion, "transmision": detail.transmision, "carroceria": detail.carroceria, "motor": detail.motor, "cilindraje": detail.cilindraje} 
             for detail in cars]
             return Response(detail)
 
@@ -134,14 +134,15 @@ class CarView(APIView):
         if len(cars) > 0:
             carro = Carro.objects.get(placa = placa)
             carro.marca = request.data['marca']
+            carro.año = request.data['año']
             carro.modelo = request.data['modelo']
             carro.kilometraje = request.data['kilometraje']
             carro.combustible = request.data['combustible']
             carro.save()
-            return Response({"response": "Carro actualizado",
+            return Response({"response": "Vehiculo actualizado",
             "placa":carro.placa, "marca": carro.marca, "modelo": carro.modelo, "kilometraje": carro.kilometraje, "combustible": carro.combustible})
         else:
-            return Response("Carro no encontrado")
+            return Response("Vehiculo no encontrado")
 
     def delete(self, request):
         placa = request.data['placa']

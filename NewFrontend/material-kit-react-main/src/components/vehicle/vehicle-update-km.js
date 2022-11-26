@@ -3,7 +3,6 @@ import { ReactSession } from 'react-client-session';
 import axios from "axios";
 import {updateVehicleKm} from '../../API/carPetitions';
 import { useEffect } from 'react';
-import Router from 'next/router';
 import {getVehicles} from '../../API/carPetitions';
 ReactSession.setStoreType("localStorage");
 

@@ -39,6 +39,7 @@ export const createVehicle = async (vehicle) => {
           placa: vehicle.placa,
           marca: vehicle.marca,
           modelo: vehicle.modelo,
+          año: vehicle.año,
           motor: vehicle.motor,
           combustible: vehicle.combustible,
           kilometraje: vehicle.kilometraje,}       
@@ -47,7 +48,7 @@ export const createVehicle = async (vehicle) => {
                 alert("Car already exists");
             }else{
                 alert("Vehiculo creado");
-                Router.push('/');
+                Router.reload();
             }
         }
     )
@@ -59,8 +60,17 @@ export const editVehicle = async (placa, vehicle) => {
         placa: vehicle.placa,
         marca: vehicle.marca,
         modelo: vehicle.modelo,
+        año: vehicle.año,
         combustible: vehicle.combustible,
         kilometraje: vehicle.kilometraje,
+    }).then((res) => {
+        if (res.data.response === "Vehiculo actualizado"){
+            alert("Vehiculo actualizado");
+            Router.reload();
+        }else{
+            console.log(res);
+            alert("Error al actualizar vehiculo");   
+        }
     })
 
 }
@@ -75,7 +85,7 @@ export const updateVehicleKm = async (vehicle) => {
             alert("Vehiculo no encontrado");
         }else{
             alert(res.data.response);
-            //Router.reload();
+            Router.reload();
         }
     }
     )

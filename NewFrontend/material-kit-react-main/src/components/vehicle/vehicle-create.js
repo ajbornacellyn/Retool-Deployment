@@ -5,6 +5,7 @@ import {createVehicle} from '../../API/carPetitions';
 import {getVehicles} from '../../API/carPetitions';
 import { useEffect } from 'react';
 import Router from 'next/router';
+import { getMarcas, getCombustibles } from './data';
 ReactSession.setStoreType("localStorage");
 
 import {
@@ -19,95 +20,17 @@ import {
 } from '@mui/material';
 import { set } from 'date-fns';
 
-const marcas = [
-  {
-    value: 'audi',
-    label: 'Audi'
-  },
-  {
-    value: 'bmw',
-    label: 'BMW'
-  },
-  {
-    value: 'chevrolet',
-    label: 'Chevrolet'
-  },
-  {
-    value: 'dodge',
-    label: 'Dodge'
-  },
-  {
-    value: 'fiat',
-    label: 'Fiat'
-  },
-  {
-    value: 'ford',
-    label: 'Ford'
-  },
-  {
-    value: 'honda',
-    label: 'Honda'
-  },
-  {
-    value: 'jeep',
-    label: 'Jeep'
-  },
-  {
-    value: 'mazda',
-    label: 'Mazda'
-  },
-  {
-    value: 'nissan',
-    label: 'Nissan'
-  },
-  {
-    value: 'peugeot',
-    label: 'Peugeot'
-  },
-  {
-    value: 'seat',
-    label: 'SEAT'
-  },
-  {
-    value: 'suzuki',
-    label: 'Suzuki'
-  },
-  {
-    value: 'toyota',
-    label: 'Toyota'
-  },
-  {
-    value: 'volkswagen',
-    label: 'Volkswagen'
-  },
-  {
-    value: 'volvo',
-    label: 'Volvo'
-  }
-];
+const marcas = getMarcas();
 
-const combustibles = [
-  {
-    value: 'gasolina',
-    label: 'Gasolina'
-  },
-  {
-    value: 'acpm',
-    label: 'ACPM'
-  },
-  {
-    value: 'gasolina-extra',
-    label: 'Gasolina Extra'
-  }
-];
+const combustibles = getCombustibles();
 
 export const VehicleCreate = (props) => {
   const [values, setValues] = useState({
     placa:"",
-    marca:"",
-    linea:"",
+    marca:marcas[0].value,
+    año:"",
     modelo:"",
-    combustible:"",
+    combustible:combustibles[0].value,
     kilometraje:"",
   });
 
@@ -190,9 +113,9 @@ export const VehicleCreate = (props) => {
             >
               <TextField
                 fullWidth
-                label="Línea"
-                name="linea"
-                value={values.linea}
+                label="Modelo"
+                name="modelo"
+                value={values.modelo}
                 onChange={handleChange}
                 variant="outlined"
                 required
@@ -205,9 +128,9 @@ export const VehicleCreate = (props) => {
             >
               <TextField required
                 fullWidth
-                label="Modelo"
-                name="modelo"
-                value={values.modelo}
+                label="Año"
+                name="año"
+                value={values.año}
                 onChange={handleChange}
                 type="number"
                 variant="outlined"
