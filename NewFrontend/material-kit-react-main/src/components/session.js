@@ -34,7 +34,6 @@ export function ValidateSession() {
     getVehicles(setVehicles);
     }, []);
 
-  console.log(vehicles);
   if (vehicles.length > 0){
     if (vehicles[0] == "NN"){
         router.push('/login')

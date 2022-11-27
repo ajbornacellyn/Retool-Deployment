@@ -1,6 +1,6 @@
 import axios from "axios";
 import Router from "next/router";
-
+import { useEffect, useState } from "react";
 /*axios.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('Token');
@@ -13,29 +13,28 @@ import Router from "next/router";
 );*/
 
 export const getVehicles = async (state) => {
-    const res = await axios.get("http://localhost:8000/car/", {
-    });
-    state(res.data);
+    try{
+        const res = await axios.get("http://localhost:8000/car/", {});
+        state(res.data);
+    }catch(err){
+        state([]);
+    }
 }
 
-export const deleteVehicle = async (vehicle) => {
-    axios
-      .delete("http://127.0.0.1:8000/car/", {
+export const deleteVehicle = async (vehicle,updateVehicles) => {
+    await axios.delete("http://localhost:8000/car/", {
         data: {"placa": vehicle.placa}
     }).then((res) => {
-        if (res.data.message === "Car deleted"){
-            alert("Car deleted");
-            Router.reload();
-        }else{
-            alert("Car not deleted");
+        updateVehicles();
+        if (res.data.message != "Car deleted"){
+            alert("Vehiculo no eliminado.");
         }
     }
 )
 }
 
-export const createVehicle = async (vehicle) => {
-    axios
-      .post("http://localhost:8000/car/", {
+export const createVehicle = async (vehicle,updateVehicles) => {
+    await axios.post("http://localhost:8000/car/", {
           placa: vehicle.placa,
           marca: vehicle.marca,
           modelo: vehicle.modelo,
@@ -44,19 +43,16 @@ export const createVehicle = async (vehicle) => {
           combustible: vehicle.combustible,
           kilometraje: vehicle.kilometraje,}       
         ).then((res) => {
+            updateVehicles();
             if (res.data.message === "Car already exists"){
-                alert("Car already exists");
-            }else{
-                alert("Vehiculo creado");
-                Router.reload();
+                alert("Vehiculo ya registrado.");
             }
         }
     )
 }
 
-export const editVehicle = async (placa, vehicle) => {
-    axios
-    .put("http://127.0.0.1:8000/car/"+placa+"/", {
+export const editVehicle = async (placa,vehicle,updateVehicles) => {
+    await axios.put("http://localhost:8000/car/"+placa+"/", {
         placa: vehicle.placa,
         marca: vehicle.marca,
         modelo: vehicle.modelo,
@@ -64,28 +60,21 @@ export const editVehicle = async (placa, vehicle) => {
         combustible: vehicle.combustible,
         kilometraje: vehicle.kilometraje,
     }).then((res) => {
-        if (res.data.response === "Vehiculo actualizado"){
-            alert("Vehiculo actualizado");
-            Router.reload();
-        }else{
-            console.log(res);
-            alert("Error al actualizar vehiculo");   
+        updateVehicles();
+        if (res.data.response != "Vehiculo actualizado"){
+            alert("Error al actualizar vehiculo.");
         }
     })
-
 }
 
-export const updateVehicleKm = async (vehicle) => {
-    axios
-    .put("http://127.0.0.1:8000/carUpdateKm/"+vehicle.placa+"/", {
+export const updateVehicleKm = async (vehicle,updateVehicles) => {
+    await axios.put("http://localhost:8000/carUpdateKm/"+vehicle.placa+"/", {
         placa: vehicle.placa,
         kilometraje: vehicle.kilometraje,
     }).then((res) => {
+        updateVehicles();
         if (res.data === "Vehiculo no encontrado"){
             alert("Vehiculo no encontrado");
-        }else{
-            alert(res.data.response);
-            Router.reload();
         }
     }
     )

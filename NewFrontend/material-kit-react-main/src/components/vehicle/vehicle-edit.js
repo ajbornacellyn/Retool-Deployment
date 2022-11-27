@@ -20,8 +20,7 @@ const marcas = getMarcas();
 
 const combustibles = getCombustibles();
 
-export const VehicleEdit = ({vehicle, props}) => {
-  console.log(vehicle);
+export const VehicleEdit = ({vehicle, updateVehicles, handleClose, props}) => {
   const [values, setValues] = useState({
     placa: vehicle.placa,
     marca: vehicle.marca,
@@ -38,10 +37,13 @@ export const VehicleEdit = ({vehicle, props}) => {
     });
   };
 
+  const [res, setRes] = useState('No');
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    editVehicle(vehicle.placa,values)
+    
+    editVehicle(vehicle.placa,values,updateVehicles);
+    handleClose();
     //Router.reload();
   };
 

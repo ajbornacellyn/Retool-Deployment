@@ -24,7 +24,7 @@ const marcas = getMarcas();
 
 const combustibles = getCombustibles();
 
-export const VehicleCreate = (props) => {
+export const VehicleCreate = ({props, updateVehicles, handleClose}) => {
   const [values, setValues] = useState({
     placa:"",
     marca:marcas[0].value,
@@ -44,7 +44,8 @@ export const VehicleCreate = (props) => {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    createVehicle(values)
+    createVehicle(values,updateVehicles);
+    handleClose();
 
   }
 

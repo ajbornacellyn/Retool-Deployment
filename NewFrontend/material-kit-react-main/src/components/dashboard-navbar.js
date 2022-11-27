@@ -32,7 +32,7 @@ const style = {
 };
 
 export const DashboardNavbar = (props) => {
-  const { onSidebarOpen, ...other } = props;
+  const { vehicles, updateVehicles, onSidebarOpen, ...other } = props;
   const settingsRef = useRef(null);
   const [openAccountPopover, setOpenAccountPopover] = useState(false);
 
@@ -73,7 +73,7 @@ export const DashboardNavbar = (props) => {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-          <VehicleUpdateKm />
+          <VehicleUpdateKm vehicles={vehicles} updateVehicles={updateVehicles} handleClose={handleClose}/>
           </Box>
         </Modal>
           <IconButton

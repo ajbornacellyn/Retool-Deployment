@@ -50,7 +50,7 @@ axios.interceptors.request.use(function (config) {
   return Promise.reject(error);
 });
 
-export const VehicleListResults = ({ vehicles, ...rest }) => {
+export const VehicleListResults = ({ vehicles, updateVehicles, ...rest }) => {
   const [selectedVehicle, setSelectedVehicle] = useState();
   const [limit, setLimit] = useState(10);
   const [page, setPage] = useState(0);
@@ -66,11 +66,10 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
   const editVehicle = (vehicle) =>{
     setSelectedVehicle(vehicle);
     handleOpen();
-
   };
 
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => { setOpen(true);};
+  const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   if(vehicles == "No cars") return <div>No hay vehiculos</div>;
@@ -148,7 +147,7 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
                     {vehicle.kilometraje}
                   </TableCell>
                   <TableCell>
-                    <IconButton aria-label="delete" onClick={() => {deleteVehicle(vehicle);}}>
+                    <IconButton aria-label="delete" onClick={() => {deleteVehicle(vehicle,updateVehicles);}}>
                       <DeleteIcon />
                     </IconButton>
                     <IconButton aria-label="edit" onClick={() => {editVehicle(vehicle);}}>
@@ -167,7 +166,7 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
             aria-describedby="modal-modal-description"
           >
             <Box sx={style}>
-              <VehicleEdit vehicle={selectedVehicle} />
+              <VehicleEdit handleClose={handleClose} updateVehicles={updateVehicles} vehicle={selectedVehicle} />
             </Box>
           </Modal>
         </Box>

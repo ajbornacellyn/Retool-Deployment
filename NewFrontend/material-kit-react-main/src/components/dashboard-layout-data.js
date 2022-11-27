@@ -17,8 +17,7 @@ const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   }
 }));
 
-export const DashboardLayout = (props) => {
-  const { children } = props;
+export const DashboardLayout = ({children}) => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   
   const [vehicles, setVehicles] = useState([]);
@@ -37,7 +36,7 @@ export const DashboardLayout = (props) => {
             width: '100%'
           }}
         >
-          {children}
+          {children({vehicles:vehicles, updateVehicles:updateVehicles})}
         </Box>
       </DashboardLayoutRoot>
       <DashboardNavbar vehicles={vehicles} updateVehicles={updateVehicles} onSidebarOpen={() => setSidebarOpen(true)} />

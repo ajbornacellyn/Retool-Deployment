@@ -19,17 +19,8 @@ import {
 import { set } from 'date-fns';
 
 
-export const VehicleUpdateKm = (props) => {
+export const VehicleUpdateKm = ({vehicles, updateVehicles, handleClose, props}) => {
 
-  const [vehicles, setVehicles] = useState([]);
-
-  //getVehicles(setVehicles);
-
-  console.log(vehicles);
-  useEffect(() => {
-    getVehicles(setVehicles);
-    }, []);
-  
   const [values, setValues] = useState({
     placa:"",
     kilometraje:""
@@ -64,7 +55,8 @@ export const VehicleUpdateKm = (props) => {
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    updateVehicleKm(values);
+    updateVehicleKm(values,updateVehicles);
+    handleClose();
     //fetchData();
     console.log(values);
     console.log(values.placa);
