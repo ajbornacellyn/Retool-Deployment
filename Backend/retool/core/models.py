@@ -80,7 +80,15 @@ class repuesto(models.Model):
     cantidad = models.IntegerField()
 
 
-
+class Recordatorio(models.Model):
+    id = models.IntegerField(primary_key=True)
+    placa = models.ForeignKey(Carro, on_delete=models.CASCADE)
+    descripcion = models.CharField(max_length=500, null= True, blank= True)
+    kilometrajeInicial = models.IntegerField(null= True, blank= True)
+    kilometraje = models.IntegerField(null= True, blank= True)
+    estado = models.CharField(max_length=30, null= True, blank= True)
+    fecha = models.DateField(null= True, blank= True)
+    detalle = models.CharField(max_length=500, null= True, blank= True)
 
 
 

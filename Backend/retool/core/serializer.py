@@ -47,3 +47,13 @@ class encargadoSerializer(serializers.ModelSerializer):
     class Meta:
         model = encargado
         fields = ['id', 'nombre', 'apellido', 'telefono']
+
+class ReminderSerializerCreate(serializers.ModelSerializer):
+    class Meta:
+        model = Recordatorio
+        fields = ['placa', 'descripcion', 'kilometraje', 'estado', 'fecha', 'detalle']
+
+class ReminderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Recordatorio
+        fields = ['id', 'placa', 'descripcion', 'kilometraje', 'kilometrajeInicial','estado', 'fecha', 'detalle']

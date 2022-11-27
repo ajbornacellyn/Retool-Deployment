@@ -23,6 +23,7 @@ import ForumIcon from '@mui/icons-material/Forum';
 import HelpIcon from '@mui/icons-material/Help';
 import PaidIcon from '@mui/icons-material/Paid';
 import BuildCircleIcon from '@mui/icons-material/BuildCircle';
+import PendingActionsIcon from '@mui/icons-material/PendingActions';
 
 const items = [
   /*
@@ -66,12 +67,17 @@ const items = [
 {
   href: '/vehicles',
   icon: (<DirectionsCarIcon fontSize="small" />),
-  title: 'Mis autos'
+  title: 'Mis vehiculos'
 },  
 {
   href: '/maintenance',
   icon: (<BuildCircleIcon fontSize="small" />),
   title: 'Mis mantenimientos'
+},
+{
+  href: '/reminders',
+  icon: (<PendingActionsIcon fontSize="small" />),
+  title: 'Recordatorios'
 }, 
 /*
 {

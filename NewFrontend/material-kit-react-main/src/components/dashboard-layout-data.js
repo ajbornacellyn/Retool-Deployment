@@ -6,6 +6,7 @@ import { DashboardSidebar } from './dashboard-sidebar';
 import { ValidateSession } from '../components/session';
 import { useEffect, useState } from 'react';
 import { getVehicles } from '../API/carPetitions';
+import { getReminders } from '../API/reminderPetitions';
 
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -21,8 +22,9 @@ export const DashboardLayout = ({children}) => {
   const [isSidebarOpen, setSidebarOpen] = useState(true);
   
   const [vehicles, setVehicles] = useState([]);
-  const updateVehicles = () => getVehicles(setVehicles);
-  useEffect(() => {getVehicles(setVehicles);}, []);
+  const [reminders, setReminders] = useState([]);
+  const updateVehicles = () => {getVehicles(setVehicles); getReminders(setReminders);};
+  useEffect(() => {getVehicles(setVehicles); getReminders(setReminders);}, []);
 
   if (ValidateSession()){
   return (
@@ -36,7 +38,7 @@ export const DashboardLayout = ({children}) => {
             width: '100%'
           }}
         >
-          {children({vehicles:vehicles, updateVehicles:updateVehicles})}
+          {children({vehicles:vehicles, reminders:reminders, updateVehicles:updateVehicles})}
         </Box>
       </DashboardLayoutRoot>
       <DashboardNavbar vehicles={vehicles} updateVehicles={updateVehicles} onSidebarOpen={() => setSidebarOpen(true)} />

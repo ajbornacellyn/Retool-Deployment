@@ -214,3 +214,72 @@ class TallerView(APIView):
         else:
             return Response("No tallers")
 
+class ReminderView(APIView):
+    permission_classes = [IsAuthenticated]
+    def post(self, request):            
+        serializer = ReminderSerializerCreate(data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            cars = Carro.objects.filter(placa=request.data['placa'])
+            if len(cars) > 0:
+                auto = Carro.objects.get(placa=request.data['placa'])
+                Recordatorio.objects.create( placa= auto, descripcion=request.data['descripcion'], kilometrajeInicial = auto.kilometraje, kilometraje=request.data['kilometraje'], estado=request.data['estado'], fecha = request.data['fecha'], detalle = request.data['detalle'])
+                return  Response({"message": "Maintenance created"})
+            else:
+                return Response({"message": "Vehicle not found"})
+        else:
+            return  Response({"message": "Invalid Reminder"})
+
+    def get(self, request):
+        current_user = request.user
+        cars = Carro.objects.filter(user=current_user.id)
+        reminders = []
+        if len(cars) > 0:
+            for car in cars:
+                rem = Recordatorio.objects.filter(placa=car,estado='Pendiente')
+                if len(rem) > 0:
+                    for r in rem:
+                        serializer = ReminderSerializer(r)
+                        reminder = serializer.data
+                        auto = Carro.objects.get(placa = reminder['placa'])
+                        avance = 0 
+                        kIni = reminder['kilometrajeInicial']
+                        kRem = reminder['kilometraje']
+                        kAut = auto.kilometraje
+                        if (kIni < kAut):
+                            if((kAut-kIni) >= kRem):
+                                avance = 100
+                            else:
+                                avance = round((kAut-kIni) / kRem * 100)
+                        reminder['avance'] = avance
+                        reminders.append(reminder)
+            if len (reminders) > 0:
+                return Response({"message": "OK", "Reminders":reminders})
+            else:
+                return Response({"message": "No reminders"})
+        else:
+            return Response({"message": "No vehicles"})
+
+    def put(self, request, id):
+        rec = Recordatorio.objects.filter(id = id)
+        if len(rec) > 0:
+            recordatorio = Recordatorio.objects.get(id = id)
+            recordatorio.descripcion = request.data['descripcion']
+            recordatorio.kilometrajeInicial = request.data['kilometrajeInicial']
+            recordatorio.kilometraje = request.data['kilometraje']
+            recordatorio.estado = request.data['estado']
+            recordatorio.fecha = request.data['fecha']
+            recordatorio.detalle = request.data['detalle']
+            recordatorio.save()
+            return Response({"message": "Reminder updated", "id":recordatorio.id, "descripcion": recordatorio.descripcion, "kilometraje": recordatorio.kilometraje, "estado": recordatorio.estado, "fecha": recordatorio.fecha, "detalle": recordatorio.detalle})
+        else:
+            return Response({"message": "Reminder not found"})
+
+    def delete(self, request):
+        idRec = request.data['id']
+        rec = Recordatorio.objects.filter(id = idRec)
+        if len(rec) > 0:
+            rec = Recordatorio.objects.get(id = idRec)
+            rec.delete()
+            return Response({ "message": "Reminder deleted" })
+        else:
+            return Response({ "message": "Reminder not deleted" })
