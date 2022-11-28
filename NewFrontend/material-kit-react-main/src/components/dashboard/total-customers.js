@@ -17,12 +17,12 @@ export const TotalCustomers = (props) => {
         },
       })
       .then((res) => {
-      if (res.data !== "No maintenances"){
-        setMaintenances(res.data);};
+      if (res.data.message === "OK"){
+        setMaintenances(res.data.Maintenances);};
     })
 
     }, []);
-    if(Mantenimientos !== "Not maintenances" && Mantenimientos !== "No cars" && Mantenimientos.length>0){
+    if(Mantenimientos !== "Not maintenances" && Mantenimientos !== "No vehicles" && Mantenimientos.length>0){
         var total = Mantenimientos.length;
         var LastMantDate = Mantenimientos.map((item) => item.id)
         var LastMantDate = LastMantDate[LastMantDate.length-1]

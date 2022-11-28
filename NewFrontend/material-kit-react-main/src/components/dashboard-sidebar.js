@@ -70,9 +70,9 @@ const items = [
   title: 'Mis vehiculos'
 },  
 {
-  href: '/maintenance',
+  href: '/maintenances',
   icon: (<BuildCircleIcon fontSize="small" />),
-  title: 'Mis mantenimientos'
+  title: 'Mantenimientos'
 },
 {
   href: '/reminders',

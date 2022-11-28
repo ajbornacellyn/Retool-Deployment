@@ -15,8 +15,8 @@ export const TasksProgress = (props) => {
       },
     })
     .then((res) => {
-    if (res.data !== "No maintenances"){
-      setMaintenances(res.data);};
+    if (res.data.message === "OK"){
+      setMaintenances(res.data.Maintenances);};
   })
 
   }, []);

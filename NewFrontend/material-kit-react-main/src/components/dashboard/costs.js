@@ -22,13 +22,13 @@ export const Costs = ({props, ...React }) => {
       },
     })
     .then((res) => {
-    if (res.data !== "No maintenances"){
-      setMaintenances(res.data);};
+    if (res.data.message === "OK"){
+      setMaintenances(res.data.Maintenances);};
   })
 
   }, []);
 
-  if(Mantenimientos !== "Not maintenances" && Mantenimientos !== "No cars" && Mantenimientos.length>0){
+  if(Mantenimientos !== "Not maintenances" && Mantenimientos !== "No vehicles" && Mantenimientos.length>0){
     mantLabels = Mantenimientos.map((item) => item.fecha)
     datos = Mantenimientos.map((item) => item.costo)
   }

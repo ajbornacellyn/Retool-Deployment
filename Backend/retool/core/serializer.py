@@ -17,12 +17,12 @@ class LoginSerializer(serializers.ModelSerializer):
         model = User
         fields = ['username', 'password']
 
-class ManteinanceSerializer(serializers.ModelSerializer):
+class ManteinanceSerializerCreate(serializers.ModelSerializer):
     class Meta:
         model = mantenimiento
         fields = ['placa','fecha','descripcion', 'kilometraje','estado', 'servicio', 'costo']
 
-class ManteinanceSerializer2(serializers.ModelSerializer):
+class ManteinanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = mantenimiento
         fields = ['id','placa','fecha','descripcion', 'kilometraje','estado', 'servicio', 'costo']

@@ -62,17 +62,17 @@ class LoginView(APIView):
 class ManteinanceView(APIView):
     permission_classes = [IsAuthenticated]
     def post(self, request):            
-        serializer = ManteinanceSerializer(data=request.data)
+        serializer = ManteinanceSerializerCreate(data=request.data)
         if serializer.is_valid(raise_exception=True):
             cars = Carro.objects.filter(placa=request.data['placa'])
             if len(cars) > 0:
                 auto = Carro.objects.get(placa=request.data['placa'])
                 mantenimiento.objects.create( placa= auto, descripcion=request.data['descripcion'], kilometraje=request.data['kilometraje'], estado=request.data['estado'], servicio=request.data['servicio'], fecha = request.data['fecha'], costo = request.data['costo'])
-                return  Response({"message": "Maintenance created successfully"})
+                return  Response({"message": "Maintenance created"})
             else:
-                return Response("Car not found")
+                return Response({"message": "Vehicle not found"})
         else:
-            return  Response("Invalid Mantence")
+            return  Response({"message": "Invalid Mantence"})
 
     def get(self, request):
         current_user = request.user
@@ -83,14 +83,29 @@ class ManteinanceView(APIView):
                 mant = mantenimiento.objects.filter(placa=car)
                 if len(mant) > 0:
                     for m in mant:
-                        serializer = ManteinanceSerializer2(m)
+                        serializer = ManteinanceSerializer(m)
                         maintenances.append(serializer.data)
             if len (maintenances) > 0:
-                return Response(maintenances)
+                return Response({"message": "OK", "Maintenances":maintenances})
             else:
-                return Response("Not maintenances")
+                return Response({"message": "No maintenances"})
         else:
-            return Response("No cars")
+            return Response({"message": "No vehicles"})
+
+    def put(self, request, id):
+        mant = mantenimiento.objects.filter(id = id)
+        if len(mant) > 0:
+            manteni = mantenimiento.objects.get(id = id)
+            manteni.descripcion = request.data['descripcion']
+            manteni.kilometraje = request.data['kilometraje']
+            manteni.estado = request.data['estado']
+            manteni.fecha = request.data['fecha']
+            manteni.servicio = request.data['servicio']
+            manteni.costo = request.data['costo']
+            manteni.save()
+            return Response({"message": "Maintenance updated", "id":manteni.id, "descripcion": manteni.descripcion, "kilometraje": manteni.kilometraje, "estado": manteni.estado, "fecha": manteni.fecha, "costo": manteni.costo})
+        else:
+            return Response({"message": "Maintenance not found"})
 
     def delete(self, request):
         idMant = request.data['id']
@@ -246,7 +261,7 @@ class ReminderView(APIView):
                         kRem = reminder['kilometraje']
                         kAut = auto.kilometraje
                         if (kIni < kAut):
-                            if((kAut-kIni) >= kRem):
+                            if(kAut >= kRem):
                                 avance = 100
                             else:
                                 avance = round((kAut-kIni) / kRem * 100)

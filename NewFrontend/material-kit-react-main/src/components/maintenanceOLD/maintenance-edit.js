@@ -1,10 +1,5 @@
 import { useState } from 'react';
-import {createMaintenance} from '../../API/maintenancePetitions';
-import {getMaintenances} from '../../API/maintenancePetitions';
-import { useEffect } from 'react';
-import Router from 'next/router';
-import { getTiposServicios, getEstados} from './data';
-
+import axios from "axios";
 import {
   Box,
   Button,
@@ -15,32 +10,101 @@ import {
   Grid,
   TextField
 } from '@mui/material';
-import { set } from 'date-fns';
+import { editMaintenance } from '../../API/maintenancePetitions';
+import Router from 'next/router';
 
-const tiposServicios = getTiposServicios();
+const marcas = [
+  {
+    value: 'audi',
+    label: 'Audi'
+  },
+  {
+    value: 'bmw',
+    label: 'BMW'
+  },
+  {
+    value: 'chevrolet',
+    label: 'Chevrolet'
+  },
+  {
+    value: 'dodge',
+    label: 'Dodge'
+  },
+  {
+    value: 'fiat',
+    label: 'Fiat'
+  },
+  {
+    value: 'ford',
+    label: 'Ford'
+  },
+  {
+    value: 'honda',
+    label: 'Honda'
+  },
+  {
+    value: 'jeep',
+    label: 'Jeep'
+  },
+  {
+    value: 'mazda',
+    label: 'Mazda'
+  },
+  {
+    value: 'nissan',
+    label: 'Nissan'
+  },
+  {
+    value: 'peugeot',
+    label: 'Peugeot'
+  },
+  {
+    value: 'seat',
+    label: 'SEAT'
+  },
+  {
+    value: 'suzuki',
+    label: 'Suzuki'
+  },
+  {
+    value: 'toyota',
+    label: 'Toyota'
+  },
+  {
+    value: 'volkswagen',
+    label: 'Volkswagen'
+  },
+  {
+    value: 'volvo',
+    label: 'Volvo'
+  }
+];
 
-const estados = getEstados();
+const combustibles = [
+  {
+    value: 'gasolina',
+    label: 'Gasolina'
+  },
+  {
+    value: 'acpm',
+    label: 'ACPM'
+  },
+  {
+    value: 'gasolina-extra',
+    label: 'Gasolina Extra'
+  }
+];
 
-export const MaintenanceCreate = ({props, vehicles, updateMaintenances, handleClose}) => {
-  var today = new Date();
+export const MaintenanceEdit = ({maintenance, props}) => {
+  console.log(maintenance);
   const [values, setValues] = useState({
-    placa:"",
-    id:"",
-    descripcion:"",
-    kilometraje:"",
-    estado:estados[0].value,
-    servicio:tiposServicios[0].value,
-    fecha:today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
-    costo:"",
+    placa: maintenance.placa,
+    marca: maintenance.marca,
+    linea: maintenance.marca,
+    modelo: maintenance.año,
+    combustible: maintenance.combustible,
+    kilometraje: maintenance.kilometraje,
   });
-
-  try{
-    if (values.placa == "") {
-      values.placa = vehicles[0].placa;
-    }
-  } catch (error) {
-    console.log(error);
-  };
 
   const handleChange = (event) => {
     setValues({
@@ -52,23 +116,22 @@ export const MaintenanceCreate = ({props, vehicles, updateMaintenances, handleCl
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    createMaintenance(values,updateMaintenances);
-    handleClose();
-
-  }
-
-  if(vehicles == "No vehicles") return <div>No hay vehiculos</div>;
+    console.log("SU");
+    editMaintenance(values)
+    Router.reload();
+  };
 
   return (
-    <form
+    <form 
       onSubmit={handleSubmit}
       autoComplete="off"
+      noValidate
       {...props}
     >
       <Card>
         <CardHeader
           subheader=""
-          title="Crear Mantenimiento"
+          title="Editar Vehículo"
         />
         <Divider />
         <CardContent>
@@ -83,24 +146,13 @@ export const MaintenanceCreate = ({props, vehicles, updateMaintenances, handleCl
             >
               <TextField
                 fullWidth
-                label="Vehiculo"
+                label="Placa"
                 name="placa"
                 value={values.placa}
-                required
-                select
-                variant="outlined"
                 onChange={handleChange}
-                SelectProps={{ native: true }}
-              >
-                {vehicles.map((option) => (
-                  <option
-                    key={option.placa}
-                    value={option.placa}
-                  >
-                    {option.placa}
-                  </option>
-                ))}
-              </TextField>
+                required
+                variant="outlined"
+              />
             </Grid>
             <Grid
               item
@@ -109,16 +161,16 @@ export const MaintenanceCreate = ({props, vehicles, updateMaintenances, handleCl
             >
               <TextField
                 fullWidth
-                label="Servicio"
-                name="servicio"
-                value={values.servicio}
+                label="Marca"
+                name="marca"
+                value={values.marca}
                 onChange={handleChange}
+                required
                 select
                 SelectProps={{ native: true }}
                 variant="outlined"
-                required
               >
-                {tiposServicios.map((option) => (
+                {marcas.map((option) => (
                   <option
                     key={option.value}
                     value={option.value}
@@ -135,11 +187,10 @@ export const MaintenanceCreate = ({props, vehicles, updateMaintenances, handleCl
             >
               <TextField
                 fullWidth
-                label="Fecha"
-                name="fecha"
-                value={values.fecha}
+                label="Línea"
+                name="linea"
+                value={values.linea}
                 onChange={handleChange}
-                type="date"
                 required
                 variant="outlined"
               />
@@ -151,14 +202,40 @@ export const MaintenanceCreate = ({props, vehicles, updateMaintenances, handleCl
             >
               <TextField
                 fullWidth
-                label="Costo"
-                name="costo"
-                value={values.costo}
+                label="Modelo"
+                name="modelo"
+                value={values.modelo}
                 onChange={handleChange}
-                variant="outlined"
                 type="number"
                 required
+                variant="outlined"
               />
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Combustible"
+                name="combustible"
+                value={values.combustible}
+                onChange={handleChange}
+                required
+                select
+                SelectProps={{ native: true }}
+                variant="outlined"
+              >
+                {combustibles.map((option) => (
+                  <option
+                    key={option.value}
+                    value={option.value}
+                  >
+                    {option.label}
+                  </option>
+                ))}
+              </TextField>
             </Grid>
             <Grid
               item
@@ -171,52 +248,11 @@ export const MaintenanceCreate = ({props, vehicles, updateMaintenances, handleCl
                 name="kilometraje"
                 value={values.kilometraje}
                 onChange={handleChange}
-                variant="outlined"
                 type="number"
                 required
-              />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Estado"
-                name="estado"
-                value={values.estado}
-                onChange={handleChange}
-                select
-                SelectProps={{ native: true }}
-                variant="outlined"
-                required
-              >
-                {estados.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
-            </Grid>
-            <Grid
-              item
-              md={12}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Detalle"
-                name="detalle"
-                value={values.detalle}
-                onChange={handleChange}
-                optional
                 variant="outlined"
               />
-
+                
             </Grid>
           </Grid>
         </CardContent>
@@ -233,7 +269,7 @@ export const MaintenanceCreate = ({props, vehicles, updateMaintenances, handleCl
             color="primary"
             variant="contained"
           >
-            Crear
+            Guardar
           </Button>
         </Box>
       </Card>

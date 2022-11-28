@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import axios from "axios";
 import {
   Box,
   Button,
@@ -12,98 +11,23 @@ import {
 } from '@mui/material';
 import { editMaintenance } from '../../API/maintenancePetitions';
 import Router from 'next/router';
+import { getTiposServicios, getEstados} from './data';
 
-const marcas = [
-  {
-    value: 'audi',
-    label: 'Audi'
-  },
-  {
-    value: 'bmw',
-    label: 'BMW'
-  },
-  {
-    value: 'chevrolet',
-    label: 'Chevrolet'
-  },
-  {
-    value: 'dodge',
-    label: 'Dodge'
-  },
-  {
-    value: 'fiat',
-    label: 'Fiat'
-  },
-  {
-    value: 'ford',
-    label: 'Ford'
-  },
-  {
-    value: 'honda',
-    label: 'Honda'
-  },
-  {
-    value: 'jeep',
-    label: 'Jeep'
-  },
-  {
-    value: 'mazda',
-    label: 'Mazda'
-  },
-  {
-    value: 'nissan',
-    label: 'Nissan'
-  },
-  {
-    value: 'peugeot',
-    label: 'Peugeot'
-  },
-  {
-    value: 'seat',
-    label: 'SEAT'
-  },
-  {
-    value: 'suzuki',
-    label: 'Suzuki'
-  },
-  {
-    value: 'toyota',
-    label: 'Toyota'
-  },
-  {
-    value: 'volkswagen',
-    label: 'Volkswagen'
-  },
-  {
-    value: 'volvo',
-    label: 'Volvo'
-  }
-];
 
-const combustibles = [
-  {
-    value: 'gasolina',
-    label: 'Gasolina'
-  },
-  {
-    value: 'acpm',
-    label: 'ACPM'
-  },
-  {
-    value: 'gasolina-extra',
-    label: 'Gasolina Extra'
-  }
-];
+const tiposServicios = getTiposServicios();
 
-export const MaintenanceEdit = ({maintenance, props}) => {
-  console.log(maintenance);
+const estados = getEstados();
+
+export const MaintenanceEdit = ({maintenance, updateMaintenances, handleClose, props}) => {
   const [values, setValues] = useState({
-    placa: maintenance.placa,
-    marca: maintenance.marca,
-    linea: maintenance.marca,
-    modelo: maintenance.año,
-    combustible: maintenance.combustible,
-    kilometraje: maintenance.kilometraje,
+    placa:maintenance.placa,
+    id:maintenance.id,
+    servicio:maintenance.servicio,
+    descripcion:maintenance.descripcion,
+    kilometraje:maintenance.kilometraje,
+    estado:maintenance.estado,
+    fecha:maintenance.fecha,
+    costo:maintenance.costo,
   });
 
   const handleChange = (event) => {
@@ -113,16 +37,15 @@ export const MaintenanceEdit = ({maintenance, props}) => {
     });
   };
 
-
   const handleSubmit = (e) =>{
     e.preventDefault();
-    console.log("SU");
-    editMaintenance(values)
-    Router.reload();
+    editMaintenance(values,updateMaintenances);
+    handleClose();
+    //Router.reload();
   };
 
   return (
-    <form 
+    <form
       onSubmit={handleSubmit}
       autoComplete="off"
       noValidate
@@ -131,7 +54,7 @@ export const MaintenanceEdit = ({maintenance, props}) => {
       <Card>
         <CardHeader
           subheader=""
-          title="Editar Vehículo"
+          title="Editar Mantenimiento"
         />
         <Divider />
         <CardContent>
@@ -146,8 +69,9 @@ export const MaintenanceEdit = ({maintenance, props}) => {
             >
               <TextField
                 fullWidth
-                label="Placa"
+                label="Vehiculo"
                 name="placa"
+                disabled
                 value={values.placa}
                 onChange={handleChange}
                 required
@@ -161,16 +85,16 @@ export const MaintenanceEdit = ({maintenance, props}) => {
             >
               <TextField
                 fullWidth
-                label="Marca"
-                name="marca"
-                value={values.marca}
+                label="Servicio"
+                name="servicio"
+                value={values.servicio}
                 onChange={handleChange}
-                required
                 select
                 SelectProps={{ native: true }}
                 variant="outlined"
+                required
               >
-                {marcas.map((option) => (
+                {tiposServicios.map((option) => (
                   <option
                     key={option.value}
                     value={option.value}
@@ -187,10 +111,11 @@ export const MaintenanceEdit = ({maintenance, props}) => {
             >
               <TextField
                 fullWidth
-                label="Línea"
-                name="linea"
-                value={values.linea}
+                label="Fecha"
+                name="fecha"
+                value={values.fecha}
                 onChange={handleChange}
+                type="date"
                 required
                 variant="outlined"
               />
@@ -202,40 +127,14 @@ export const MaintenanceEdit = ({maintenance, props}) => {
             >
               <TextField
                 fullWidth
-                label="Modelo"
-                name="modelo"
-                value={values.modelo}
+                label="Costo"
+                name="costo"
+                value={values.costo}
                 onChange={handleChange}
+                variant="outlined"
                 type="number"
                 required
-                variant="outlined"
               />
-            </Grid>
-            <Grid
-              item
-              md={6}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Combustible"
-                name="combustible"
-                value={values.combustible}
-                onChange={handleChange}
-                required
-                select
-                SelectProps={{ native: true }}
-                variant="outlined"
-              >
-                {combustibles.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
             </Grid>
             <Grid
               item
@@ -248,11 +147,52 @@ export const MaintenanceEdit = ({maintenance, props}) => {
                 name="kilometraje"
                 value={values.kilometraje}
                 onChange={handleChange}
+                variant="outlined"
                 type="number"
                 required
+              />
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Estado"
+                name="estado"
+                value={values.estado}
+                onChange={handleChange}
+                select
+                SelectProps={{ native: true }}
+                variant="outlined"
+                required
+              >
+                {estados.map((option) => (
+                  <option
+                    key={option.value}
+                    value={option.value}
+                  >
+                    {option.label}
+                  </option>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid
+              item
+              md={12}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Detalle"
+                name="detalle"
+                value={values.detalle}
+                onChange={handleChange}
+                optional
                 variant="outlined"
               />
-                
+
             </Grid>
           </Grid>
         </CardContent>

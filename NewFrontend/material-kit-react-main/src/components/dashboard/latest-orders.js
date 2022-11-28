@@ -17,7 +17,7 @@ import {
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { SeverityPill } from '../severity-pill';
 import { useEffect,useState } from 'react';
-import { getMaintenance } from '../../API/maintenancePetitions';
+import { getMaintenances } from '../../API/maintenancePetitions';
 import HelpIcon from '@mui/icons-material/Help';
 const orders = [
   {
@@ -86,10 +86,10 @@ const orders = [
 export const LatestOrders = (props) => {
   const [maintenances, setMaintenances] = useState([]);
   useEffect(() => {
-    getMaintenance(setMaintenances);  
+    getMaintenances(setMaintenances);  
 
   }, []);
-  if(maintenances !== "Not maintenances" && maintenances !== "No cars" && maintenances.length>0){
+  if(maintenances !== "Not maintenances" && maintenances !== "No vehicles" && maintenances.length>0){
     return (
     <Card {...props}>
       <CardHeader title="Últimos servicios" />

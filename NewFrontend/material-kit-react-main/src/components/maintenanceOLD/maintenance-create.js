@@ -1,9 +1,12 @@
 import { useState } from 'react';
-import {createMaintenance} from '../../API/maintenancePetitions';
-import {getMaintenances} from '../../API/maintenancePetitions';
+import { ReactSession } from 'react-client-session';
+import axios from "axios";
+ReactSession.setStoreType("localStorage");
 import { useEffect } from 'react';
+import {createMaintenance} from '../../API/maintenancePetitions';
+import {deleteMaintenance} from '../../API/maintenancePetitions';
+import {getVehicles} from '../../API/carPetitions';
 import Router from 'next/router';
-import { getTiposServicios, getEstados} from './data';
 
 import {
   Box,
@@ -15,32 +18,88 @@ import {
   Grid,
   TextField
 } from '@mui/material';
-import { set } from 'date-fns';
 
-const tiposServicios = getTiposServicios();
+const estados = [
+  {
+    value: 'En proceso',
+    label: 'En proceso'
+  },
+  {
+    value: 'Finalizado',
+    label: 'Finalizado'
+  },
+  {
+    value: 'Aplazado',
+    label: 'Aplazado'
+  }
+];
+const servicios = [
+  {
+    value: 'Mantenimiento periódico',
+    label: 'Mantenimiento periódico',
+  },
+  {
+    value: 'Cambio de aceite',
+    label: 'Cambio de aceite'
+  },
+  {
+    value: 'Cambio de neumáticos',
+    label: 'Cambio de neumáticos'
+  },
+  {
+    value: 'Cambio de batería',
+    label: 'Cambio de batería'
+  },
+  {
+    value: 'Cambio de frenos',
+    label: 'Cambio de frenos'
+  },
+  {
+    value: 'Cambio de amortiguadores',
+    label: 'Cambio de amortiguadores'
+  },
+  {
+    value: 'Cambio de embrague',
+    label: 'Cambio de embrague'
+  },
+  {
+    value: 'Cambio de correa de Bujias',
+    label: 'Cambio de correa de Bujias'
+  },
+  {
+    value: 'Motor',
+    label: 'Motor'
+  },
+  {
+    value: 'Liquido de frenos',
+    label: 'Liquido de frenos'
+  },
+  {
+    value: 'Actualización de kilometraje',
+    label: 'Actualización de kilometraje'
+  },
+];
 
-const estados = getEstados();
 
-export const MaintenanceCreate = ({props, vehicles, updateMaintenances, handleClose}) => {
-  var today = new Date();
+
+export const MaintenanceCreate = (props) => {
+
+  const token = localStorage.getItem('Token');
+  const [vehicles, setVehicles] = useState([]);
+  useEffect(() => {
+      getVehicles(setVehicles)
+  }, []);
+  
+
   const [values, setValues] = useState({
     placa:"",
-    id:"",
+    fecha:"",
+    servicio:"",
     descripcion:"",
+    estado:"",
     kilometraje:"",
-    estado:estados[0].value,
-    servicio:tiposServicios[0].value,
-    fecha:today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
     costo:"",
   });
-
-  try{
-    if (values.placa == "") {
-      values.placa = vehicles[0].placa;
-    }
-  } catch (error) {
-    console.log(error);
-  };
 
   const handleChange = (event) => {
     setValues({
@@ -52,17 +111,24 @@ export const MaintenanceCreate = ({props, vehicles, updateMaintenances, handleCl
 
   const handleSubmit = (e) =>{
     e.preventDefault();
-    createMaintenance(values,updateMaintenances);
-    handleClose();
+    createMaintenance(values);
+};
 
-  }
-
-  if(vehicles == "No vehicles") return <div>No hay vehiculos</div>;
-
+console.log(vehicles);
+if (vehicles === "No cars") {
+    return (
+      <div>
+        <h1>No hay vehiculos registrados, por favor registre su vehiculo</h1>
+      </div>
+    );
+} else {
+  const vehicle ={placa: '', marca: '', modelo: '', anio: '', kilometraje: '', estado: ''};
+  vehicles.push(vehicle);
   return (
     <form
       onSubmit={handleSubmit}
       autoComplete="off"
+
       {...props}
     >
       <Card>
@@ -83,7 +149,7 @@ export const MaintenanceCreate = ({props, vehicles, updateMaintenances, handleCl
             >
               <TextField
                 fullWidth
-                label="Vehiculo"
+                label="Placa"
                 name="placa"
                 value={values.placa}
                 required
@@ -109,16 +175,16 @@ export const MaintenanceCreate = ({props, vehicles, updateMaintenances, handleCl
             >
               <TextField
                 fullWidth
-                label="Servicio"
-                name="servicio"
-                value={values.servicio}
+                label="Estado"
+                name="estado"
+                value={values.descripcion}
                 onChange={handleChange}
+                required
                 select
                 SelectProps={{ native: true }}
                 variant="outlined"
-                required
               >
-                {tiposServicios.map((option) => (
+                {estados.map((option) => (
                   <option
                     key={option.value}
                     value={option.value}
@@ -127,6 +193,21 @@ export const MaintenanceCreate = ({props, vehicles, updateMaintenances, handleCl
                   </option>
                 ))}
               </TextField>
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12}
+            >
+              <TextField
+                fullWidth
+                label="Descripcion"
+                name="descripcion"
+                value={values.descripcion}
+                onChange={handleChange}
+                required
+                variant="outlined"
+              />
             </Grid>
             <Grid
               item
@@ -151,14 +232,26 @@ export const MaintenanceCreate = ({props, vehicles, updateMaintenances, handleCl
             >
               <TextField
                 fullWidth
-                label="Costo"
-                name="costo"
-                value={values.costo}
+                label="Servicio"
+                name="servicio"
+                value={values.servicio}
                 onChange={handleChange}
-                variant="outlined"
-                type="number"
                 required
-              />
+                select
+                SelectProps={{ native: true }}
+                variant="outlined"
+              >
+                {servicios.map((option) => (
+                  <option
+                    key={option.value}
+                    value={option.value}
+                    icon={option.icon}
+                  >
+                    {option.label}
+              
+                  </option>
+                ))}
+              </TextField>
             </Grid>
             <Grid
               item
@@ -171,10 +264,11 @@ export const MaintenanceCreate = ({props, vehicles, updateMaintenances, handleCl
                 name="kilometraje"
                 value={values.kilometraje}
                 onChange={handleChange}
-                variant="outlined"
                 type="number"
                 required
+                variant="outlined"
               />
+
             </Grid>
             <Grid
               item
@@ -183,37 +277,12 @@ export const MaintenanceCreate = ({props, vehicles, updateMaintenances, handleCl
             >
               <TextField
                 fullWidth
-                label="Estado"
-                name="estado"
-                value={values.estado}
+                label="Costo"
+                name="costo"
+                value={values.costo}
                 onChange={handleChange}
-                select
-                SelectProps={{ native: true }}
-                variant="outlined"
+                type="number"
                 required
-              >
-                {estados.map((option) => (
-                  <option
-                    key={option.value}
-                    value={option.value}
-                  >
-                    {option.label}
-                  </option>
-                ))}
-              </TextField>
-            </Grid>
-            <Grid
-              item
-              md={12}
-              xs={12}
-            >
-              <TextField
-                fullWidth
-                label="Detalle"
-                name="detalle"
-                value={values.detalle}
-                onChange={handleChange}
-                optional
                 variant="outlined"
               />
 
@@ -239,4 +308,5 @@ export const MaintenanceCreate = ({props, vehicles, updateMaintenances, handleCl
       </Card>
     </form>
   );
+  }
 };

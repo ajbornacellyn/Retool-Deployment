@@ -7,6 +7,7 @@ import { ValidateSession } from '../components/session';
 import { useEffect, useState } from 'react';
 import { getVehicles } from '../API/carPetitions';
 import { getReminders } from '../API/reminderPetitions';
+import { getMaintenances } from '../API/maintenancePetitions';
 
 const DashboardLayoutRoot = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -23,8 +24,9 @@ export const DashboardLayout = ({children}) => {
   
   const [vehicles, setVehicles] = useState([]);
   const [reminders, setReminders] = useState([]);
-  const updateVehicles = () => {getVehicles(setVehicles); getReminders(setReminders);};
-  useEffect(() => {getVehicles(setVehicles); getReminders(setReminders);}, []);
+  const [maintenances, setMaintenances] = useState([]);
+  const updateVehicles = () => {getVehicles(setVehicles); getReminders(setReminders); getMaintenances(setMaintenances);};
+  useEffect(() => {getVehicles(setVehicles); getReminders(setReminders); getMaintenances(setMaintenances);}, []);
 
   if (ValidateSession()){
   return (
@@ -38,7 +40,7 @@ export const DashboardLayout = ({children}) => {
             width: '100%'
           }}
         >
-          {children({vehicles:vehicles, reminders:reminders, updateVehicles:updateVehicles})}
+          {children({vehicles:vehicles, reminders:reminders, maintenances:maintenances, updateVehicles:updateVehicles})}
         </Box>
       </DashboardLayoutRoot>
       <DashboardNavbar vehicles={vehicles} updateVehicles={updateVehicles} onSidebarOpen={() => setSidebarOpen(true)} />

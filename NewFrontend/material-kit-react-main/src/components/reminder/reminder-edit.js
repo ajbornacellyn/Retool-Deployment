@@ -69,7 +69,7 @@ export const ReminderEdit = ({reminder, updateReminders, handleClose, props}) =>
             >
               <TextField
                 fullWidth
-                label="Placa"
+                label="Vehiculo"
                 name="placa"
                 disabled
                 value={values.placa}

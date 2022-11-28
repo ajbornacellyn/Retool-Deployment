@@ -22,13 +22,14 @@ const tiposRecordatiorios = getTiposRecordatiorios();
 const estados = getEstados();
 
 export const ReminderCreate = ({props, vehicles, updateReminders, handleClose}) => {
+  var today = new Date();
   const [values, setValues] = useState({
     placa:"",
     id:"",
     descripcion:tiposRecordatiorios[0].value,
     kilometraje:"",
     estado:estados[0].value,
-    fecha:"",
+    fecha:today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate(),
     detalle:"",
   });
 
@@ -55,7 +56,7 @@ export const ReminderCreate = ({props, vehicles, updateReminders, handleClose}) 
 
   }
 
-  if(vehicles == "No cars") return <div>No hay vehiculos</div>;
+  if(vehicles == "No vehicles") return <div>No hay vehiculos</div>;
 
   return (
     <form
@@ -81,7 +82,7 @@ export const ReminderCreate = ({props, vehicles, updateReminders, handleClose}) 
             >
               <TextField
                 fullWidth
-                label="Placa"
+                label="Vehiculo"
                 name="placa"
                 value={values.placa}
                 required

@@ -86,7 +86,7 @@ const Page = () => (
             xl={3}
             xs={12}
           >
-            <TrafficByDevice sx={{ height: '100%' }} />
+            <LatestOrders /> 
           </Grid>
           <Grid
             item
@@ -104,8 +104,8 @@ const Page = () => (
             xl={3}
             xs={12}
           >
-            <LatestOrders /> 
-          </Grid>
+            <TrafficByDevice sx={{ height: '100%' }} />
+          </Grid>          
         </Grid>
       </Container>
     </Box>
