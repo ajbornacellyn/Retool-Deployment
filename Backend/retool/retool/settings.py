@@ -83,8 +83,12 @@ WSGI_APPLICATION = 'retool.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'railway',
+        'USER': 'root',
+        'PASSWORD': 'fmwiyV4ePlrdtP7QR7sp',
+        'HOST':'containers-us-west-121.railway.app',
+        'PORT':'7403',
     }
 }
 

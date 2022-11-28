@@ -148,7 +148,7 @@ export const DashboardSidebar = (props) => {
       >
         <div>
           <Box sx={{ p: 3 }}>
-              <a>
+              <a href='/'>
               <center><img
               alt="Logo de Retool"
               src="/static/images/logoRetool.png"
@@ -156,6 +156,7 @@ export const DashboardSidebar = (props) => {
               height="200"
             />
             </center>
+            </a>
             <Typography
                   color="inherit"
                   variant="subtitle2"
@@ -164,7 +165,7 @@ export const DashboardSidebar = (props) => {
                   Lleva tu historia vehicular al día y planea el mantenimiento de tus vehículos
                 </Typography>
             
-              </a>
+              
           </Box>
           {/*
           <Box sx={{ px: 2 }}>
