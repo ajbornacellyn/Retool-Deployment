@@ -89,7 +89,7 @@ export const VehicleListResults = ({ vehicles, ...rest }) => {
     );
   }
 
-  if(vehicles == "No cars") return <div>No hay vehículos</div>;
+  if(vehicles == "No vehicles") return <div>No hay vehículos</div>;
   return (
     <Card {...rest}>
       <PerfectScrollbar>

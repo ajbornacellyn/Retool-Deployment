@@ -67,7 +67,7 @@ export const MaintenanceListResults = ({ maintenances, ...rest }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => { setOpen(true);};
   const handleClose = () => setOpen(false);
-  if(maintenances !== "Not maintenances" && maintenances !== "No cars" && maintenances.length>0){
+  if(maintenances !== "Not maintenances" && maintenances !== "No vehicles" && maintenances.length>0){
     return (
       <Card {...rest}>
         <PerfectScrollbar>
