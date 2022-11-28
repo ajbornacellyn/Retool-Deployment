@@ -161,7 +161,7 @@ export const DashboardSidebar = (props) => {
                   variant="subtitle2"
                   align="center"
                 >
-                  Lleva tu historia vehicular al dia y planea el mantenimiento de tu vehiculo
+                  Lleva tu historia vehicular al día y planea el mantenimiento de tus vehículos
                 </Typography>
             
               </a>

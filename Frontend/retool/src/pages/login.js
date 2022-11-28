@@ -56,19 +56,28 @@ const Login = () => {
         component="main"
         sx={{
           alignItems: 'center',
-          display: 'flex',
+          display: 'realtive',
           flexGrow: 1,
-          minHeight: '100%'
+          minHeight: '100%',
         }}
       >
 
         <Container maxWidth="sm">
 
 
-
-      {//parte de pruebas
-}
-
+        <Box sx={{ my: 7 }}>
+              
+          <a href='/'>
+            <center><img
+            alt="Logo de Retool"
+            src="/static/images/logoRetool.png"
+            width="200" 
+            height="200"
+            />
+            </center>
+          </a>
+              
+        </Box>
 
           <form onSubmit={formik.handleSubmit}>
             <Box sx={{ my: 3 }}>

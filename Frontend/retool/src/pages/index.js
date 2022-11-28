@@ -13,13 +13,14 @@ import { DashboardLayout } from '../components/dashboard-layout';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { ValidateHome } from '../components/session';
 
 
 const Page = () => (
   <>
     <Head>
       <title>
-        Menu principal
+        ReTool - Dashboard
       </title>
     </Head>
     <Box

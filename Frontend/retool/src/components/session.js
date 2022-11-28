@@ -36,7 +36,11 @@ export function ValidateSession() {
 
   if (vehicles.length > 0){
     if (vehicles[0] == "NN"){
-        router.push('/login')
+        if (router.pathname == '/'){
+            router.push('/home')
+        }else {
+            router.push('/login')
+        }
         return false;
     } else{
         return true;

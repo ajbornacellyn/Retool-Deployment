@@ -90,7 +90,7 @@ export const VehicleUpdateKm = ({vehicles, updateVehicles, handleClose, props}) 
             >
               <TextField
                 fullWidth
-                label="Placa"
+                label="Vehículo"
                 name="placa"
                 value={values.placa}
                 required

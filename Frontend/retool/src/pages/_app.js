@@ -23,7 +23,7 @@ const App = (props) => {
     <CacheProvider value={emotionCache}>
       <Head>
         <title>
-          Retool
+          ReTool
         </title>
         <meta
           name="viewport"
