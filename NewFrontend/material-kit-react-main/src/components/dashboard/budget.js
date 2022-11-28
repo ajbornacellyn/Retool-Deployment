@@ -23,7 +23,7 @@ export const Budget = ({props, ...React }) => {
     })
 
     }, []);
-    if(Mantenimientos !== "Not maintenances" && Mantenimientos !== "No vehicles" && Mantenimientos.length>0){
+    if(Mantenimientos !== "No maintenances" && Mantenimientos !== "No vehicles" && Mantenimientos.length>0){
         var total = 0;
         var LastCost = Mantenimientos[Mantenimientos.length-1].costo;
         Mantenimientos.forEach((item) => {

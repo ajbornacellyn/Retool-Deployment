@@ -28,7 +28,7 @@ export const Costs = ({props, ...React }) => {
 
   }, []);
 
-  if(Mantenimientos !== "Not maintenances" && Mantenimientos !== "No vehicles" && Mantenimientos.length>0){
+  if(Mantenimientos !== "No maintenances" && Mantenimientos !== "No vehicles" && Mantenimientos.length>0){
     mantLabels = Mantenimientos.map((item) => item.fecha)
     datos = Mantenimientos.map((item) => item.costo)
   }

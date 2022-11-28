@@ -21,7 +21,7 @@ export const TasksProgress = (props) => {
 
   }, []);
 
-  if(Mantenimientos !== "Not maintenances" && Mantenimientos !== "No vehicles" && Mantenimientos.length>0){
+  if(Mantenimientos !== "No maintenances" && Mantenimientos !== "No vehicles" && Mantenimientos.length>0){
     var kilCurrent = Mantenimientos[Mantenimientos.length-1].kilometraje;
   }
   return (

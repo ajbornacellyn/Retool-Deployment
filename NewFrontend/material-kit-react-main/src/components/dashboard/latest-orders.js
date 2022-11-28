@@ -89,7 +89,7 @@ export const LatestOrders = (props) => {
     getMaintenances(setMaintenances);  
 
   }, []);
-  if(maintenances !== "Not maintenances" && maintenances !== "No vehicles" && maintenances.length>0){
+  if(maintenances !== "No maintenances" && maintenances !== "No vehicles" && maintenances.length>0){
     return (
     <Card {...props}>
       <CardHeader title="Últimos servicios" />
