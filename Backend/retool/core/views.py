@@ -260,11 +260,11 @@ class ReminderView(APIView):
                         kIni = reminder['kilometrajeInicial']
                         kRem = reminder['kilometraje']
                         kAut = auto.kilometraje
-                        if (kIni < kAut):
+                        if (kAut > kIni):
                             if(kAut >= kRem):
                                 avance = 100
                             else:
-                                avance = round((kAut-kIni) / kRem * 100)
+                                avance = round((kAut-kIni) / (kRem-kIni) * 100)
                         reminder['avance'] = avance
                         reminders.append(reminder)
             if len (reminders) > 0:
