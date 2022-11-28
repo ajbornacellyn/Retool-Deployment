@@ -142,7 +142,7 @@ class CarView(APIView):
             return Response(detail)
 
         else:
-            return Response("No cars")
+            return Response("No vehicles")
 
     def put(self, request, placa):
         cars = Carro.objects.filter(placa = placa)

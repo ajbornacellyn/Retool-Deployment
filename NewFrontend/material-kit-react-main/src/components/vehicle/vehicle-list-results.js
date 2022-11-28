@@ -72,7 +72,7 @@ export const VehicleListResults = ({ vehicles, updateVehicles, ...rest }) => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  if(vehicles == "No cars") return <div>No hay vehiculos</div>;
+  if(vehicles == "No cars") return <div>No hay vehículos</div>;
   return (
     <Card {...rest}>
       <PerfectScrollbar>

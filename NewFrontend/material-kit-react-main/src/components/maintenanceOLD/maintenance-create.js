@@ -115,10 +115,10 @@ export const MaintenanceCreate = (props) => {
 };
 
 console.log(vehicles);
-if (vehicles === "No cars") {
+if (vehicles === "No vehicles") {
     return (
       <div>
-        <h1>No hay vehiculos registrados, por favor registre su vehiculo</h1>
+        <h1>No hay vehículos registrados, por favor registre su vehiculo</h1>
       </div>
     );
 } else {

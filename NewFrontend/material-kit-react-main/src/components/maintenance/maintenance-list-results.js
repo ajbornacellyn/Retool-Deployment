@@ -72,7 +72,7 @@ export const MaintenanceListResults = ({ maintenances, updateMaintenances, ...re
   const handleClose = () => setOpen(false);
 
   console.log(maintenances);
-  if(maintenances == "No vehicles") return <div>No hay vehiculos</div>;
+  if(maintenances == "No vehicles") return <div>No hay vehículos</div>;
   if(maintenances == "No maintenances") return <div>No hay mantenimientos</div>;
   return (
     <Card {...rest}>

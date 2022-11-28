@@ -56,7 +56,7 @@ export const ReminderCreate = ({props, vehicles, updateReminders, handleClose}) 
 
   }
 
-  if(vehicles == "No vehicles") return <div>No hay vehiculos</div>;
+  if(vehicles == "No vehicles") return <div>No hay vehículos</div>;
 
   return (
     <form

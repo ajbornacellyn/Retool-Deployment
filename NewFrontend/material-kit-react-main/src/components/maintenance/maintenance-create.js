@@ -57,7 +57,7 @@ export const MaintenanceCreate = ({props, vehicles, updateMaintenances, handleCl
 
   }
 
-  if(vehicles == "No vehicles") return <div>No hay vehiculos</div>;
+  if(vehicles == "No vehicles") return <div>No hay vehículos</div>;
 
   return (
     <form

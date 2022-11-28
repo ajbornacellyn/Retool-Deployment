@@ -67,7 +67,7 @@ const items = [
 {
   href: '/vehicles',
   icon: (<DirectionsCarIcon fontSize="small" />),
-  title: 'Mis vehiculos'
+  title: 'Mis vehículos'
 },  
 {
   href: '/maintenances',

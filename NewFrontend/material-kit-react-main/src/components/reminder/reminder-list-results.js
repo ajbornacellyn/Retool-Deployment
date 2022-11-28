@@ -88,7 +88,7 @@ export const ReminderListResults = ({ reminders, updateReminders, ...rest }) => 
   }
 
   console.log(reminders);
-  if(reminders == "No vehicles") return <div>No hay vehiculos</div>;
+  if(reminders == "No vehicles") return <div>No hay vehículos</div>;
   if(reminders == "No reminders") return <div>No hay recordatorios</div>;
   return (
     <Card {...rest}>
