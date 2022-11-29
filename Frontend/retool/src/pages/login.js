@@ -27,7 +27,7 @@ const Login = () => {
     }),
     onSubmit: () => {
       console.log('submit');
-      axios.post('http://127.0.0.1:8000/login/', {
+      axios.post('https://retool.up.railway.app/login/', {
         username: formik.values.username,
         password: formik.values.password,
       })
@@ -67,7 +67,7 @@ const Login = () => {
 
         <Box sx={{ my: 7 }}>
               
-          <a href='/'>
+          <Link href='/'>
             <center><img
             alt="Logo de Retool"
             src="/static/images/logoRetool.png"
@@ -75,7 +75,7 @@ const Login = () => {
             height="200"
             />
             </center>
-          </a>
+          </Link>
               
         </Box>
 

@@ -53,7 +53,7 @@ const Register = () => {
         )*/
     }),
     onSubmit: () => {
-      axios.post('http://127.0.0.1:8000/register/', {
+      axios.post('https://retool.up.railway.app/register/', {
         username: formik.values.firstName,
         email: formik.values.email,
         password: formik.values.password,
@@ -63,7 +63,7 @@ const Register = () => {
         if (res.data.message== "Username already exists"){
           alert("Username already exists");
         }else{
-          axios.post('http://127.0.0.1:8000/login/', {
+          axios.post('https://retool.up.railway.app/login/', {
             username: formik.values.firstName,
             email: formik.values.email,
             password: formik.values.password,//falta poner email???
@@ -105,7 +105,7 @@ const Register = () => {
 
         <Box sx={{ my: 7 }}>
               
-          <a href='/'>
+          <Link href='/'>
             <center><img
             alt="Logo de Retool"
             src="/static/images/logoRetool.png"
@@ -113,7 +113,7 @@ const Register = () => {
             height="200"
             />
             </center>
-          </a>
+          </Link>
               
         </Box>
 

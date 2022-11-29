@@ -148,7 +148,7 @@ export const DashboardSidebar = (props) => {
       >
         <div>
           <Box sx={{ p: 3 }}>
-              <a href='/'>
+              <NextLink href='/'>
               <center><img
               alt="Logo de Retool"
               src="/static/images/logoRetool.png"
@@ -156,7 +156,7 @@ export const DashboardSidebar = (props) => {
               height="200"
             />
             </center>
-            </a>
+            </NextLink>
             <Typography
                   color="inherit"
                   variant="subtitle2"

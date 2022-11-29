@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const getReminders = async (state) => {
     try{
-        const res = await axios.get("http://localhost:8000/reminder/", {});
+        const res = await axios.get("https://retool.up.railway.app/reminder/", {});
         if(res.data.message != "OK"){
             state(res.data.message);
         }else{
@@ -16,7 +16,7 @@ export const getReminders = async (state) => {
 }
 
 export const createReminder = async (reminder,updateReminders) => {
-    await axios.post("http://localhost:8000/reminder/", {
+    await axios.post("https://retool.up.railway.app/reminder/", {
           placa: reminder.placa,
           descripcion: reminder.descripcion,
           kilometraje: reminder.kilometraje,
@@ -33,7 +33,7 @@ export const createReminder = async (reminder,updateReminders) => {
 }
 
 export const deleteReminder = async (reminder,updateReminders) => {
-    await axios.delete("http://localhost:8000/reminder/", {
+    await axios.delete("https://retool.up.railway.app/reminder/", {
         data: {"id": reminder.id}
     }).then((res) => {
         updateReminders();
@@ -47,7 +47,7 @@ export const deleteReminder = async (reminder,updateReminders) => {
 export const editReminder = async (reminder,updateReminders) => {
     console.log(reminder)
     const id = reminder.id;
-    await axios.put("http://localhost:8000/reminder/"+id+"/", {
+    await axios.put("https://retool.up.railway.app/reminder/"+id+"/", {
         placa: reminder.placa,
         descripcion: reminder.descripcion,
         kilometrajeInicial: reminder.kilometrajeInicial,

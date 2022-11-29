@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const getMaintenances = async (state) => {
     try{
-        const res = await axios.get("http://localhost:8000/maintenance/", {});
+        const res = await axios.get("https://retool.up.railway.app/maintenance/", {});
         if(res.data.message != "OK"){
             state(res.data.message);
         }else{
@@ -16,7 +16,7 @@ export const getMaintenances = async (state) => {
 }
 
 export const createMaintenance = async (maintenance,updateMaintenances) => {
-    await axios.post("http://localhost:8000/maintenance/", {
+    await axios.post("https://retool.up.railway.app/maintenance/", {
           placa: maintenance.placa,
           descripcion: maintenance.descripcion,
           kilometraje: maintenance.kilometraje,
@@ -34,7 +34,7 @@ export const createMaintenance = async (maintenance,updateMaintenances) => {
 }
 
 export const deleteMaintenance = async (maintenance,updateMaintenances) => {
-    await axios.delete("http://localhost:8000/maintenance/", {
+    await axios.delete("https://retool.up.railway.app/maintenance/", {
         data: {"id": maintenance.id}
     }).then((res) => {
         updateMaintenances();
@@ -48,7 +48,7 @@ export const deleteMaintenance = async (maintenance,updateMaintenances) => {
 export const editMaintenance = async (maintenance,updateMaintenances) => {
     console.log(maintenance)
     const id = maintenance.id;
-    await axios.put("http://localhost:8000/maintenance/"+id+"/", {
+    await axios.put("https://retool.up.railway.app/maintenance/"+id+"/", {
         placa: maintenance.placa,
         descripcion: maintenance.descripcion,
         kilometraje: maintenance.kilometraje,

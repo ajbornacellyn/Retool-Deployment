@@ -6,7 +6,7 @@ import { DashboardLayout } from '../components/dashboard-layout-data';
 import { useEffect, useState } from 'react';
 import {getReminders} from '../API/carPetitions';
 
-
+/* eslint react/no-children-prop: 0 */
 
 const Page = ({vehicles, reminders, updateVehicles}) => {
   console.log('');

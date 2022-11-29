@@ -16,7 +16,7 @@ export const Costs = ({props, ...React }) => {
   const [Mantenimientos, setMaintenances] = useState([]);
   useEffect(() => {
       axios
-    .get("http://localhost:8000/maintenance/", {
+    .get("https://retool.up.railway.app/maintenance/", {
       headers: {
         Authorization: `Token ${token}`,
       },

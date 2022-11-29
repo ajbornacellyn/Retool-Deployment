@@ -19,7 +19,7 @@ axios.interceptors.request.use(
 
 const getVehicles = async (state) => {
     try{
-        const res = await axios.get("http://localhost:8000/car/", {});
+        const res = await axios.get("https://retool.up.railway.app/car/", {});
         state(res.data);
     }catch(err){
         state(["NN"]);
