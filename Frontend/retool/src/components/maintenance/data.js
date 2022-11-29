@@ -1,16 +1,48 @@
   
 const tiposServicios = [
   {
-    value: 'Cambio aceite',
-    label: 'Cambio aceite'
+    value: 'Mantenimiento periódico',
+    label: 'Mantenimiento periódico',
   },
   {
-    value: 'Cambio llantas',
-    label: 'Cambio llantas'
+    value: 'Cambio de aceite',
+    label: 'Cambio de aceite'
   },
   {
-    value: 'Mantenimiento periodico',
-    label: 'Mantenimiento periodico'
+    value: 'Cambio de neumáticos',
+    label: 'Cambio de neumáticos'
+  },
+  {
+    value: 'Cambio de batería',
+    label: 'Cambio de batería'
+  },
+  {
+    value: 'Cambio de frenos',
+    label: 'Cambio de frenos'
+  },
+  {
+    value: 'Cambio de amortiguadores',
+    label: 'Cambio de amortiguadores'
+  },
+  {
+    value: 'Cambio de embrague',
+    label: 'Cambio de embrague'
+  },
+  {
+    value: 'Cambio de correa de Bujías',
+    label: 'Cambio de correa de  Bujías'
+  },
+  {
+    value: 'Arreglo Motor',
+    label: 'Arreglo Motor'
+  },
+  {
+    value: 'Líquido de frenos',
+    label: 'Líquido de frenos'
+  },
+  {
+    value: 'Otro servico',
+    label: 'Otro servico'
   }
 ];
 
