@@ -96,7 +96,7 @@ const Page = () => (
             xs={12}
           >
             <Box>
-              <iframe src="https://www.google.com/maps/d/u/0/embed?mid=138qrKF6sP7174kI5urB-lcEr097fyBk&ehbc=2E312F" width="640" height="480"></iframe>
+              <iframe src="https://www.google.com/maps/d/u/0/embed?mid=138qrKF6sP7174kI5urB-lcEr097fyBk&ehbc=2E312F" width="100%" height="480"></iframe>
             </Box> 
           </Grid>    
         </Grid>
