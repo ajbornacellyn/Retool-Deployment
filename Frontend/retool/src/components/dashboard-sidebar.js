@@ -26,38 +26,6 @@ import BuildCircleIcon from '@mui/icons-material/BuildCircle';
 import PendingActionsIcon from '@mui/icons-material/PendingActions';
 
 const items = [
-  /*
-
-  {
-    href: '/customers',
-    icon: (<UsersIcon fontSize="small" />),
-    title: 'Customers'
-  },
-  {
-    href: '/products',
-    icon: (<ShoppingBagIcon fontSize="small" />),
-    title: 'Products'
-  },
-  {
-    href: '/account',
-    icon: (<UserIcon fontSize="small" />),
-    title: 'Account'
-  },*/
-  
-  /*Eliminar funcion de login y registro del menu del lado izquierdo
-
-  {
-    href: '/login',
-    icon: (<LockIcon fontSize="small" />),
-    title: 'Login'
-  },
-  {
-    href: '/register',
-    icon: (<UserAddIcon fontSize="small" />),
-    title: 'Register'
-  },
-
-*/
 {
   href: '/',
   icon: (<ChartBarIcon fontSize="small" />),
@@ -79,13 +47,6 @@ const items = [
   icon: (<PendingActionsIcon fontSize="small" />),
   title: 'Recordatorios'
 }, 
-/*
-{
-  href: '/blog',
-  icon: (<ForumIcon fontSize="small" />),
-  title: 'Blog'
-},
-*/
 
 {
   href: '/commonQuestions',
@@ -97,22 +58,12 @@ const items = [
   icon: (<ContactSupportIcon fontSize="small" />),
   title: 'Informacion de contacto'
 },
-{
-  href: '/settings',
-  icon: (<CogIcon fontSize="small" />),
-  title: 'Ajustes'
-},
+
 {
   href: '/payments',
   icon: (<PaidIcon fontSize="small" />),
   title: 'Apoyanos'
 },
-/*
-  {
-    href: '/404',
-    icon: (<XCircleIcon fontSize="small" />),
-    title: 'Error'
-  }*/
 ];
 
 export const DashboardSidebar = (props) => {

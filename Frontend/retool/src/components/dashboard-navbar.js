@@ -88,11 +88,6 @@ export const DashboardNavbar = (props) => {
           </IconButton>
 
           <Box sx={{ flexGrow: 1 }} />
-          <Tooltip title="Contactos">
-            <IconButton sx={{ ml: 1 }}>
-              <UsersIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
 
           <Tooltip title="Redes sociales">
             <IconButton sx={{ ml: 1 }}target="_blank" href="https://www.facebook.com/people/ReTool-Mantenimientos/100087782960677/">
@@ -104,18 +99,7 @@ export const DashboardNavbar = (props) => {
                 <InstagramIcon fontSize="small"/>
             </IconButton>
           </Tooltip>
-
-          <Tooltip title="Notificaciones">
-            <IconButton sx={{ ml: 1 }}>
-              <Badge
-                badgeContent={4}
-                color="primary"
-                variant="dot"
-              >
-                <BellIcon fontSize="small" />
-              </Badge>
-            </IconButton>
-          </Tooltip>
+          
           <Avatar
             onClick={() => setOpenAccountPopover(true)}
             ref={settingsRef}

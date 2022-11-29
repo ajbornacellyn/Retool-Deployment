@@ -27,8 +27,7 @@ const Page = () => (
         </Typography>
         <Card>
       <CardHeader
-        subheader="Manage the notifications"
-        title="Notifications"
+        title="Opciones de pago"
       />
       <Divider />
       <CardContent>
@@ -55,14 +54,6 @@ const Page = () => (
             >
               Cuenta normal
             </Typography>
-            {/*<Typography
-              color="textPrimary"
-              gutterBottom
-              variant="h6"
-              textAlign="center"
-            >
-              Version sin anuncios
-          </Typography>*/}
             <Typography
               color="textPrimary"
               gutterBottom
@@ -82,21 +73,13 @@ const Page = () => (
             }}
             xs={12}
           >
-            {/*<Typography
-              color="textPrimary"
-              gutterBottom
-              variant="h6"
-              textAlign="center"
-            >
-              Apoyanos
-          </Typography>*/}
             <Typography
               color="textPrimary"
               gutterBottom
               variant="h6"
               textAlign="center"
             >
-              Apoyanos
+              Cuenta premium
             </Typography>
             
             <Typography
@@ -105,7 +88,7 @@ const Page = () => (
               variant="body1"
               textAlign="center"
             >
-              La version de pago de Retool permite al usuario el uso de la aplicacion sin anuncios. Ademas, este tendra acceso anticipado a nuevas funcionalidades dentro del aplicativo web
+              La version de pago de Retool permite al usuario, por el pago de 10000 pesos colombianos, el uso de la aplicacion sin anuncios. Ademas, este tendra acceso anticipado a nuevas funcionalidades dentro del aplicativo web
             </Typography>
             <a href="https://www.paypal.com/paypalme/ccuaspam" target="_blank" rel="noreferrer">
             <center><img
