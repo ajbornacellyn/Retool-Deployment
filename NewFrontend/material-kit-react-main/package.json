@@ -13,6 +13,7 @@
     "lint-fix": "next lint --fix"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.10.0",
     "@emotion/cache": "11.10.3",
     "@emotion/react": "11.10.4",
     "@emotion/server": "11.10.0",
@@ -31,6 +32,7 @@
     "chart.js": "3.9.1",
     "date-fns": "2.29.3",
     "formik": "2.2.9",
+    "html2canvas": "^1.4.1",
     "next": "^12.3.1",
     "nprogress": "0.2.0",
     "prop-types": "15.8.1",
@@ -39,6 +41,7 @@
     "react-client-session": "^0.0.8",
     "react-dom": "18.2.0",
     "react-perfect-scrollbar": "1.5.8",
+    "use-react-screenshot": "^3.0.0",
     "uuid": "9.0.0",
     "yup": "0.32.11"
   },

@@ -93,6 +93,9 @@ export const MaintenanceListResults = ({ maintenances, ...rest }) => {
                   <TableCell>
                     Estado
                   </TableCell>
+                  <TableCell>
+                    Tipo
+                  </TableCell>
                   <TableCell>  
                   </TableCell>
                 </TableRow>
@@ -125,6 +128,9 @@ export const MaintenanceListResults = ({ maintenances, ...rest }) => {
                     </TableCell>
                     <TableCell>
                       {maintenance.estado}
+                    </TableCell>
+                    <TableCell>
+                      {maintenance.tipo}
                     </TableCell>
                     <TableCell>
                       <IconButton aria-label="delete" onClick={() => {deleteMaintenances(maintenance);}}>

@@ -80,6 +80,24 @@ const servicios = [
   },
 ];
 
+const Tipos = [
+  {
+    value: 'Correctivo',
+    label: 'Correctivo'
+  },
+  {
+    value: 'Preventivo',
+    label: 'Preventivo'
+  },
+  {
+    value: 'Predictivo',
+    label: 'Predictivo'
+  }
+];
+
+
+
+
 
 
 export const MaintenanceCreate = (props) => {
@@ -99,6 +117,7 @@ export const MaintenanceCreate = (props) => {
     estado:"",
     kilometraje:"",
     costo:"",
+    tipo:"",
   });
 
   const handleChange = (event) => {
@@ -177,7 +196,7 @@ if (vehicles === "No cars") {
                 fullWidth
                 label="Estado"
                 name="estado"
-                value={values.descripcion}
+                value={values.estado}
                 onChange={handleChange}
                 required
                 select
@@ -246,6 +265,33 @@ if (vehicles === "No cars") {
                     key={option.value}
                     value={option.value}
                     icon={option.icon}
+                  >
+                    {option.label}
+              
+                  </option>
+                ))}
+              </TextField>
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={12} 
+            >
+              <TextField
+                fullWidth
+                label="Tipo"
+                name="tipo"
+                value={values.tipo}
+                onChange={handleChange}
+                required
+                select
+                SelectProps={{ native: true }}
+                variant="outlined"
+              >
+                {Tipos.map((option) => (
+                  <option
+                    key={option.value}
+                    value={option.value}
                   >
                     {option.label}
               

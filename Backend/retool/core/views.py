@@ -67,7 +67,7 @@ class ManteinanceView(APIView):
             cars = Carro.objects.filter(placa=request.data['placa'])
             if len(cars) > 0:
                 auto = Carro.objects.get(placa=request.data['placa'])
-                mantenimiento.objects.create( placa= auto, descripcion=request.data['descripcion'], kilometraje=request.data['kilometraje'], estado=request.data['estado'], servicio=request.data['servicio'], fecha = request.data['fecha'], costo = request.data['costo'])
+                mantenimiento.objects.create( placa= auto, descripcion=request.data['descripcion'], kilometraje=request.data['kilometraje'], estado=request.data['estado'], servicio=request.data['servicio'], fecha = request.data['fecha'], costo = request.data['costo'], tipo = request.data['tipo'])
                 return  Response({"message": "Maintenance created successfully"})
             else:
                 return Response("Car not found")
@@ -92,6 +92,7 @@ class ManteinanceView(APIView):
         else:
             return Response("No cars")
 
+
     def delete(self, request):
         idMant = request.data['id']
         mant = mantenimiento.objects.filter(id = idMant)
@@ -102,7 +103,31 @@ class ManteinanceView(APIView):
         else:
             return Response({ "message": "Maintenance not deleted" })
 
-        
+class MainteinanceByCar(APIView):  
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        current_user = request.user
+        cars = Carro.objects.filter(user=current_user.id)
+        cars_mant = []
+        if len(cars) > 0:
+            for car in cars:
+                carList = {}
+                maintenances = []
+                mant = mantenimiento.objects.filter(placa=car)
+                if len(mant) > 0:
+                    for m in mant:
+                        serializer = ManteinanceSerializer2(m)
+                        maintenances.append(serializer.data)
+                    carList["mantenimientos"] = maintenances
+                if len(carList) > 0:
+                    cars_mant.append(carList) 
+            if len (maintenances) > 0:
+                return Response(cars_mant)
+            else:
+                return Response("Not maintenances")
+        else:
+            return Response("No cars")
+
 
 class CarView(APIView):
     permission_classes = [IsAuthenticated]
@@ -128,6 +153,9 @@ class CarView(APIView):
 
         else:
             return Response("No cars")
+
+
+
 
     def put(self, request, placa):
         cars = Carro.objects.filter(placa = placa)

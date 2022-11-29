@@ -20,12 +20,12 @@ class LoginSerializer(serializers.ModelSerializer):
 class ManteinanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = mantenimiento
-        fields = ['placa','fecha','descripcion', 'kilometraje','estado', 'servicio', 'costo']
+        fields = ['placa','fecha','descripcion', 'kilometraje','estado', 'servicio', 'costo', 'tipo']
 
 class ManteinanceSerializer2(serializers.ModelSerializer):
     class Meta:
         model = mantenimiento
-        fields = ['id','placa','fecha','descripcion', 'kilometraje','estado', 'servicio', 'costo']
+        fields = ['id','placa','fecha','descripcion', 'kilometraje','estado', 'servicio', 'costo', 'tipo']
 
 class CarSerializer(serializers.ModelSerializer):
     class Meta:

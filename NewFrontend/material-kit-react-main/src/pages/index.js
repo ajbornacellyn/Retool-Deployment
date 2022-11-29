@@ -12,10 +12,29 @@ import { TrafficByDevice } from '../components/dashboard/traffic-by-device';
 import { DashboardLayout } from '../components/dashboard-layout';
 import axios from 'axios';
 import { useEffect } from 'react';
-import { useState } from 'react';
+import React, { createRef, useState } from 'react'
+import { useScreenshot } from 'use-react-screenshot'
+import html2canvas from 'html2canvas';
+import { Button } from '@mui/material';
 
 
-const Page = () => (
+const Page = () => {
+  const ref = createRef(null)
+  const [image, takeScreenshot] = useScreenshot()
+
+
+  const CaptureIamge = () => {
+    html2canvas(document.body).then(function(canvas){
+    var a = document.createElement('a');
+    a.href = canvas.toDataURL(".../assets/imgage/jpg").replace("image/jpg", "image/octet-stream");
+    a.download = "image.png";
+    a.click();
+    });
+  }
+  
+  useEffect(() => {
+  }, []);
+  return(
   <>
     <Head>
       <title>
@@ -107,10 +126,18 @@ const Page = () => (
             <LatestOrders /> 
           </Grid>
         </Grid>
+        <Button onClick={CaptureIamge}
+        color="primary"
+        size="large"
+        type="submit"
+        variant="contained"
+      >Take a Screenshot And send 
+      </Button>
       </Container>
     </Box>
   </>
-);
+)
+};
 
 Page.getLayout = (page) => (
   <DashboardLayout>

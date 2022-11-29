@@ -28,6 +28,7 @@ export const createMaintenance = async (maintenance) => {
           fecha: maintenance.fecha,
           kilometraje: maintenance.kilometraje,
           costo: maintenance.costo,
+          tipo: maintenance.tipo,
       }
     ).then((res) => {
         if (res.data.message === "Maintenance already exists"){
@@ -70,3 +71,12 @@ export const editMaintenance = async (maintenance) => {
 
 
 
+export const getMaintenanceByCar = async (state, placaIn) => {
+    const res = await axios.get("http://127.0.0.1:8000/maintenanceByCar/", {
+        params: {
+            placa: placaIn
+        }
+    });
+
+    state(res.data);
+}

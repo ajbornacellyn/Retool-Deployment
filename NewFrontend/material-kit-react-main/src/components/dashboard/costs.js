@@ -7,32 +7,54 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 
 export const Costs = ({props, ...React }) => {
-  
+
   const theme = useTheme();
   var mantLabels = [];
+  var mantLabel2 = [];
   var datos = [];
+  var datos2 = [];
+  var car1 =""
+  var car2 =""
+
 
   const token = localStorage.getItem('Token');
   const [Mantenimientos, setMaintenances] = useState([]);
   useEffect(() => {
-      axios
-    .get("http://localhost:8000/maintenance/", {
+    axios.get("http://localhost:8000/maintenanceByCar/", {
       headers: {
-        Authorization: `Token ${token}`,
-      },
+        "Authorization": `Token ${token}`
+      }
+    }).then((res) => {
+      setMaintenances(res.data);
     })
-    .then((res) => {
-    if (res.data !== "No maintenances"){
-      setMaintenances(res.data);};
-  })
-
   }, []);
 
-  if(Mantenimientos !== "Not maintenances" && Mantenimientos !== "No cars" && Mantenimientos.length>0){
-    mantLabels = Mantenimientos.map((item) => item.fecha)
-    datos = Mantenimientos.map((item) => item.costo)
+  console.log(Mantenimientos);
+  if(Mantenimientos !== "Not maintenances" && Mantenimientos !== "No cars", Mantenimientos.length > 0){
+    var carros = Mantenimientos.map((carro) => carro );
+    if(carros.length > 1){
+      var MantAuto0 = carros[0].mantenimientos.map((item) => item);
+      var MantAuto1 = carros[1].mantenimientos.map((item) => item);
+      
+
+      mantLabels = MantAuto1.map((item) => item.fecha);
+      datos = MantAuto1.map((item) => item.costo)
+      mantLabel2 = MantAuto0.map((item) => item.fecha);
+      datos2 = MantAuto0.map((item) => item.costo)
+      car1 = MantAuto0.map((item) => item.placa)[0]
+      car2 = MantAuto1.map((item) => item.placa)[0]
+      }else{
+      var MantAuto0 = carros[0].mantenimientos.map((item) => item);
+      mantLabels = MantAuto0.map((item) => item.fecha);
+      datos = MantAuto0.map((item) => item.costo)
+      car1 = MantAuto0.map((item) => item.placa)[0]
+    }
   }
   
+
+    
+  
+
   const data = {
     datasets: [
       {
@@ -42,8 +64,8 @@ export const Costs = ({props, ...React }) => {
         borderRadius: 4,
         categoryPercentage: 0.5,
         data: datos,
-        label: 'This year',
-        maxBarThickness: 10
+        label:"Placa "+  car1,  
+        maxBarThickness: 10,
       },
       {
         backgroundColor: '#EEEEEE',
@@ -51,16 +73,17 @@ export const Costs = ({props, ...React }) => {
         barThickness: 12,
         borderRadius: 4,
         categoryPercentage: 0.5,
-        data: [11, 20, 12, 29, 30, 25, 13],
-        label: 'Last year',
-        maxBarThickness: 10
+        data: datos2,
+        label: "Placa "+car2,
+        maxBarThickness: 10,
       }
     ],
-    labels: mantLabels
+    labels: [mantLabels]
+    
   };
 
   const options = {
-    animation: false,
+    animation: true,
     cornerRadius: 20,
     layout: { padding: 0 },
     legend: { display: false },

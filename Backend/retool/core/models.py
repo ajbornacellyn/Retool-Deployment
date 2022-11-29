@@ -66,6 +66,7 @@ class mantenimiento(models.Model):
     nota = models.CharField(max_length=500, null= True, blank= True)
     fecha = models.DateField(null= True, blank= True)
     costo = models.IntegerField(null= True, blank= True)
+    tipo = models.CharField(max_length=30, null= True, blank= True)
 
 
 class repuesto(models.Model):

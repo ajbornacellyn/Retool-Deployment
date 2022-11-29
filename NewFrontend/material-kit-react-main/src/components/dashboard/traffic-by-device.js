@@ -3,41 +3,74 @@ import { Box, Card, CardContent, CardHeader, Divider, Typography, useTheme } fro
 import LaptopMacIcon from '@mui/icons-material/LaptopMac';
 import PhoneIcon from '@mui/icons-material/Phone';
 import TabletIcon from '@mui/icons-material/Tablet';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Component } from 'react';
 import axios from 'axios';
 
+// funcion que retorna el procentaje de aparicion de acada elemento en un array
+const getPercentage = (array) => {
+  let count = {};
+  let percentage = {};
+  array.forEach((element) => {
+    count[element] = count[element] ? count[element] + 1 : 1;
+  });
+  for (let key in count) {
+    percentage[key] = (count[key] / array.length) * 100;
+  }
+  return percentage;
 
-export const TrafficByDevice = ({props}) => {
+};
+
+export const TrafficByDevice = () => {
 
   const token = localStorage.getItem('Token');
-  const [mantenimientos, setMaintenances] = useState([]);
-  useEffect(() => {
-      axios
-    .get("http://127.0.0.1:8000/maintenance/", {
-      headers: {
-        Authorization: `Token ${token}`,
-      },
-    })
-    .then((res) => {
-    if (res.data !== "No maintenances"){
-      setMaintenances(res.data);};
-  })
+  const [Mantenimientos, setMaintenances] = useState([]);
+  const [dataTipo, setData] = useState({});
+  var  valores = {};
+  var tipos = []
+  var porcentaje = []
 
-  }, []);
+  useEffect(() => {
+    axios.get("http://localhost:8000/maintenanceByCar/", {
+      headers: {
+        "Authorization": `Token ${token}`
+      }
+    }).then((res) => {
+      setData(res.data);
+      }
+    )
+  }
+  , []);
+ 
+
 
   const theme = useTheme();
+  console.log("dataTipo");
+  console.log(dataTipo)
+  if(dataTipo !== "Not maintenances" && dataTipo !== "No cars", dataTipo.length > 0){
+    var datos = dataTipo[0].mantenimientos.map((item) => item.tipo);
+    valores = getPercentage(datos);
+  }
+  console.log(valores.keys);
+  // se obtienen las key del objeto valores
+  for (let key in valores) {
+    tipos.push(key);
+  }
+  for (let key in valores) {
+    porcentaje.push(valores[key]);
+  }
+  
 
   const data = {
     datasets: [
       {
-        data: [63, 15, 22],
+        data: porcentaje,
         backgroundColor: ['#3F51B5', '#e53935', '#FB8C00'],
         borderWidth: 8,
         borderColor: '#FFFFFF',
         hoverBorderColor: '#FFFFFF'
       }
     ],
-    labels: ['Desktop', 'Tablet', 'Mobile']
+    labels: tipos
   };
 
   const options = {
@@ -62,29 +95,21 @@ export const TrafficByDevice = ({props}) => {
     }
   };
 
-  const devices = [
-    {
-      title: 'Desktop',
-      value: 63,
+  var allData = [];
+  for(let key in valores) {
+    let dato = {
+      title: key,
+      value: valores[key],
       icon: LaptopMacIcon,
       color: '#3F51B5'
-    },
-    {
-      title: 'Tablet',
-      value: 15,
-      icon: TabletIcon,
-      color: '#E53935'
-    },
-    {
-      title: 'Mobile',
-      value: 23,
-      icon: PhoneIcon,
-      color: '#FB8C00'
     }
-  ];
+    allData.push(dato);
+  }
+
+  const devices = allData
 
   return (
-    <Card {...props}>
+    <Card >
       <CardHeader title="Traffic by Device" />
       <Divider />
       <CardContent>
