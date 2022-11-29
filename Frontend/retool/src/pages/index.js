@@ -8,7 +8,6 @@ import { Costs } from '../components/dashboard/costs';
 import { TasksProgress } from '../components/dashboard/tasks-progress';
 import { TotalCustomers } from '../components/dashboard/total-customers';
 import { TotalProfit } from '../components/dashboard/total-profit';
-import { TrafficByDevice } from '../components/dashboard/traffic-by-device';
 import { DashboardLayout } from '../components/dashboard-layout';
 import axios from 'axios';
 import { useEffect } from 'react';
@@ -64,15 +63,6 @@ const Page = () => (
           </Grid>
           <Grid
             item
-            xl={3}
-            lg={3}
-            sm={6}
-            xs={12}
-          >
-            <TotalProfit sx={{ height: '100%' }} />
-          </Grid>
-          <Grid
-            item
             lg={8}
             md={12}
             xl={9}
@@ -100,13 +90,15 @@ const Page = () => (
           </Grid>
           <Grid
             item
-            lg={4}
-            md={6}
-            xl={3}
+            lg={8}
+            md={12}
+            xl={9}
             xs={12}
           >
-            <TrafficByDevice sx={{ height: '100%' }} />
-          </Grid>          
+            <Box>
+              <iframe src="https://www.google.com/maps/d/u/0/embed?mid=138qrKF6sP7174kI5urB-lcEr097fyBk&ehbc=2E312F" width="640" height="480"></iframe>
+            </Box> 
+          </Grid>    
         </Grid>
       </Container>
     </Box>

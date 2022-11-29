@@ -42,17 +42,7 @@ export const Costs = ({props, ...React }) => {
         borderRadius: 4,
         categoryPercentage: 0.5,
         data: datos,
-        label: 'This year',
-        maxBarThickness: 10
-      },
-      {
-        backgroundColor: '#EEEEEE',
-        barPercentage: 0.5,
-        barThickness: 12,
-        borderRadius: 4,
-        categoryPercentage: 0.5,
-        data: [11, 20, 12, 29, 30, 25, 13],
-        label: 'Last year',
+        label: 'Costo',
         maxBarThickness: 10
       }
     ],
@@ -127,14 +117,6 @@ export const Costs = ({props, ...React }) => {
   return (
     <Card {...props}>
       <CardHeader
-        action={(
-          <Button
-            endIcon={<ArrowDropDownIcon fontSize="small" />}
-            size="small"
-          >
-            Last 7 days
-          </Button>
-        )}
         title="Costos de Mantenimientos realizados"
       />
       <Divider />
@@ -159,18 +141,8 @@ export const Costs = ({props, ...React }) => {
           p: 2
         }}
       >
-        <Button
-          color="primary"
-          endIcon={<ArrowRightIcon fontSize="small" />}
-          size="small"
-        >
-          Overview
-        </Button>
       </Box>
-      <Divider />
-      <Box>
-        <iframe src="https://www.google.com/maps/d/u/0/embed?mid=138qrKF6sP7174kI5urB-lcEr097fyBk&ehbc=2E312F" width="640" height="480"></iframe>
-      </Box>
+      
     </Card>
   );
 };

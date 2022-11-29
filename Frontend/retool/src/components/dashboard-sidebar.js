@@ -18,7 +18,7 @@ import { NavItem } from './nav-item';
 import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import HistoryIcon from '@mui/icons-material/History';
-import ContactSupportIcon from '@mui/icons-material/ContactSupport';
+import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import ForumIcon from '@mui/icons-material/Forum';
 import HelpIcon from '@mui/icons-material/Help';
 import PaidIcon from '@mui/icons-material/Paid';
@@ -55,8 +55,8 @@ const items = [
 },
 {
   href: '/contactInformation',
-  icon: (<ContactSupportIcon fontSize="small" />),
-  title: 'Informacion de contacto'
+  icon: (<PermContactCalendarIcon fontSize="small" />),
+  title: 'Información de contacto'
 },
 
 {

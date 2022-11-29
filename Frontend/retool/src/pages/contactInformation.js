@@ -8,7 +8,7 @@ const Page = () => (
   <>
     <Head>
       <title>
-        Informacion de contacto
+        Información de contacto
       </title>
     </Head>
     <Box
@@ -23,7 +23,7 @@ const Page = () => (
           sx={{ mb: 3 }}
           variant="h4"
         >
-         Informacion de contacto
+         Información de contacto
         </Typography>
         <Box sx={{ pt: 3 }}>
         <Card>
@@ -40,6 +40,17 @@ const Page = () => (
               variant="h6"
             >
               Correos electronicos
+            </Typography>
+            </Box>
+            <Box>
+            <Typography
+              color="textPrimary"
+              gutterBottom
+              variant="string"
+            >
+
+              baaponter@unal.edu.co
+
             </Typography>
             </Box>
             <Box>
@@ -62,26 +73,7 @@ const Page = () => (
               ajbornacellyn@unal.edu.co
             </Typography>
             </Box>
-            <Box>
-            <Typography
-              color="textPrimary"
-              gutterBottom
-              variant="string"
-            >
-
-              baaponter@unal.edu.co
-
-            </Typography>
-            </Box>
-            <Box>
-            <Typography
-              color="textPrimary"
-              gutterBottom
-              variant="string"
-            >
-              cgomezfe@unal.edu.co
-            </Typography>
-            </Box>
+            
             
       </CardContent>
       <Divider />
