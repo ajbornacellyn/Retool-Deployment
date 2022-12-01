@@ -104,17 +104,17 @@ const Register = () => {
         <Container maxWidth="sm">
 
         <Box sx={{ my: 7 }}>
-              
+
           <Link href='/'>
             <center><img
             alt="Logo de Retool"
             src="/static/images/logoRetool.png"
-            width="200" 
+            width="200"
             height="200"
             />
             </center>
           </Link>
-              
+
         </Box>
 
           <form onSubmit={formik.handleSubmit}>
@@ -192,7 +192,7 @@ const Register = () => {
               }}
             >
 
-              {/* Quitar checkbox de "aceptar politica de la pagina"
+
               <Checkbox
                 checked={formik.values.policy}
                 name="policy"
@@ -202,10 +202,10 @@ const Register = () => {
                 color="textSecondary"
                 variant="body2"
               >
-                I have read the
+                He leido y acepto los
                 {' '}
                 <NextLink
-                  href="#"
+                  href="/terms"
                   passHref
                 >
                   <Link
@@ -213,13 +213,12 @@ const Register = () => {
                     underline="always"
                     variant="subtitle2"
                   >
-                    Terms and Conditions
+                    Terminos y condiciones
                   </Link>
                 </NextLink>
               </Typography>
-              */}
-            </Box>
 
+            </Box>
 
             {Boolean(formik.touched.policy && formik.errors.policy) && (
               <FormHelperText error>

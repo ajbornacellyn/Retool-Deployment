@@ -36,7 +36,7 @@ const items = [
   href: '/vehicles',
   icon: (<DirectionsCarIcon fontSize="small" />),
   title: 'Mis vehículos'
-},  
+},
 {
   href: '/maintenances',
   icon: (<BuildCircleIcon fontSize="small" />),
@@ -46,12 +46,17 @@ const items = [
   href: '/reminders',
   icon: (<PendingActionsIcon fontSize="small" />),
   title: 'Recordatorios'
-}, 
+},
 
 {
   href: '/commonQuestions',
   icon: (<HelpIcon fontSize="small" />),
   title: 'Preguntas frecuentes'
+},
+{
+  href: '/blog',
+  icon: (<ForumIcon fontSize="small" />),
+  title: 'Blog'
 },
 {
   href: '/contactInformation',
@@ -103,7 +108,7 @@ export const DashboardSidebar = (props) => {
               <center><img
               alt="Logo de Retool"
               src="/static/images/logoRetool.png"
-              width="200" 
+              width="200"
               height="200"
             />
             </center>
@@ -115,8 +120,8 @@ export const DashboardSidebar = (props) => {
                 >
                   Lleva tu historia vehicular al día y planea el mantenimiento de tus vehículos
                 </Typography>
-            
-              
+
+
           </Box>
           {/*
           <Box sx={{ px: 2 }}>
@@ -175,7 +180,7 @@ export const DashboardSidebar = (props) => {
             />
           ))}
         </Box>
-        
+
         {/* quitar la parte de abajo del menu vertical
         <Divider sx={{ borderColor: '#2D3748' }} />
         <Box

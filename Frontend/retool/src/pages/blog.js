@@ -1,8 +1,7 @@
 import Head from 'next/head';
 import { Box, Container, Typography } from '@mui/material';
 import { DashboardLayout } from '../components/dashboard-layout';
-import { SettingsNotifications } from '../components/settings/settings-notifications';
-import { SettingsPassword } from '../components/settings/settings-password';
+import { Post, Post2,PostEncuesta } from '../components/settings/settings-notifications copy';
 
 const Page = () => (
   <>
@@ -15,20 +14,31 @@ const Page = () => (
       component="main"
       sx={{
         flexGrow: 1,
-        py: 8
+        py: 8,
+        backgroundColor: 'background.default',
+        minHeight: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        padding: '0 20px',
       }}
     >
-      <Container maxWidth="lg">
+      <Container fixed>
+
         <Typography
           sx={{ mb: 3 }}
-          variant="h4"
+          variant="h1"
+
         >
           Blog
         </Typography>
-        <SettingsNotifications />
-        <Box sx={{ pt: 3 }}>
-          <SettingsPassword />
-        </Box>
+
+        <PostEncuesta />
+        <Post />
+        <Post2 />
+
       </Container>
     </Box>
   </>
@@ -41,3 +51,4 @@ Page.getLayout = (page) => (
 );
 
 export default Page;
+
