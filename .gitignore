@@ -1,2 +1,4 @@
 /backupFrontend
 /Backend/env
+/Frontend/retool/node_modules
+/Frontend/retool/.next
