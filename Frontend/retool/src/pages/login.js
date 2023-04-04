@@ -27,7 +27,7 @@ const Login = () => {
     }),
     onSubmit: () => {
       console.log('submit');
-      axios.post('https://retool.up.railway.app/login/', {
+      axios.post('https://retool-production.up.railway.app/login/', {
         username: formik.values.username,
         password: formik.values.password,
       })

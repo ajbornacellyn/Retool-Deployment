@@ -14,13 +14,13 @@ import Router from 'next/router';
 
 
 export const getMaintenance = async (state) => {
-    const res = await axios.get("https://retool.up.railway.app/maintenance/", {
+    const res = await axios.get("https://retool-production.up.railway.app/maintenance/", {
     });
     state(res.data);
 }
 
 export const createMaintenance = async (maintenance) => {
-    axios.post("https://retool.up.railway.app/maintenance/", {
+    axios.post("https://retool-production.up.railway.app/maintenance/", {
           placa: maintenance.placa,
           descripcion: maintenance.descripcion,
           estado: maintenance.estado,
@@ -42,7 +42,7 @@ export const createMaintenance = async (maintenance) => {
 
 export const deleteMaintenance = async (maintenance) => {
     axios
-      .delete("https://retool.up.railway.app/maintenance/", {
+      .delete("https://retool-production.up.railway.app/maintenance/", {
         data: {"id": maintenance}
     }).then((res) => {
         if (res.data.message === "Maintenance deleted"){
@@ -57,7 +57,7 @@ export const deleteMaintenance = async (maintenance) => {
 
 export const editMaintenance = async (maintenance) => {
     axios
-        .post("https://retool.up.railway.app/edit_car/", {
+        .post("https://retool-production.up.railway.app/edit_car/", {
             placa: values.placa,
             marca: values.marca,
             modelo: values.linea,

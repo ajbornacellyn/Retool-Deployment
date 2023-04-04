@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 
 export const getVehicles = async (state) => {
     try{
-        const res = await axios.get("https://retool.up.railway.app/car/", {});
+        const res = await axios.get("https://retool-production.up.railway.app/car/", {});
         state(res.data);
     }catch(err){
         state([]);
@@ -22,7 +22,7 @@ export const getVehicles = async (state) => {
 }
 
 export const deleteVehicle = async (vehicle,updateVehicles) => {
-    await axios.delete("https://retool.up.railway.app/car/", {
+    await axios.delete("https://retool-production.up.railway.app/car/", {
         data: {"placa": vehicle.placa}
     }).then((res) => {
         updateVehicles();
@@ -34,7 +34,7 @@ export const deleteVehicle = async (vehicle,updateVehicles) => {
 }
 
 export const createVehicle = async (vehicle,updateVehicles) => {
-    await axios.post("https://retool.up.railway.app/car/", {
+    await axios.post("https://retool-production.up.railway.app/car/", {
           placa: vehicle.placa,
           marca: vehicle.marca,
           modelo: vehicle.modelo,
@@ -52,7 +52,7 @@ export const createVehicle = async (vehicle,updateVehicles) => {
 }
 
 export const editVehicle = async (placa,vehicle,updateVehicles) => {
-    await axios.put("https://retool.up.railway.app/car/"+placa+"/", {
+    await axios.put("https://retool-production.up.railway.app/car/"+placa+"/", {
         placa: vehicle.placa,
         marca: vehicle.marca,
         modelo: vehicle.modelo,
@@ -68,7 +68,7 @@ export const editVehicle = async (placa,vehicle,updateVehicles) => {
 }
 
 export const updateVehicleKm = async (vehicle,updateVehicles) => {
-    await axios.put("https://retool.up.railway.app/carUpdateKm/"+vehicle.placa+"/", {
+    await axios.put("https://retool-production.up.railway.app/carUpdateKm/"+vehicle.placa+"/", {
         placa: vehicle.placa,
         kilometraje: vehicle.kilometraje,
     }).then((res) => {

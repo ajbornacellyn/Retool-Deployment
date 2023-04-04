@@ -9,7 +9,7 @@ export const TasksProgress = (props) => {
   const [Mantenimientos, setMaintenances] = useState([]);
   useEffect(() => {
       axios
-    .get("https://retool.up.railway.app/maintenance/", {
+    .get("https://retool-production.up.railway.app/maintenance/", {
       headers: {
         Authorization: `Token ${token}`,
       },
